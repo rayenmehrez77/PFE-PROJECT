@@ -41,13 +41,14 @@ export function loginAction(email, password, history) {
   return (dispatch) => {
     login(email, password)
       .then((response) => {
+        console.log(response);
         saveTokenInLocalStorage(response.data);
         runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
         dispatch(loginConfirmedAction(response.data));
         history.push("/dashboard");
       })
       .catch((error) => {
-        const errorMessage = formatError(error.response.data);
+        const errorMessage = "Could not login";
         dispatch(loginFailedAction(errorMessage));
       });
   };
