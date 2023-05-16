@@ -1,7 +1,7 @@
 {
   "name": "invome",
   "version": "0.1.0",
-  "homepage": "https://invome.dexignlab.com/react/demo",
+  "proxy": "http://localhost:5001",
   "private": true,
   "dependencies": {
     "@asseinfo/react-kanban": "^2.2.0",

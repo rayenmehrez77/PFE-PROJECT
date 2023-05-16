@@ -1,41 +1,48 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch } from "react-redux";
 import {
-    loadingToggleAction,
-    signupAction,
-} from '../../store/actions/AuthActions';
+  loadingToggleAction,
+  signupAction,
+} from "../../store/actions/AuthActions";
 // image
-import logo from "../../images/logo-full.png";
+import logo from "../../images/Zone C.png";
 
 function Register(props) {
-    const [email, setEmail] = useState('');
-    let errorsObj = { email: '', password: '' };
-    const [errors, setErrors] = useState(errorsObj);
-    const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  let errorsObj = { email: "", password: "" };
+  const [errors, setErrors] = useState(errorsObj);
+  const [password, setPassword] = useState("");
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    function onSignUp(e) {
-        e.preventDefault();
-        let error = false;
-        const errorObj = { ...errorsObj };
-        if (email === '') {
-            errorObj.email = 'Email is Required';
-            error = true;
-			swal('Oops', errorObj.email, "error");
-        }
-        if (password === '') {
-            errorObj.password = 'Password is Required';
-            error = true;
-			swal('Oops', errorObj.password, "error");
-        }
-        setErrors(errorObj);
-        if (error) return;
-        dispatch(loadingToggleAction(true));
-        dispatch(signupAction(email, password, props.history));
+  function onSignUp(e) {
+    e.preventDefault();
+    let error = false;
+    const errorObj = { ...errorsObj };
+    if (name === "") {
+      errorObj.name = "Name is Required";
+      error = true;
+      swal("Oops", errorObj.name, "error");
     }
+
+    if (email === "") {
+      errorObj.email = "Email is Required";
+      error = true;
+      swal("Oops", errorObj.email, "error");
+    }
+    if (password === "") {
+      errorObj.password = "Password is Required";
+      error = true;
+      swal("Oops", errorObj.password, "error");
+    }
+    setErrors(errorObj);
+    if (error) return;
+    dispatch(loadingToggleAction(true));
+    dispatch(signupAction(name, email, password, props.history));
+  }
   return (
     <div className="authincation h-100 p-meddle">
       <div className="container h-100">
@@ -47,28 +54,25 @@ function Register(props) {
                   <div className="auth-form">
                     <div className="text-center mb-3">
                       <Link to="/login">
-                        <img src={logo} alt="" />
+                        <img src={logo} alt="" width="150px" />
                       </Link>
                     </div>
                     <h4 className="text-center mb-4 ">Sign up your account</h4>
-					{props.errorMessage && (
-						<div className=''>
-							{props.errorMessage}
-						</div>
-					)}
-					{props.successMessage && (
-						<div className=''>
-							{props.successMessage}
-						</div>
-					)}
+                    {props.errorMessage && (
+                      <div className="">{props.errorMessage}</div>
+                    )}
+                    {props.successMessage && (
+                      <div className="">{props.successMessage}</div>
+                    )}
                     <form onSubmit={onSignUp}>
                       <div className="form-group mb-3">
                         <label className="mb-1 ">
-                          <strong>Username</strong>
+                          <strong>Name</strong>
                         </label>
                         <input
                           type="text"
                           className="form-control"
+                          onChange={(e) => setName(e.target.value)}
                           placeholder="username"
                         />
                       </div>
@@ -77,28 +81,25 @@ function Register(props) {
                           <strong>Email</strong>
                         </label>
                         <input
-							defaultValue={email}
-							onChange={(e) => setEmail(e.target.value)}
-							className="form-control"
-							placeholder="email"
+                          defaultValue={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="form-control"
+                          placeholder="email"
                         />
                       </div>
-					  {errors.email && <div>{errors.email}</div>}
+                      {errors.email && <div>{errors.email}</div>}
                       <div className="form-group mb-3">
                         <label className="mb-1 ">
                           <strong>Password</strong>
                         </label>
                         <input
-							defaultValue={password}
-							onChange={(e) =>
-								setPassword(e.target.value)
-							}
-							className="form-control"
-							placeholder="password"
-                          //defaultValue="Password"
+                          defaultValue={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          className="form-control"
+                          placeholder="password"
                         />
                       </div>
-					  {errors.password && <div>{errors.password}</div>}
+                      {errors.password && <div>{errors.password}</div>}
                       <div className="text-center mt-4">
                         <button
                           type="submit"
@@ -125,15 +126,14 @@ function Register(props) {
       </div>
     </div>
   );
-};
+}
 
 const mapStateToProps = (state) => {
-    return {
-        errorMessage: state.auth.errorMessage,
-        successMessage: state.auth.successMessage,
-        showLoading: state.auth.showLoading,
-    };
+  return {
+    errorMessage: state.auth.errorMessage,
+    successMessage: state.auth.successMessage,
+    showLoading: state.auth.showLoading,
+  };
 };
 
 export default connect(mapStateToProps)(Register);
-
