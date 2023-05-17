@@ -1,6 +1,8 @@
 import axios from "axios";
 import swal from "sweetalert";
 import { loginConfirmedAction, logout } from "../store/actions/AuthActions";
+import axiosInstance from '../services/AxiosInstance';
+
 
 export function signUp(name, email, password) {
   //axios call
@@ -10,7 +12,7 @@ export function signUp(name, email, password) {
     password,
     returnSecureToken: true,
   };
-  return axios.post("/signup", postData);
+  return axiosInstance.post("/signup", postData);
 }
 
 export function login(email, password) {
@@ -19,11 +21,11 @@ export function login(email, password) {
     password,
     returnSecureToken: true,
   };
-  return axios.post("/login", postData);
+  return axiosInstance.post("/login", postData);
 }
 
 export function formatError(errorResponse) {
-  switch (errorResponse.error.message) {
+  switch (errorResponse.message) {
     case "EMAIL_EXISTS":
       //return 'Email already exists';
       swal("Oops", "Email already exists", "error");

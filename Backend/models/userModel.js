@@ -19,17 +19,6 @@ const userSchema = new mongoose.Schema({
     required: [true, "Password is required!"],
     minLength: [8, "Password is shorter than the minimum length(8)"],
   },
-  confirmPassword: {
-    type: String,
-    required: [true, "Please confirm your password!"],
-    // this runs only save() or create()
-    validate: {
-      validator: function (el) {
-        return el === this.password;
-      },
-      message: "Passwords don't match",
-    },
-  },
   role: {
     type: String,
     enum: ["Super Admin", "Admin", "Member"],

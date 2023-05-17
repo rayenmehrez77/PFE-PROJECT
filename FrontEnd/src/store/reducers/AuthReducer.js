@@ -5,26 +5,22 @@ import {
     LOGOUT_ACTION,
     SIGNUP_CONFIRMED_ACTION,
     SIGNUP_FAILED_ACTION,
-} from '../actions/AuthActions';
+} from '../actions/AuthTypes';
 
 const initialState = {
     auth: {
-        email: '',
-        idToken: '',
-        localId: '',
-        expiresIn: '',
-        refreshToken: '',
+        
     },
     errorMessage: '',
     successMessage: '',
     showLoading: false,
 };
 
-export function AuthReducer(state = initialState, action) {
+const  AuthReducer = (state = initialState, action) => {
     if (action.type === SIGNUP_CONFIRMED_ACTION) {
         return {
             ...state,
-            auth: action.payload,
+            auth: action.payload.data,
             errorMessage: '',
             successMessage: 'Signup Successfully Completed',
             showLoading: false,
@@ -33,7 +29,7 @@ export function AuthReducer(state = initialState, action) {
     if (action.type === LOGIN_CONFIRMED_ACTION) {
         return {
             ...state,
-            auth: action.payload,
+            auth: action.payload.data,
             errorMessage: '',
             successMessage: 'Login Successfully Completed',
             showLoading: false,
@@ -76,4 +72,4 @@ export function AuthReducer(state = initialState, action) {
     return state;
 }
 
-    
+    export default AuthReducer

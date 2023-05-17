@@ -16,7 +16,6 @@ exports.signup = asyncErrorHandler(async (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
-    confirmPassword: req.body.confirmPassword,
     role: req.body.role,
   });
 

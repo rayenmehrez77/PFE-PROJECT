@@ -6,24 +6,28 @@ import {
   signUp,
 } from "../../services/AuthService";
 
-export const SIGNUP_CONFIRMED_ACTION = "[signup action] confirmed signup";
-export const SIGNUP_FAILED_ACTION = "[signup action] failed signup";
-export const LOGIN_CONFIRMED_ACTION = "[login action] confirmed login";
-export const LOGIN_FAILED_ACTION = "[login action] failed login";
-export const LOADING_TOGGLE_ACTION = "[Loading action] toggle loading";
-export const LOGOUT_ACTION = "[Logout action] logout action";
+import {
+  LOADING_TOGGLE_ACTION,
+  LOGIN_CONFIRMED_ACTION,
+  LOGIN_FAILED_ACTION,
+  LOGOUT_ACTION,
+  SIGNUP_CONFIRMED_ACTION,
+  SIGNUP_FAILED_ACTION,
+} from '../actions/AuthTypes';
 
-export function signupAction(email, password, history) {
+export function signupAction(name , email, password, history) {
   return (dispatch) => {
-    signUp(email, password)
+    signUp(name,email, password)
       .then((response) => {
+        console.log(response);
         saveTokenInLocalStorage(response.data);
         runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
         dispatch(confirmedSignupAction(response.data));
         history.push("/dashboard");
       })
       .catch((error) => {
-        const errorMessage = formatError(error.response.data);
+        console.log(error);
+        const errorMessage = formatError(error);
         dispatch(signupFailedAction(errorMessage));
       });
   };

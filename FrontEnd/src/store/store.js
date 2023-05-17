@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import PostsReducer from "./reducers/PostsReducer";
 import thunk from "redux-thunk";
-import { AuthReducer } from "./reducers/AuthReducer";
+import AuthReducer  from "./reducers/AuthReducer";
 import todoReducers from "./reducers/Reducers";
 //import { reducer as reduxFormReducer } from 'redux-form';
 const middleware = applyMiddleware(thunk);
