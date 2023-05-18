@@ -21,7 +21,7 @@ export function signupAction(name , email, password, history) {
       .then((response) => {
         console.log(response);
         saveTokenInLocalStorage(response.data);
-        runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
+        // runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
         dispatch(confirmedSignupAction(response.data));
         history.push("/dashboard");
       })
@@ -46,14 +46,21 @@ export function loginAction(email, password, history) {
     login(email, password)
       .then((response) => {
         console.log(response);
-        saveTokenInLocalStorage(response.data);
-        runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
-        dispatch(loginConfirmedAction(response.data));
-        history.push("/dashboard");
+        if(response.data.success){
+          saveTokenInLocalStorage(response.data);
+          // runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
+          dispatch(loginConfirmedAction(response.data));
+          history.push("/dashboard");
+        }else{
+          const errorMessage = formatError(response.data?.message);
+        dispatch(loginFailedAction(errorMessage));
+        }
+       
       })
       .catch((error) => {
-        const errorMessage = "Could not login";
-        dispatch(loginFailedAction(errorMessage));
+        console.log(error);
+        // const errorMessage = formatError(error);
+        // dispatch(loginFailedAction(errorMessage));
       });
   };
 }

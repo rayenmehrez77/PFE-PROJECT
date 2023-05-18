@@ -41,13 +41,7 @@ const  AuthReducer = (state = initialState, action) => {
             ...state,
             errorMessage: '',
             successMessage: '',
-            auth: {
-                email: '',
-                idToken: '',
-                localId: '',
-                expiresIn: '',
-                refreshToken: '',
-            },
+            auth: null,
         };
     }
 
@@ -57,7 +51,7 @@ const  AuthReducer = (state = initialState, action) => {
     ) {
         return {
             ...state,
-            errorMessage: action.payload,
+            errorMessage: action.payload.message,
             successMessage: '',
             showLoading: false,
         };
