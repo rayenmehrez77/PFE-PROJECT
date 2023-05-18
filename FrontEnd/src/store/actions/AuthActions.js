@@ -13,11 +13,18 @@ import {
   LOGOUT_ACTION,
   SIGNUP_CONFIRMED_ACTION,
   SIGNUP_FAILED_ACTION,
-} from '../actions/AuthTypes';
+} from "../actions/AuthTypes";
 
-export function signupAction(name , email, password, history) {
+export function signupAction(
+  name,
+  email,
+  OLM,
+  password,
+  confirmPassword,
+  history
+) {
   return (dispatch) => {
-    signUp(name,email, password)
+    signUp(name, email, OLM, password, confirmPassword)
       .then((response) => {
         console.log(response);
         saveTokenInLocalStorage(response.data);
@@ -26,7 +33,6 @@ export function signupAction(name , email, password, history) {
         history.push("/dashboard");
       })
       .catch((error) => {
-        console.log(error);
         const errorMessage = formatError(error);
         dispatch(signupFailedAction(errorMessage));
       });
@@ -46,13 +52,13 @@ export function loginAction(email, password, history) {
     login(email, password)
       .then((response) => {
         console.log(response);
-        saveTokenInLocalStorage(response.data);
-        runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
+        saveTokenInLocalStorage(response.data.data.token);
+        runLogoutTimer(dispatch, response.data.expireDate * 1000, history);
         dispatch(loginConfirmedAction(response.data));
         history.push("/dashboard");
       })
       .catch((error) => {
-        const errorMessage = "Could not login";
+        const errorMessage = formatError(error);
         dispatch(loginFailedAction(errorMessage));
       });
   };

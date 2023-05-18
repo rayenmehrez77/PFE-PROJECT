@@ -1,15 +1,16 @@
 import axios from "axios";
 import swal from "sweetalert";
 import { loginConfirmedAction, logout } from "../store/actions/AuthActions";
-import axiosInstance from '../services/AxiosInstance';
+import axiosInstance from "../services/AxiosInstance";
 
-
-export function signUp(name, email, password) {
+export function signUp(name, email, OLM, password, confirmPassword) {
   //axios call
   const postData = {
     name,
     email,
+    OLM,
     password,
+    confirmPassword,
     returnSecureToken: true,
   };
   return axiosInstance.post("/signup", postData);
@@ -50,7 +51,6 @@ export function saveTokenInLocalStorage(tokenDetails) {
   tokenDetails.expireDate = new Date(
     new Date().getTime() + tokenDetails.expiresIn * 1000
   );
-  localStorage.setItem("userDetails", JSON.stringify(tokenDetails));
 }
 
 export function runLogoutTimer(dispatch, timer, history) {

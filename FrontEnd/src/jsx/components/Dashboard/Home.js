@@ -81,11 +81,6 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                {/* <div className="card-body p-0">
-                  <div id="totalinvoicessent">
-                    <Totalinvoicessent />
-                  </div>
-                </div> */}
               </div>
             </div>
             <div className="col-xl-3 col-sm-6">
@@ -401,10 +396,10 @@ const Home = () => {
                     </span>
                   </div>
                   <div className="d-flex align-items-center justify-content-between">
-                    <Link to={"#"} className="btn btn-outline-primary me-3">
+                    {/* <Link to={"#"} className="btn btn-outline-primary me-3">
                       <i className="las la-download text-primary scale5 me-3"></i>
                       Download Report
-                    </Link>
+                    </Link> */}
                     <Dropdown className="dropdown">
                       <Dropdown.Toggle as="div" className="btn-link i-false">
                         <svg

@@ -228,53 +228,9 @@ const SideBar = () => {
                   to="/dashboard"
                 >
                   {" "}
-                  Dashboard Light
+                  Acceuil
                 </Link>
               </li>
-              {/* <li>
-                <Link
-                  className={`${path === "wallet" ? "mm-active" : ""}`}
-                  to="/wallet"
-                >
-                  My Wallet
-                </Link>
-              </li> */}
-              {/* <li>
-                <Link
-                  className={`${path === "invoices-list" ? "mm-active" : ""}`}
-                  to="/invoices-list"
-                >
-                  {" "}
-                  Invoices
-                </Link>
-              </li> */}
-              {/* <li>
-                <Link
-                  className={`${path === "create-invoices" ? "mm-active" : ""}`}
-                  to="/create-invoices"
-                >
-                  Create Invoices
-                </Link>
-              </li> */}
-              {/* <li>
-                <Link
-                  className={`${path === "card-center" ? "mm-active" : ""}`}
-                  to="/card-center"
-                >
-                  Card-Center
-                </Link>
-              </li> */}
-              {/* <li>
-                <Link
-                  className={`${
-                    path === "transaction-details" ? "mm-active" : ""
-                  }`}
-                  to="/transaction-details"
-                >
-                  {" "}
-                  Transaction
-                </Link>
-              </li> */}
               <li>
                 <Link
                   className={`${path === "task" ? "mm-active" : ""}`}
@@ -289,22 +245,6 @@ const SideBar = () => {
                   to="/app-calender"
                 >
                   Calendar
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "todo" ? "mm-active" : ""}`}
-                  to="/todo"
-                >
-                  Todo
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "table-filtering" ? "mm-active" : ""}`}
-                  to="/table-filtering"
-                >
-                  Admin
                 </Link>
               </li>
             </ul>
@@ -505,7 +445,7 @@ const SideBar = () => {
               <i className="fab fa-bootstrap"></i>
               <span className="nav-text">Bootstrap</span>
             </Link> */}
-            <ul>
+            {/* <ul>
               <li>
                 <Link
                   className={`${path === "ui-accordion" ? "mm-active" : ""}`}
@@ -635,14 +575,14 @@ const SideBar = () => {
                   Grid
                 </Link>
               </li>
-            </ul>
+            </ul> */}
           </li>
           <li className={`${plugins.includes(path) ? "mm-active" : ""}`}>
             {/* <Link className="has-arrow ai-icon" to="#">
               <i className="fas fa-heart"></i>
               <span className="nav-text">Plugins</span>
             </Link> */}
-            <ul>
+            {/* <ul>
               <li>
                 <Link
                   className={`${path === "uc-select2" ? "mm-active" : ""}`}
@@ -691,35 +631,19 @@ const SideBar = () => {
                   Light Gallery
                 </Link>
               </li>
-            </ul>
+            </ul> */}
           </li>
-          {/* <li className={`${redux.includes(path) ? "mm-active" : ""}`}>
-            <Link className="has-arrow ai-icon" to="#">
-              <i className="flaticon-087-stop"></i>
-              <span className="nav-text">Redux</span>
-            </Link>
-            <ul>
-              <li>
-                <Link
-                  className={`${path === "todo" ? "mm-active" : ""}`}
-                  to="/todo"
-                >
-                  Todo
-                </Link>
-              </li>
-            </ul>
-          </li> */}
           {/* <li className={`${widget.includes(path) ? "mm-active" : ""}`}>
             <Link to="widget-basic" className="ai-icon">
               <i className="fas fa-user-check"></i>
               <span className="nav-text">Widget</span>
             </Link>
           </li> */}
-          <li className={`${forms.includes(path) ? "mm-active" : ""}`}>
-            {/* <Link className="has-arrow ai-icon" to="#">
+          {/* <li className={`${forms.includes(path) ? "mm-active" : ""}`}>
+             <Link className="has-arrow ai-icon" to="#">
               <i className="fas fa-file-alt"></i>
               <span className="nav-text forms">Forms</span>
-            </Link> */}
+            </Link> 
             <ul>
               <li>
                 <Link
@@ -748,14 +672,14 @@ const SideBar = () => {
                   Summernote
                 </Link>
               </li>
-              {/* <li>
+              <li>
                 <Link
                   className={`${path === "form-pickers" ? "mm-active" : ""}`}
                   to="/form-pickers"
                 >
                   Pickers
                 </Link>
-              </li> */}
+              </li> 
               <li>
                 <Link
                   className={`${
@@ -767,7 +691,7 @@ const SideBar = () => {
                 </Link>
               </li>
             </ul>
-          </li>
+          </li> */}
           <li className={`${table.includes(path) ? "mm-active" : ""}`}>
             <Link className="has-arrow ai-icon" to="#">
               <i className="fas fa-table"></i>
@@ -776,30 +700,21 @@ const SideBar = () => {
             <ul>
               <li>
                 <Link
-                  className={`${path === "table-filtering" ? "mm-active" : ""}`}
-                  to="/table-filtering"
+                  className={`${path === "todo" ? "mm-active" : ""}`}
+                  to="/todo"
                 >
-                  Admin Filtering
+                  Ajouter des administrateurs
                 </Link>
               </li>
               <li>
                 <Link
-                  className={`${path === "table-sorting" ? "mm-active" : ""}`}
-                  to="/table-sorting"
+                  className={`${path === "table-filtering" ? "mm-active" : ""}`}
+                  to="/table-filtering"
                 >
-                  Admin Sorting
+                  Filtrage les administrateurs
                 </Link>
               </li>
-              {/* <li>
-                <Link
-                  className={`${
-                    path === "table-bootstrap-basic" ? "mm-active" : ""
-                  }`}
-                  to="/table-bootstrap-basic"
-                >
-                  Bootstrap
-                </Link>
-              </li> */}
+
               <li>
                 <Link
                   className={`${
@@ -808,81 +723,6 @@ const SideBar = () => {
                   to="/table-datatable-basic"
                 >
                   Datatable
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li className={`${pages.includes(path) ? "mm-active" : ""}`}>
-            {/* <Link className="has-arrow ai-icon" to="#">
-              <i className="fas fa-clone"></i>
-              <span className="nav-text">Pages</span>
-            </Link> */}
-            <ul>
-              <li className={`${error.includes(path) ? "mm-active" : ""}`}>
-                <Link className="has-arrow" to="#">
-                  Error
-                </Link>
-                <ul>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "page-error-400" ? "mm-active" : ""
-                      }`}
-                      to="/page-error-400"
-                    >
-                      Error 400
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "page-error-403" ? "mm-active" : ""
-                      }`}
-                      to="/page-error-403"
-                    >
-                      Error 403
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "page-error-404" ? "mm-active" : ""
-                      }`}
-                      to="/page-error-404"
-                    >
-                      Error 404
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "page-error-500" ? "mm-active" : ""
-                      }`}
-                      to="/page-error-500"
-                    >
-                      Error 500
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "page-error-503" ? "mm-active" : ""
-                      }`}
-                      to="/page-error-503"
-                    >
-                      Error 503
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <Link
-                  className={`${
-                    path === "page-lock-screen" ? "mm-active" : ""
-                  }`}
-                  to="/page-lock-screen"
-                >
-                  Lock Screen
                 </Link>
               </li>
             </ul>

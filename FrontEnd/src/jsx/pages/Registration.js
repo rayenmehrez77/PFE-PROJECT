@@ -12,6 +12,8 @@ import logo from "../../images/Zone C.png";
 function Register(props) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [OLM, setOLM] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
   const [password, setPassword] = useState("");
@@ -33,15 +35,31 @@ function Register(props) {
       error = true;
       swal("Oops", errorObj.email, "error");
     }
+
+    if (OLM === "") {
+      errorObj.OLM = "OLM is Required";
+      error = true;
+      swal("Oops", errorObj.OLM, "error");
+    }
+
     if (password === "") {
       errorObj.password = "Password is Required";
       error = true;
       swal("Oops", errorObj.password, "error");
     }
+
+    if (confirmPassword === "") {
+      errorObj.confirmPassword = "Confirm Password is Required";
+      error = true;
+      swal("Oops", errorObj.confirmPassword, "error");
+    }
+
     setErrors(errorObj);
     if (error) return;
     dispatch(loadingToggleAction(true));
-    dispatch(signupAction(name, email, password, props.history));
+    dispatch(
+      signupAction(name, email, OLM, password, confirmPassword, props.history)
+    );
   }
   return (
     <div className="authincation h-100 p-meddle">
@@ -73,7 +91,7 @@ function Register(props) {
                           type="text"
                           className="form-control"
                           onChange={(e) => setName(e.target.value)}
-                          placeholder="username"
+                          placeholder="Nom et prénom"
                         />
                       </div>
                       <div className="form-group mb-3">
@@ -90,6 +108,18 @@ function Register(props) {
                       {errors.email && <div>{errors.email}</div>}
                       <div className="form-group mb-3">
                         <label className="mb-1 ">
+                          <strong>OLM</strong>
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          onChange={(e) => setOLM(e.target.value)}
+                          placeholder="OLM"
+                        />
+                      </div>
+                      {errors.OLM && <div>{errors.OLM}</div>}
+                      <div className="form-group mb-3">
+                        <label className="mb-1 ">
                           <strong>Password</strong>
                         </label>
                         <input
@@ -100,6 +130,20 @@ function Register(props) {
                         />
                       </div>
                       {errors.password && <div>{errors.password}</div>}
+                      <div className="form-group mb-3">
+                        <label className="mb-1 ">
+                          <strong>Confirm Password</strong>
+                        </label>
+                        <input
+                          defaultValue={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          className="form-control"
+                          placeholder="Confirm Password"
+                        />
+                      </div>
+                      {errors.confirmPassword && (
+                        <div>{errors.confirmPassword}</div>
+                      )}
                       <div className="text-center mt-4">
                         <button
                           type="submit"

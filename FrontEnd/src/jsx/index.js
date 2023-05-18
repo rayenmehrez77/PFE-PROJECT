@@ -131,13 +131,6 @@ const Markup = () => {
     ///Redux
     { url: "todo", component: Todo },
 
-    // /// Form
-    // { url: "form-element", component: Element },
-    // { url: "form-wizard", component: Wizard },
-    // { url: "form-editor-summernote", component: SummerNote },
-    // { url: "form-pickers", component: Pickers },
-    // { url: "form-validation-jquery", component: jQueryValidation },
-
     /// table
     { url: "table-filtering", component: FilteringTable },
     { url: "table-sorting", component: SortingTable },
