@@ -38,7 +38,12 @@ exports.login = asyncErrorHandler(async (req, res, next) => {
 
   // 1) check if email and password exist
   if (!email || !password) {
-    return next(new AppError("Email and Password are required!"));
+    res.status(200).json({
+      success : false,
+      status: "fail",
+      message: "Email and Password are required!",
+    });
+   
   }
 
   // 2) check if user exists && password is correct
@@ -46,7 +51,12 @@ exports.login = asyncErrorHandler(async (req, res, next) => {
   const compare = await user.comparePassword(password);
 
   if (!user || !compare) {
-    return next(new AppError("Incorrect email or password", 400));
+    res.status(200).json({
+      success : false,
+      status: "fail",
+      message: "Incorrect email or password",
+    });
+   
   }
 
   console.log(compare);
@@ -58,6 +68,7 @@ exports.login = asyncErrorHandler(async (req, res, next) => {
   // 3) if everything is ok, send token to client
 
   res.status(200).json({
+    success : true,
     status: "success",
     message: "User logged in successfully",
     data: {

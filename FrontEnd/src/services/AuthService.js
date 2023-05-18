@@ -26,25 +26,7 @@ export function login(email, password) {
 }
 
 export function formatError(errorResponse) {
-  switch (errorResponse.message) {
-    case "EMAIL_EXISTS":
-      //return 'Email already exists';
-      swal("Oops", "Email already exists", "error");
-      break;
-    case "EMAIL_NOT_FOUND":
-      //return 'Email not found';
-      swal("Oops", "Email not found", "error", { button: "Try Again!" });
-      break;
-    case "INVALID_PASSWORD":
-      //return 'Invalid Password';
-      swal("Oops", "Invalid Password", "error", { button: "Try Again!" });
-      break;
-    case "USER_DISABLED":
-      return "User Disabled";
-
-    default:
-      return "";
-  }
+  return errorResponse
 }
 
 export function saveTokenInLocalStorage(tokenDetails) {

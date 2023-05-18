@@ -28,7 +28,7 @@ export function signupAction(
       .then((response) => {
         console.log(response);
         saveTokenInLocalStorage(response.data);
-        runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
+        // runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
         dispatch(confirmedSignupAction(response.data));
         history.push("/dashboard");
       })
@@ -52,6 +52,7 @@ export function loginAction(email, password, history) {
     login(email, password)
       .then((response) => {
         console.log(response);
+<<<<<<< HEAD
         saveTokenInLocalStorage(response.data.data.token);
         runLogoutTimer(dispatch, response.data.expireDate * 1000, history);
         dispatch(loginConfirmedAction(response.data));
@@ -60,6 +61,23 @@ export function loginAction(email, password, history) {
       .catch((error) => {
         const errorMessage = formatError(error);
         dispatch(loginFailedAction(errorMessage));
+=======
+        if(response.data.success){
+          saveTokenInLocalStorage(response.data);
+          // runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
+          dispatch(loginConfirmedAction(response.data));
+          history.push("/dashboard");
+        }else{
+          const errorMessage = formatError(response.data?.message);
+        dispatch(loginFailedAction(errorMessage));
+        }
+       
+      })
+      .catch((error) => {
+        console.log(error);
+        // const errorMessage = formatError(error);
+        // dispatch(loginFailedAction(errorMessage));
+>>>>>>> bf13c5f181e61b5de63ce7f9283ae67c79c9883e
       });
   };
 }
