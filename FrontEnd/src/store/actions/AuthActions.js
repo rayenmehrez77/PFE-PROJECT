@@ -52,16 +52,6 @@ export function loginAction(email, password, history) {
     login(email, password)
       .then((response) => {
         console.log(response);
-<<<<<<< HEAD
-        saveTokenInLocalStorage(response.data.data.token);
-        runLogoutTimer(dispatch, response.data.expireDate * 1000, history);
-        dispatch(loginConfirmedAction(response.data));
-        history.push("/dashboard");
-      })
-      .catch((error) => {
-        const errorMessage = formatError(error);
-        dispatch(loginFailedAction(errorMessage));
-=======
         if(response.data.success){
           saveTokenInLocalStorage(response.data);
           // runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
@@ -77,7 +67,6 @@ export function loginAction(email, password, history) {
         console.log(error);
         // const errorMessage = formatError(error);
         // dispatch(loginFailedAction(errorMessage));
->>>>>>> bf13c5f181e61b5de63ce7f9283ae67c79c9883e
       });
   };
 }

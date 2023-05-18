@@ -34,34 +34,6 @@ const AuthReducer = (state = initialState, action) => {
     };
   }
 
-<<<<<<< HEAD
-  if (action.type === LOGOUT_ACTION) {
-    return {
-      ...state,
-      errorMessage: "",
-      successMessage: "",
-      auth: {
-        email: "",
-        idToken: "",
-        localId: "",
-        expiresIn: "",
-        refreshToken: "",
-      },
-    };
-  }
-
-  if (
-    action.type === SIGNUP_FAILED_ACTION ||
-    action.type === LOGIN_FAILED_ACTION
-  ) {
-    return {
-      ...state,
-      errorMessage: action.payload,
-      successMessage: "",
-      showLoading: false,
-    };
-  }
-=======
     if (action.type === LOGOUT_ACTION) {
         return {
             ...state,
@@ -82,7 +54,6 @@ const AuthReducer = (state = initialState, action) => {
             showLoading: false,
         };
     }
->>>>>>> bf13c5f181e61b5de63ce7f9283ae67c79c9883e
 
   if (action.type === LOADING_TOGGLE_ACTION) {
     return {
