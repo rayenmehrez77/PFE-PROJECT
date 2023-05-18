@@ -15,7 +15,9 @@ exports.signup = asyncErrorHandler(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
+    OLM: req.body.OLM,
     password: req.body.password,
+    comparePassword: req.body.confirmPassword,
     role: req.body.role,
   });
 
