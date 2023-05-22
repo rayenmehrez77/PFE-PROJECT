@@ -228,7 +228,7 @@ const SideBar = () => {
                   to="/dashboard"
                 >
                   {" "}
-                  Acceuil
+                  Statistique
                 </Link>
               </li>
               <li>
@@ -236,7 +236,7 @@ const SideBar = () => {
                   className={`${path === "task" ? "mm-active" : ""}`}
                   to="/task"
                 >
-                  Evénements Zonale 2023
+                  Formations Zonal 2023
                 </Link>
               </li>
               <li>
@@ -244,151 +244,8 @@ const SideBar = () => {
                   className={`${path === "app-calender" ? "mm-active" : ""}`}
                   to="/app-calender"
                 >
-                  Calendar
+                  Evénements zonal 2023
                 </Link>
-              </li>
-            </ul>
-          </li>
-
-          <li className={`${app.includes(path) ? "mm-active" : ""}`}>
-            {/* <Link className="has-arrow ai-icon" to="#">
-              <i className="fas fa-info-circle"></i>
-              <span className="nav-text">Apps</span>
-            </Link> */}
-            <ul>
-              <li>
-                <Link
-                  className={`${path === "app-profile" ? "mm-active" : ""}`}
-                  to="/app-profile"
-                >
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "post-details" ? "mm-active" : ""}`}
-                  to="/post-details"
-                >
-                  Post Details
-                </Link>
-              </li>
-              <li className={`${email.includes(path) ? "mm-active" : ""}`}>
-                <Link className="has-arrow" to="#">
-                  Email
-                </Link>
-                <ul className={`${email.includes(path) ? "mm-show" : ""}`}>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "email-compose" ? "mm-active" : ""
-                      }`}
-                      to="/email-compose"
-                    >
-                      Compose
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${path === "email-inbox" ? "mm-active" : ""}`}
-                      to="/email-inbox"
-                    >
-                      Inbox
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${path === "email-read" ? "mm-active" : ""}`}
-                      to="/email-read"
-                    >
-                      Read
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "app-calender" ? "mm-active" : ""}`}
-                  to="/app-calender"
-                >
-                  Calendar
-                </Link>
-              </li>
-              <li className={`${shop.includes(path) ? "mm-active" : ""}`}>
-                <Link className="has-arrow" to="#">
-                  Shop
-                </Link>
-                <ul className={`${shop.includes(path) ? "mm-show" : ""}`}>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "ecom-product-grid" ? "mm-active" : ""
-                      }`}
-                      to="/ecom-product-grid"
-                    >
-                      Product Grid
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "ecom-product-list" ? "mm-active" : ""
-                      }`}
-                      to="/ecom-product-list"
-                    >
-                      Product List
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "ecom-product-detail" ? "mm-active" : ""
-                      }`}
-                      to="/ecom-product-detail"
-                    >
-                      Product Details
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "ecom-product-order" ? "mm-active" : ""
-                      }`}
-                      to="/ecom-product-order"
-                    >
-                      Order
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "ecom-checkout" ? "mm-active" : ""
-                      }`}
-                      to="/ecom-checkout"
-                    >
-                      Checkout
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "ecom-invoice" ? "mm-active" : ""
-                      }`}
-                      to="/ecom-invoice"
-                    >
-                      Invoice
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${
-                        path === "ecom-customers" ? "mm-active" : ""
-                      }`}
-                      to="/ecom-customers"
-                    >
-                      Customers
-                    </Link>
-                  </li>
-                </ul>
               </li>
             </ul>
           </li>
@@ -703,7 +560,7 @@ const SideBar = () => {
                   className={`${path === "todo" ? "mm-active" : ""}`}
                   to="/todo"
                 >
-                  Ajouter des administrateurs
+                  Administrateurs Local
                 </Link>
               </li>
               <li>
@@ -715,7 +572,7 @@ const SideBar = () => {
                 </Link>
               </li>
 
-              <li>
+              {/* <li>
                 <Link
                   className={`${
                     path === "table-datatable-basic" ? "mm-active" : ""
@@ -724,7 +581,7 @@ const SideBar = () => {
                 >
                   Datatable
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </li>
         </MM>

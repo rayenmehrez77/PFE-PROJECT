@@ -32,7 +32,7 @@ function App(props) {
     <Switch>
       <Route path="/login" component={Login} />
       <Route path="/page-register" component={SignUp} />
-      <Route path="/page-forgot-password" component={ForgotPassword} />
+      {/* <Route path="/page-forgot-password" component={ForgotPassword} /> */}
     </Switch>
   );
   if (!props.isAuthenticated) {

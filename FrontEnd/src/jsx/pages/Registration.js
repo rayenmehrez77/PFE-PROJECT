@@ -75,7 +75,9 @@ function Register(props) {
                         <img src={logo} alt="" width="150px" />
                       </Link>
                     </div>
-                    <h4 className="text-center mb-4 ">Sign up your account</h4>
+                    <h4 className="text-center mb-4 ">
+                      Inscrivez votre compte
+                    </h4>
                     {props.errorMessage && (
                       <div className="">{props.errorMessage}</div>
                     )}
@@ -120,25 +122,25 @@ function Register(props) {
                       {errors.OLM && <div>{errors.OLM}</div>}
                       <div className="form-group mb-3">
                         <label className="mb-1 ">
-                          <strong>Password</strong>
+                          <strong>Mot de passe</strong>
                         </label>
                         <input
                           defaultValue={password}
                           onChange={(e) => setPassword(e.target.value)}
                           className="form-control"
-                          placeholder="password"
+                          placeholder="Mot de passe"
                         />
                       </div>
                       {errors.password && <div>{errors.password}</div>}
                       <div className="form-group mb-3">
                         <label className="mb-1 ">
-                          <strong>Confirm Password</strong>
+                          <strong>Confirmer le mot de passe</strong>
                         </label>
                         <input
                           defaultValue={confirmPassword}
                           onChange={(e) => setConfirmPassword(e.target.value)}
                           className="form-control"
-                          placeholder="Confirm Password"
+                          placeholder="Confirmer le mot de passe"
                         />
                       </div>
                       {errors.confirmPassword && (
@@ -149,15 +151,15 @@ function Register(props) {
                           type="submit"
                           className="btn btn-primary btn-block"
                         >
-                          Sign me up
+                          Inscrivez-moi
                         </button>
                       </div>
                     </form>
                     <div className="new-account mt-3">
                       <p className="">
-                        Already have an account?{" "}
+                        Vous avez déjà un compte?{" "}
                         <Link className="text-primary" to="/login">
-                          Sign in
+                          Se connecter
                         </Link>
                       </p>
                     </div>

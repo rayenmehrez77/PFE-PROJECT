@@ -73,7 +73,7 @@ function Login(props) {
                   <div className="col-xl-12">
                     <div className="auth-form-1">
                       <div className="mb-4">
-                        <h3 className="dz-title mb-1">Sign in</h3>
+                        <h3 className="dz-title mb-1">Connexion</h3>
                         <p className="">
                           Connectez-vous en saisissant les informations
                           ci-dessous
@@ -109,7 +109,7 @@ function Login(props) {
                         </div>
                         <div className="form-group">
                           <label className="mb-2 ">
-                            <strong>Password</strong>
+                            <strong>Mot de passe</strong>
                           </label>
                           <input
                             type="password"
@@ -127,16 +127,16 @@ function Login(props) {
                         <div className="form-row d-flex justify-content-between mt-4 mb-2">
                           <div className="form-group">
                             <div className="form-check custom-checkbox ml-1">
-                              <input
+                              {/* <input
                                 type="checkbox"
                                 className="form-check-input"
                                 id="basic_checkbox_1"
-                              />
+                              /> */}
                               <label
                                 className="form-check-label"
                                 htmlFor="basic_checkbox_1"
                               >
-                                Se souvenir de ma préférence
+                                Réinitialiser mon mot de passe
                               </label>
                             </div>
                           </div>
@@ -146,7 +146,7 @@ function Login(props) {
                             type="submit"
                             className="btn btn-primary btn-block"
                           >
-                            Sign In
+                            Connexion
                           </button>
                         </div>
                       </form>
@@ -154,7 +154,7 @@ function Login(props) {
                         <p className="">
                           Vous n'avez pas de compte ?{" "}
                           <Link className="text-primary" to="./page-register">
-                            Sign up
+                            S'inscrire
                           </Link>
                         </p>
                       </div>
