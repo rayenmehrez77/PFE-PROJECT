@@ -490,77 +490,18 @@ const SideBar = () => {
               </li>
             </ul> */}
           </li>
-          {/* <li className={`${widget.includes(path) ? "mm-active" : ""}`}>
-            <Link to="widget-basic" className="ai-icon">
-              <i className="fas fa-user-check"></i>
-              <span className="nav-text">Widget</span>
-            </Link>
-          </li> */}
-          {/* <li className={`${forms.includes(path) ? "mm-active" : ""}`}>
-             <Link className="has-arrow ai-icon" to="#">
-              <i className="fas fa-file-alt"></i>
-              <span className="nav-text forms">Forms</span>
-            </Link> 
-            <ul>
-              <li>
-                <Link
-                  className={`${path === "form-element" ? "mm-active" : ""}`}
-                  to="/form-element"
-                >
-                  Form Elements
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "form-wizard" ? "mm-active" : ""}`}
-                  to="/form-wizard"
-                >
-                  {" "}
-                  Wizard
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${
-                    path === "form-editor-summernote" ? "mm-active" : ""
-                  }`}
-                  to="/form-editor-summernote"
-                >
-                  Summernote
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "form-pickers" ? "mm-active" : ""}`}
-                  to="/form-pickers"
-                >
-                  Pickers
-                </Link>
-              </li> 
-              <li>
-                <Link
-                  className={`${
-                    path === "form-validation-jquery" ? "mm-active" : ""
-                  }`}
-                  to="/form-validation-jquery"
-                >
-                  Form Validate
-                </Link>
-              </li>
-            </ul>
-          </li> */}
           <li className={`${table.includes(path) ? "mm-active" : ""}`}>
             <Link className="has-arrow ai-icon" to="#">
               <i className="fas fa-table"></i>
-              <span className="nav-text">Admin managements </span>
+              <span className="nav-text">Gestion des utilisateurs </span>
             </Link>
             <ul>
               <li>
                 <Link
-                  className={`${path === "todo" ? "mm-active" : ""}`}
-                  to="/todo"
+                  className={`${path === "administrateurs" ? "mm-active" : ""}`}
+                  to="/administrateurs"
                 >
-                  Administrateurs Local
+                  Gestion des administrateurs Local
                 </Link>
               </li>
               <li>
@@ -568,20 +509,17 @@ const SideBar = () => {
                   className={`${path === "table-filtering" ? "mm-active" : ""}`}
                   to="/table-filtering"
                 >
-                  Filtrage les administrateurs
+                  Filtrage des administrateurs Local
                 </Link>
               </li>
-
-              {/* <li>
+              <li>
                 <Link
-                  className={`${
-                    path === "table-datatable-basic" ? "mm-active" : ""
-                  }`}
-                  to="/table-datatable-basic"
+                  className={`${path === "membres" ? "mm-active" : ""}`}
+                  to="/membres"
                 >
-                  Datatable
+                  Gestion des membres
                 </Link>
-              </li> */}
+              </li>
             </ul>
           </li>
         </MM>

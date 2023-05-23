@@ -82,7 +82,7 @@ import JqvMap from "./components/PluginsMenu/JqvMap/JqvMap";
 import Lightgallery from "./components/PluginsMenu/Lightgallery/Lightgallery";
 
 //Redux
-import Todo from "./pages/Todo";
+import Todo from "./pages/Administrateurs";
 
 /// Widget
 import Widget from "./pages/Widget";
@@ -111,6 +111,8 @@ import Error404 from "./pages/Error404";
 import Error500 from "./pages/Error500";
 import Error503 from "./pages/Error503";
 import { ThemeContext } from "../context/ThemeContext";
+import Membres from "./pages/Membres";
+import Administrateurs from "./pages/Administrateurs";
 
 const Markup = () => {
   const { menuToggle } = useContext(ThemeContext);
@@ -129,7 +131,8 @@ const Markup = () => {
     { url: "post-details", component: PostDetails },
 
     ///Redux
-    { url: "todo", component: Todo },
+    { url: "administrateurs", component: Administrateurs },
+    { url: "membres", component: Membres },
 
     /// table
     { url: "table-filtering", component: FilteringTable },

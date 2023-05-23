@@ -4,7 +4,6 @@ import { Modal } from "react-bootstrap";
 import { nanoid } from "nanoid";
 import swal from "sweetalert";
 import PageTitle from "../layouts/PageTitle";
-import pic1 from "./../../images/profile/small/pic1.jpg";
 import Editable from "./Editable";
 
 const tableList = [
@@ -52,7 +51,7 @@ const tableList = [
   },
 ];
 
-const Todo = () => {
+const Administrateurs = () => {
   const [contents, setContents] = useState(tableList);
   // delete data
   const handleDeleteClick = (contentId) => {
@@ -64,6 +63,7 @@ const Todo = () => {
 
   //Modal box
   const [addCard, setAddCard] = useState(false);
+  const [deleteCard, setDeleteCard] = useState(false);
   //Add data
   const [addFormData, setAddFormData] = useState({
     name: "",
@@ -92,10 +92,10 @@ const Todo = () => {
       errorMsg = "Please fill  name";
     } else if (addFormData.OLM === "") {
       error = true;
-      errorMsg = "Please fill department.";
+      errorMsg = "Please fill OLM.";
     } else if (addFormData.email === "") {
       error = true;
-      errorMsg = "please fill gender";
+      errorMsg = "please fill Email";
     }
     if (!error) {
       const newContent = {
@@ -257,6 +257,23 @@ const Todo = () => {
                           <span className="validation-text"></span>
                         </div>
                       </div>
+                      <div className="form-group mb-3">
+                        <label className="text-black font-w500">
+                          Téléphone
+                        </label>
+                        <div className="contact-name">
+                          <input
+                            type="text"
+                            className="form-control"
+                            autoComplete="off"
+                            name="téléphone"
+                            required="required"
+                            onChange={handleAddFormChange}
+                            placeholder="Téléphone"
+                          />
+                          <span className="validation-text"></span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -266,7 +283,7 @@ const Todo = () => {
                     className="btn btn-primary"
                     onClick={handleAddFormSubmit}
                   >
-                    Add
+                    Ajouter
                   </button>
                   <button
                     type="button"
@@ -274,7 +291,49 @@ const Todo = () => {
                     className="btn btn-danger"
                   >
                     {" "}
-                    <i className="flaticon-delete-1"></i> Discard
+                    <i className="flaticon-delete-1"></i> Annuler
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </Modal>
+        <Modal
+          className="modal fade mt-12"
+          show={deleteCard}
+          onHide={setDeleteCard}
+        >
+          <div className="" role="document">
+            <div className="">
+              <form>
+                <div className="modal-header">
+                  <h4 className="modal-title fs-20">
+                    Supprimer un administrateur d'une OLM
+                  </h4>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={() => setAddCard(false)}
+                    data-dismiss="modal"
+                  >
+                    <span></span>
+                  </button>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    // onClick={handleAddFormSubmit}
+                  >
+                    Supprimer
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAddCard(false)}
+                    className="btn btn-danger"
+                  >
+                    {" "}
+                    <i className="flaticon-delete-1"></i> Annuler
                   </button>
                 </div>
               </form>
@@ -411,9 +470,9 @@ const Todo = () => {
                                   </Link>
                                   <Link
                                     className="btn btn-danger shadow btn-xs sharp"
-                                    onClick={() =>
-                                      handleDeleteClick(content.id)
-                                    }
+                                    onClick={() => setDeleteCard(true)}
+                                    // handleDeleteClick(content.id)
+                                    // }
                                   >
                                     <i className="fa fa-trash"></i>
                                   </Link>
@@ -434,4 +493,4 @@ const Todo = () => {
     </>
   );
 };
-export default Todo;
+export default Administrateurs;

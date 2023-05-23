@@ -39,36 +39,34 @@ exports.login = asyncErrorHandler(async (req, res, next) => {
   // 1) check if email and password exist
   if (!email || !password) {
     res.status(200).json({
-      success : false,
+      success: false,
       status: "fail",
       message: "Email and Password are required!",
     });
-   
   }
 
   // 2) check if user exists && password is correct
   const user = await User.findOne({ email: email });
   const compare = await user.comparePassword(password);
 
+  console.log(compare);
+
   if (!user || !compare) {
     res.status(200).json({
-      success : false,
+      success: false,
       status: "fail",
       message: "Incorrect email or password",
     });
-   
   }
 
   console.log(compare);
-
-  // console.log(user);
 
   const token = generateToken(user._id);
 
   // 3) if everything is ok, send token to client
 
   res.status(200).json({
-    success : true,
+    success: true,
     status: "success",
     message: "User logged in successfully",
     data: {

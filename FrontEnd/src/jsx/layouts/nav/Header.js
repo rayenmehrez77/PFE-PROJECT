@@ -389,11 +389,6 @@ const Header = ({ onNote }) => {
                   </PerfectScrollbar>
                 </Dropdown.Menu>
               </Dropdown>
-              <li className="nav-item invoices-btn">
-                <Link to={"#"} className="btn btn-primary ms-5">
-                  <i className="far fa-file-alt fs-20 me-2"></i>New Invoices
-                </Link>
-              </li>
             </ul>
           </div>
         </nav>
