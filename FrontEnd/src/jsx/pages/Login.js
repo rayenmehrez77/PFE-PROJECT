@@ -127,17 +127,12 @@ function Login(props) {
                         <div className="form-row d-flex justify-content-between mt-4 mb-2">
                           <div className="form-group">
                             <div className="form-check custom-checkbox ml-1">
-                              {/* <input
-                                type="checkbox"
-                                className="form-check-input"
-                                id="basic_checkbox_1"
-                              /> */}
-                              <label
-                                className="form-check-label"
-                                htmlFor="basic_checkbox_1"
+                              <Link
+                                className="text-primary"
+                                to="./page-forgot-password"
                               >
-                                Réinitialiser mon mot de passe
-                              </label>
+                                Mot de passe oublié ?
+                              </Link>
                             </div>
                           </div>
                         </div>

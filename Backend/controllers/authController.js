@@ -23,7 +23,34 @@ exports.signup = asyncErrorHandler(async (req, res, next) => {
 
   const token = generateToken(newUser._id);
 
+  if (
+    !newUser.name ||
+    !newUser.email ||
+    !newUser.OLM ||
+    !newUser.password ||
+    !newUser.comparePassword ||
+    !newUser.role
+  ) {
+    res.status(200).json({
+      success: false,
+      status: "fail",
+      message: "All fields are required!",
+    });
+    return;
+  }
+
+  if (newUser.password !== newUser.comparePassword) {
+    res.status(200).json({
+      success: false,
+      status: "fail",
+      message: "Passwords do not match!",
+    });
+    return;
+  }
+
+  // User created successfully!
   res.status(200).json({
+    success: true,
     status: "success",
     message: "User created successfully",
     data: {

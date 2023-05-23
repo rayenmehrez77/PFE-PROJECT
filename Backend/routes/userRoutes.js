@@ -13,6 +13,10 @@ router.route("/login").post(authController.login);
 
 router.route("/").post(userController.createUser);
 
-router.route("/:id").get(userController.getUser);
+router.route("/:userId").get(userController.getUser);
+
+router.route("/:userId").put(userController.updateUser);
+
+router.route("/:userId").delete(userController.deleteUser);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // image
-import logo from "../../images/logo-full.png";
+import logo from "../../images/Zone C.png";
 const ForgotPassword = ({ history }) => {
   const onSubmit = (e) => {
     e.preventDefault();
@@ -19,10 +19,10 @@ const ForgotPassword = ({ history }) => {
                   <div className="auth-form">
                     <div className="text-center mb-3">
                       <Link to="/dashboard">
-                        <img src={logo} alt="" />
+                        <img src={logo} alt="" width="120px" />
                       </Link>
                     </div>
-                    <h4 className="text-center mb-4 ">Forgot Password</h4>
+                    <h4 className="text-center mb-4 ">Mot de passe oublié</h4>
                     <form onSubmit={(e) => onSubmit(e)}>
                       <div className="form-group">
                         <label className="">
@@ -39,7 +39,7 @@ const ForgotPassword = ({ history }) => {
                           type="submit"
                           className="btn btn-primary btn-block"
                         >
-                          SUBMIT
+                          Confimer
                         </button>
                       </div>
                     </form>

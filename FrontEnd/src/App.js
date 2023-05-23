@@ -10,6 +10,7 @@ import { isAuthenticated } from "./store/selectors/AuthSelectors";
 /// Style
 import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import "./css/style.css";
+import Home from "./jsx/components/Dashboard/Home";
 
 const SignUp = lazy(() => import("./jsx/pages/Registration"));
 const ForgotPassword = lazy(() => import("./jsx/pages/ForgotPassword"));
@@ -32,10 +33,10 @@ function App(props) {
     <Switch>
       <Route path="/login" component={Login} />
       <Route path="/page-register" component={SignUp} />
-      {/* <Route path="/page-forgot-password" component={ForgotPassword} /> */}
+      <Route path="/page-forgot-password" component={ForgotPassword} />
     </Switch>
   );
-  if (props.isAuthenticated) {
+  if (!props.isAuthenticated) {
     return (
       <>
         <Suspense
