@@ -1,12 +1,45 @@
 const User = require("../models/userModel");
 const asyncErrorHandler = require("../utils/asyncErrorHandler");
 
-exports.createUser = (req, res) => {
-  res.status(500).json({
-    status: "error",
-    message: "Create user route does not exist yet",
-  });
-};
+exports.createUser = asyncErrorHandler(async (req, res) => {
+  try {
+    const { name, email, OLM, password, role } = req.body;
+
+    const existingUserByEmail = await User.findOne({ email });
+    const existingUserByName = await User.findOne({ name });
+
+    if (existingUserByName) {
+      return res
+        .status(400)
+        .json({ message: "User with the same name already exists" });
+    }
+
+    if (existingUserByEmail && existingUserByName) {
+      return res
+        .status(400)
+        .json({ message: "User with the same name and email already exists" });
+    } else if (existingUserByEmail) {
+      return res
+        .status(400)
+        .json({ message: "User with the same email already exists" });
+    }
+
+    const user = new User({
+      name,
+      email,
+      OLM,
+      password,
+      role,
+    });
+
+    await user.save();
+
+    res.status(201).json({ message: "User created successfully", user });
+  } catch (error) {
+    console.error("Error creating user:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 exports.getUser = asyncErrorHandler(async (req, res) => {
   const { userId } = req.params;
@@ -60,22 +93,45 @@ exports.updateUser = asyncErrorHandler(async (req, res, next) => {
   }
 });
 
+// DELETE method to delete a user
 exports.deleteUser = asyncErrorHandler(async (req, res) => {
-  const { userId } = req.params;
-
-  console.log(userId);
-
   try {
+    const { userId } = req.params;
+
+    // Find the user in the database
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    await user.remove();
+    // Check if the user's role is "super admin"
+    if (user.role === "Super Admin") {
+      return res
+        .status(403)
+        .json({ message: "Cannot delete super admin user" });
+    }
+
+    // Delete the user from the database
+    await User.deleteOne({ _id: userId });
 
     res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong", error });
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// GET method to get all users
+exports.getAllUsers = asyncErrorHandler(async (req, res) => {
+  try {
+    // Retrieve all users from the database
+    const users = await User.find({});
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error("Error retrieving users:", error);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
 });

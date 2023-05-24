@@ -2,14 +2,14 @@ const express = require("express");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const cors = require('cors');
+const cors = require("cors");
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/globalErrorController");
-const corsOptions ={
-  origin:'http://localhost:3000', 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200
-}
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 const app = express();
 app.use(cors(corsOptions));
 
@@ -28,7 +28,7 @@ const port = process.env.PORT || 3001;
 // Routes
 const userRoutes = require("./routes/userRoutes");
 
-app.use("/api/v1/users", userRoutes);
+app.use("/users", userRoutes);
 
 // handle hundled routes
 
