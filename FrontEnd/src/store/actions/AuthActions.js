@@ -26,15 +26,20 @@ export function signupAction(
   return (dispatch) => {
     signUp(name, email, OLM, password, confirmPassword)
       .then((response) => {
-        console.log(response);
-        saveTokenInLocalStorage(response.data);
-        // runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
-        dispatch(confirmedSignupAction(response.data));
-        history.push("/dashboard");
+        if(response.data.success){
+          console.log(response);
+          saveTokenInLocalStorage(response.data);
+          // runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
+          dispatch(confirmedSignupAction(response.data));
+          history.push("/dashboard");
+        }else{
+          const errorMessage = formatError(response.data.message);
+        dispatch(signupFailedAction(errorMessage));
+        }
+        
       })
       .catch((error) => {
-        const errorMessage = formatError(error);
-        dispatch(signupFailedAction(errorMessage));
+        console.log(error);
       });
   };
 }
