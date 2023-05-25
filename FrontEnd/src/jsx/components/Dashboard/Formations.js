@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Dropdown, Modal } from "react-bootstrap";
+import { Badge, Dropdown, Modal } from "react-bootstrap";
 import swal from "sweetalert";
 import { nanoid } from "nanoid";
 //Images
@@ -314,7 +314,7 @@ const Formations = () => {
             <div className="">
               <form>
                 <div className="modal-header">
-                  <h4 className="modal-title fs-20">Edit Task</h4>
+                  <h4 className="modal-title fs-20">Modifier la formation</h4>
                   <button
                     type="button"
                     className="btn-close"
@@ -331,7 +331,7 @@ const Formations = () => {
                     <div className="add-contact-content">
                       <div className="form-group mb-3">
                         <label className="text-black font-w500">
-                          Customer Id
+                          Nom de Formation
                         </label>
                         <div className="contact-name">
                           <input
@@ -340,7 +340,7 @@ const Formations = () => {
                             autoComplete="off"
                             name="Cust_Id"
                             required="required"
-                            value={editFormData.Cust_Id}
+                            value={editFormData.nom_formation}
                             onChange={handleEditFormChange}
                           />
                           <span className="validation-text"></span>
@@ -512,22 +512,31 @@ const Formations = () => {
               <div className="card-body p-0 pb-3">
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item">
-                    <span className="mb-0 title">Date</span> :
+                    <span className="mb-0 title fw-bold">Date</span> :
                     <span className="text-black ms-2">{contact.Date_Join}</span>
                   </li>
                   <li className="list-group-item">
-                    <span className="mb-0 title">Formateur / Formatrice: </span>{" "}
+                    <span className="mb-0 title fw-bold">
+                      Formateur / Formatrice:{" "}
+                    </span>{" "}
                     :
                     <span className="text-black ms-2">{contact.Cust_Name}</span>
                   </li>
                   <li className="list-group-item">
-                    <span className="mb-0 title">Localisation</span> :
+                    <span className="mb-0 title fw-bold">Localisation</span> :
                     <span className="text-black desc-text ms-2">
                       {contact.Location}
                     </span>
                   </li>
                 </ul>
               </div>
+              <h6 className="p-3 fw-bold">
+                <span className=" mr-3">Nombre d'inscription :</span>
+                <Badge bg="" className="badge-primary">
+                  {" "}
+                  25 Membres:{" "}
+                </Badge>
+              </h6>
             </div>
           </div>
         ))}

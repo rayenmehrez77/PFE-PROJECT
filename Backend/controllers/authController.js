@@ -39,14 +39,14 @@ exports.signup = asyncErrorHandler(async (req, res, next) => {
     return;
   }
 
-  if (newUser.password !== newUser.comparePassword) {
-    res.status(200).json({
-      success: false,
-      status: "fail",
-      message: "Passwords do not match!",
-    });
-    return;
-  }
+  // if (newUser.password !== newUser.comparePassword) {
+  //   res.status(200).json({
+  //     success: false,
+  //     status: "fail",
+  //     message: "Passwords do not match!",
+  //   });
+  //   return;
+  // }
 
   // User created successfully!
   res.status(200).json({
