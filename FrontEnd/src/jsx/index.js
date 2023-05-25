@@ -21,7 +21,7 @@ import CreateInvoices from "./components/Dashboard/CreateInvoices";
 import CardCenter from "./components/Dashboard/CardCenter";
 import TransactionDetails from "./components/Dashboard/TransactionDetails";
 
-import Task from "./components/Dashboard/Task";
+import Formations from "./components/Dashboard/Formations";
 
 /////Demo
 import Theme1 from "./components/Dashboard/Demo/Theme1";
@@ -120,7 +120,7 @@ const Markup = () => {
     /// Dashboard
     { url: "", component: Home },
     { url: "dashboard", component: Home },
-    { url: "task", component: Task },
+    { url: "formations", component: Formations },
 
     /// Apps
     { url: "app-profile", component: AppProfile },

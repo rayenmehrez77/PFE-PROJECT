@@ -21,13 +21,13 @@ class EventCalendar extends Component {
       },
     ],
     events: [
-      { title: "Académie des leaders", id: "1" },
-      { title: "Assise de printemps", id: "2" },
-      { title: "1 RNP", id: "3" },
-      { title: "2 RNP", id: "4" },
-      { title: "1 RZP", id: "5" },
-      { title: "2 RZP", id: "6" },
+      { title: "Assise de printemps", id: "1", OLM: "JCI BANNEN" },
+      { title: "Assise d'automne", id: "2", OLM: "JCI NFIDHA" },
+      { title: "1 RZP", id: "3", OLM: "JCI MENZEL FERSI" },
+      { title: "2 RZP", id: "4", OLM: "JCI MENZEL FERSI" },
+      { title: "3 RZP", id: "4", OLM: "JCI MENZEL FERSI" },
     ],
+    change: false,
   };
 
   /**
@@ -59,13 +59,13 @@ class EventCalendar extends Component {
       <table className="table">
       <tbody>
       <tr >
-      <td>Title</td>
+      <td>Titre</td>
       <td><strong>` +
         eventClick.event.title +
         `</strong></td>
       </tr>
       <tr >
-      <td>Start Time</td>
+      <td>Heure de début</td>
       <td><strong>
       ` +
         eventClick.event.start +
@@ -79,12 +79,12 @@ class EventCalendar extends Component {
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Remove Event",
-      cancelButtonText: "Close",
+      confirmButtonText: "Supprimer",
+      cancelButtonText: "Annuler",
     }).then((result) => {
       if (result.value) {
         eventClick.event.remove(); // It will remove event from the calendar
-        Alert.fire("Deleted!", "Your Event has been deleted.", "success");
+        Alert.fire("Deleted!", "Votre événement a été supprimé.", "success");
       }
     });
   };
@@ -101,14 +101,19 @@ class EventCalendar extends Component {
               <Card.Body>
                 <div id="external-events">
                   {this.state.events.map((event) => (
-                    <div
-                      className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
-                      title={event.title}
-                      data={event.id}
-                      key={event.id}
-                    >
-                      {event.title}
-                    </div>
+                    <>
+                      <span className="mb-3">
+                        OLM organisatrice : {event.OLM}
+                      </span>
+                      <div
+                        className="fc-event mt-0 ms-0 mb-2 mt-2 btn btn-block btn-primary"
+                        title={event.title}
+                        data={event.id}
+                        key={event.id}
+                      >
+                        {event.title}
+                      </div>
+                    </>
                   ))}
                 </div>
               </Card.Body>

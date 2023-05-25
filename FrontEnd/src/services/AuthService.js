@@ -26,7 +26,7 @@ export function login(email, password) {
 }
 
 export function formatError(errorResponse) {
-  return errorResponse
+  return errorResponse;
 }
 
 export function saveTokenInLocalStorage(tokenDetails) {
@@ -41,24 +41,24 @@ export function runLogoutTimer(dispatch, timer, history) {
   }, timer);
 }
 
-export function checkAutoLogin(dispatch, history) {
-  const tokenDetailsString = localStorage.getItem("userDetails");
-  let tokenDetails = "";
-  if (!tokenDetailsString) {
-    dispatch(logout(history));
-    return;
-  }
+// export function checkAutoLogin(dispatch, history) {
+//   const tokenDetailsString = localStorage.getItem("userDetails");
+//   let tokenDetails = "";
+//   if (!tokenDetailsString) {
+//     dispatch(logout(history));
+//     return;
+//   }
 
-  tokenDetails = JSON.parse(tokenDetailsString);
-  let expireDate = new Date(tokenDetails.expireDate);
-  let todaysDate = new Date();
+//   tokenDetails = JSON.parse(tokenDetailsString);
+//   let expireDate = new Date(tokenDetails.expireDate);
+//   let todaysDate = new Date();
 
-  if (todaysDate > expireDate) {
-    dispatch(logout(history));
-    return;
-  }
-  dispatch(loginConfirmedAction(tokenDetails));
+//   if (todaysDate > expireDate) {
+//     dispatch(logout(history));
+//     return;
+//   }
+//   dispatch(loginConfirmedAction(tokenDetails));
 
-  const timer = expireDate.getTime() - todaysDate.getTime();
-  runLogoutTimer(dispatch, timer, history);
-}
+//   const timer = expireDate.getTime() - todaysDate.getTime();
+//   runLogoutTimer(dispatch, timer, history);
+// }

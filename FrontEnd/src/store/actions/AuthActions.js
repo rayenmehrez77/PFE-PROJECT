@@ -52,16 +52,15 @@ export function loginAction(email, password, history) {
     login(email, password)
       .then((response) => {
         console.log(response);
-        if(response.data.success){
+        if (response.status === 200) {
           saveTokenInLocalStorage(response.data);
           // runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
           dispatch(loginConfirmedAction(response.data));
           history.push("/dashboard");
-        }else{
+        } else {
           const errorMessage = formatError(response.data?.message);
-        dispatch(loginFailedAction(errorMessage));
+          dispatch(loginFailedAction(errorMessage));
         }
-       
       })
       .catch((error) => {
         console.log(error);

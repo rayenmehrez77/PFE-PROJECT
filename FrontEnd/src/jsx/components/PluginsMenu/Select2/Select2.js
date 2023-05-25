@@ -142,31 +142,34 @@ const Select2 = () => {
                   <code>&lt;select&gt;</code> element.
                 </p>
               </div>
-				<div className="row">
-					<div className="col-lg-12">
-					  <label className="mb-4 select2-label" htmlFor="id_label_single">
-						Click this to highlight the single select element <br />
-						<Select
-						  defaultValue={selectedOption}
-						  onChange={setSelectedOption}
-						  options={options}
-						  style={{
-							lineHeight: "40px",
-							color: "#7e7e7e",
-							paddingLeft: " 15px",
-						  }}
-						/>
-					  </label>
-					</div>
-					<div className="col-lg-12">
-					  <label className="select2-label" htmlFor="id_label_multiple">
-						Click this to highlight the multiple select element
-						<br />
-						<CustomClearIndicator></CustomClearIndicator>
-						<br />
-					  </label>
-					</div>
-				</div>
+              <div className="row">
+                <div className="col-lg-12">
+                  <label
+                    className="mb-4 select2-label"
+                    htmlFor="id_label_single"
+                  >
+                    Click this to highlight the single select element <br />
+                    <Select
+                      defaultValue={selectedOption}
+                      onChange={setSelectedOption}
+                      options={options}
+                      style={{
+                        lineHeight: "40px",
+                        color: "#7e7e7e",
+                        paddingLeft: " 15px",
+                      }}
+                    />
+                  </label>
+                </div>
+                <div className="col-lg-12">
+                  <label className="select2-label" htmlFor="id_label_multiple">
+                    Click this to highlight the multiple select element
+                    <br />
+                    <CustomClearIndicator></CustomClearIndicator>
+                    <br />
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -343,10 +346,6 @@ const Select2 = () => {
             <div className="card-body">
               <div className="mb-4">
                 <h4 className="card-title">Dropdown placement</h4>
-                <p>
-                  The <code>dropdownParent</code> option allows you to pick an
-                  alternative element for the dropdown to be appended to:
-                </p>
               </div>
 
               <Select

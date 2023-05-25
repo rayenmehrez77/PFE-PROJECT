@@ -234,9 +234,9 @@ const SideBar = () => {
               <li>
                 <Link
                   className={`${path === "task" ? "mm-active" : ""}`}
-                  to="/task"
+                  to="/formations"
                 >
-                  Formations Zonal 2023
+                  Formations
                 </Link>
               </li>
               <li>

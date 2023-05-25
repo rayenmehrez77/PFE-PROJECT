@@ -105,6 +105,7 @@ function Register(props) {
                           onChange={(e) => setEmail(e.target.value)}
                           className="form-control"
                           placeholder="email"
+                          type="email"
                         />
                       </div>
                       {errors.email && <div>{errors.email}</div>}
@@ -129,6 +130,7 @@ function Register(props) {
                           onChange={(e) => setPassword(e.target.value)}
                           className="form-control"
                           placeholder="Mot de passe"
+                          type="password"
                         />
                       </div>
                       {errors.password && <div>{errors.password}</div>}
@@ -141,6 +143,7 @@ function Register(props) {
                           onChange={(e) => setConfirmPassword(e.target.value)}
                           className="form-control"
                           placeholder="Confirmer le mot de passe"
+                          type="password"
                         />
                       </div>
                       {errors.confirmPassword && (

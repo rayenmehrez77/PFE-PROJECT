@@ -5,44 +5,43 @@ import swal from "sweetalert";
 import { nanoid } from "nanoid";
 //Images
 //import data from './../Boltz/Task/Postpage.json';
-import card1 from "./../../../images/task/img1.jpg";
-import card2 from "./../../../images/task/img2.jpg";
-import card3 from "./../../../images/task/img3.jpg";
-import card4 from "./../../../images/task/img4.jpg";
-import card5 from "./../../../images/task/img5.jpg";
-import card6 from "./../../../images/task/img6.jpg";
-import card7 from "./../../../images/task/img7.jpg";
-import card8 from "./../../../images/task/img8.jpg";
-import user from "./../../../images/task/user.jpg";
+import card1 from "./../../../images/formations/awards.png";
+import card2 from "./../../../images/formations/linkedIn.jpg";
+import card3 from "./../../../images/formations/personal-brand.jpg";
+
+import user from "./../../../images/formations/user.jpg";
 
 const CardListBlog = [
   {
     id: 1,
     image: card1,
+    nom_formation: "Formation LinkedIn",
     Cust_Id: "01",
-    Date_Join: "19/02/2021",
-    Cust_Name: "Munaroh Steffani",
-    Location: "India",
+    Date_Join: "02/06/2023",
+    Cust_Name: "Hakim Ben Hammouda",
+    Location: "Municipalité de Menzel Fersi",
   },
   {
     id: 2,
     image: card2,
     Cust_Id: "02",
-    Date_Join: "20/03/2021",
-    Cust_Name: "Geovanny Anderson",
-    Location: "London ",
+    nom_formation: "Formation LinkedIn",
+    Date_Join: "28/06/2023",
+    Cust_Name: "Rayen Mehrez",
+    Location: "Ecole primaire de Menzel Fersi ",
   },
   {
-    id: 3,
+    id: 2,
     image: card3,
-    Cust_Id: "01236",
-    Date_Join: "21/04/2021",
-    Cust_Name: "Louis Ali",
-    Location: "Afghanistan",
+    Cust_Id: "02",
+    nom_formation: "Formation LinkedIn",
+    Date_Join: "20/06/2023",
+    Cust_Name: "Rayen Mehrez",
+    Location: "Maison des jeunes de Menzel Fersi ",
   },
 ];
 
-const PostPage = () => {
+const Formations = () => {
   const [postModal, setPostModal] = useState(false);
   const [contacts, setContacts] = useState(CardListBlog);
   // delete data
@@ -182,7 +181,7 @@ const PostPage = () => {
           className="btn btn-primary font-w600 mb-2 me-auto"
           onClick={() => setPostModal(true)}
         >
-          + Ajouter une formation zonal
+          + Ajouter une formation
         </Link>
         {/* <!-- Modal --> */}
         <Modal className="modal fade" show={postModal} onHide={setPostModal}>
@@ -190,9 +189,7 @@ const PostPage = () => {
             <div className="">
               <form>
                 <div className="modal-header">
-                  <h4 className="modal-title fs-20">
-                    Ajouter une formation zonal
-                  </h4>
+                  <h4 className="modal-title fs-20">Ajouter une formation</h4>
                   <button
                     type="button"
                     className="btn-close"
@@ -350,9 +347,7 @@ const PostPage = () => {
                         </div>
                       </div>
                       <div className="form-group mb-3">
-                        <label className="text-black font-w500">
-                          Deadline Date
-                        </label>
+                        <label className="text-black font-w500">Date</label>
                         <div className="contact-name">
                           <input
                             type="text"
@@ -409,7 +404,7 @@ const PostPage = () => {
                     className="btn btn-primary"
                     onClick={handleEditFormSubmit}
                   >
-                    Save
+                    Enregister les modifications
                   </button>
                   <button
                     type="button"
@@ -417,7 +412,7 @@ const PostPage = () => {
                     className="btn btn-danger"
                   >
                     {" "}
-                    <i className="flaticon-delete-1"></i> Discard
+                    <i className="flaticon-delete-1"></i> Annuler
                   </button>
                 </div>
               </form>
@@ -425,9 +420,9 @@ const PostPage = () => {
           </div>
         </Modal>
         <div>
-          <Link to={"#"} className="btn btn-secondary btn-sm me-3">
+          {/* <Link to={"#"} className="btn btn-secondary btn-sm me-3">
             <i className="fas fa-phone-alt"></i>
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className="row">
@@ -447,11 +442,11 @@ const PostPage = () => {
               </div>
               <div className="card-header align-items-start">
                 <div>
-                  <h6 className="fs-18 font-w500 mb-3">
+                  <h4 className="fs-18 font-w500 mb-3">
                     <Link to={"#"} className="text-black user-name">
                       {contact.nom_formation}
                     </Link>
-                  </h6>
+                  </h4>
                   <div className="text-dark fs-14 text-nowrap">
                     <i
                       className="far fa-calendar-alt me-3"
@@ -541,4 +536,4 @@ const PostPage = () => {
   );
 };
 
-export default PostPage;
+export default Formations;

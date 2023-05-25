@@ -288,21 +288,35 @@ const Header = ({ onNote }) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu
                   align="right"
-                  className="mt-4 dropdown-menu dropdown-menu-end"
+                  className="dropdown-menu dropdown-menu-end"
                 >
                   <PerfectScrollbar className="widget-timeline dlab-scroll style-1 ps p-3 height370">
+                    <h4>
+                      <strong className="text-primary capatilize">
+                        Evénements Zonal 2023{" "}
+                      </strong>
+                    </h4>
+
                     <ul className="timeline">
                       <li>
                         <div className="timeline-badge primary" />
                         <Link
                           className="timeline-panel c-pointer text-muted"
-                          to="#"
+                          to="/app-calender"
                         >
-                          <span>10 minutes ago</span>
-                          <h6 className="mb-0">
-                            Youtube, a video-sharing website, goes live{" "}
-                            <strong className="text-primary">$500</strong>.
-                          </h6>
+                          <div>
+                            <h5>
+                              <strong className="text-primary">
+                                Assise de printemps
+                              </strong>
+                            </h5>
+                            <hr></hr>
+                            <strong>Date: 02 juin 2023 </strong>
+                            <strong>Organisatrice: JCI BENNEN </strong>
+                          </div>
+                          <strong className="text-primary">
+                            Reste: 10 jours
+                          </strong>
                         </Link>
                       </li>
                       <li>

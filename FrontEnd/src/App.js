@@ -10,7 +10,6 @@ import { isAuthenticated } from "./store/selectors/AuthSelectors";
 /// Style
 import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import "./css/style.css";
-import Home from "./jsx/components/Dashboard/Home";
 
 const SignUp = lazy(() => import("./jsx/pages/Registration"));
 const ForgotPassword = lazy(() => import("./jsx/pages/ForgotPassword"));
@@ -23,10 +22,8 @@ const Login = lazy(() => {
 function App(props) {
   const dispatch = useDispatch();
 
-  console.log(props.isAuthenticated);
-
   useEffect(() => {
-    checkAutoLogin(dispatch, props.history);
+    // checkAutoLogin(dispatch, props.history);
   }, [dispatch, props.history]);
 
   let routes = (
