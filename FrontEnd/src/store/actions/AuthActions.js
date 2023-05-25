@@ -40,7 +40,7 @@ export function signupAction(
 }
 
 export function logout(history) {
-  localStorage.removeItem("userDetails");
+  localStorage.clear();
   history.push("/login");
   return {
     type: LOGOUT_ACTION,
@@ -52,7 +52,7 @@ export function loginAction(email, password, history) {
     login(email, password)
       .then((response) => {
         console.log(response);
-        if (response.status === 200) {
+        if (response.data.success) {
           saveTokenInLocalStorage(response.data);
           // runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
           dispatch(loginConfirmedAction(response.data));

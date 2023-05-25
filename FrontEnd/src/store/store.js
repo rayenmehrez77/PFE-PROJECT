@@ -1,12 +1,19 @@
-import { applyMiddleware, combineReducers, compose, createStore } from "redux";
+import { applyMiddleware, combineReducers, compose } from "redux";
 import PostsReducer from "./reducers/PostsReducer";
 import thunk from "redux-thunk";
 import AuthReducer  from "./reducers/AuthReducer";
 import todoReducers from "./reducers/Reducers";
 //import { reducer as reduxFormReducer } from 'redux-form';
+import { legacy_createStore as createStore} from 'redux'
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 const middleware = applyMiddleware(thunk);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const persistConfig = {
+  key: 'root',
+  storage,
+}
 
 const reducers = combineReducers({
   posts: PostsReducer,
@@ -14,7 +21,7 @@ const reducers = combineReducers({
   todoReducers,
   //form: reduxFormReducer,
 });
-
+const persistedReducer = persistReducer(persistConfig, reducers)
 //const store = createStore(rootReducers);
-
-export const store = createStore(reducers, composeEnhancers(middleware));
+export const store = createStore(persistedReducer, composeEnhancers(middleware));
+export const persistor = persistStore(store)

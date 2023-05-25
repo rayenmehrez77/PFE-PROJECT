@@ -33,7 +33,7 @@ function App(props) {
       <Route path="/page-forgot-password" component={ForgotPassword} />
     </Switch>
   );
-  if (!props.isAuthenticated) {
+  if (props.isAuthenticated) {
     return (
       <>
         <Suspense
