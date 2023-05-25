@@ -27,8 +27,10 @@ const port = process.env.PORT || 3001;
 
 // Routes
 const userRoutes = require("./routes/userRoutes");
+// const formationsRoutes = require("./routes/formationsRoutes");
 
 app.use("/users", userRoutes);
+// app.use("/formations", formationsRoutes);
 
 // handle hundled routes
 
