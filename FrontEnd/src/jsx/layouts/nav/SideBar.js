@@ -246,23 +246,37 @@ const SideBar = () => {
                 </li>
               ) : null}
               {user.role === "Admin" ? (
-                <li>
-                  <Link
-                    className={`${path === "task" ? "mm-active" : ""}`}
-                    to="/formations"
-                  >
-                    Formations
-                  </Link>
-                </li>
+                <>
+                  <li>
+                    <Link
+                      className={`${path === "task" ? "mm-active" : ""}`}
+                      to="/formations"
+                    >
+                      Gestion des Formations
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className={`${
+                        path === "app-calender" ? "mm-active" : ""
+                      }`}
+                      to="/actions"
+                    >
+                      Gestion des Actions
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className={`${
+                        path === "app-calender" ? "mm-active" : ""
+                      }`}
+                      to="/app-calender"
+                    >
+                      Evénements zonal 2023
+                    </Link>
+                  </li>
+                </>
               ) : null}
-              <li>
-                <Link
-                  className={`${path === "app-calender" ? "mm-active" : ""}`}
-                  to="/app-calender"
-                >
-                  Evénements zonal 2023
-                </Link>
-              </li>
             </ul>
           </li>
           <li className={`${charts.includes(path) ? "mm-active" : ""}`}>
