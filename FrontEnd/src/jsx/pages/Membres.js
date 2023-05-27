@@ -7,7 +7,7 @@ import PageTitle from "../layouts/PageTitle";
 import pic1 from "./../../images/profile/small/pic1.jpg";
 import Editable from "./Editable";
 import { getUsers } from "../../store/Thunks/userThunks";
-import { connect } from "formik";
+import { connect, useDispatch } from "react-redux";
 
 const tableList = [
   {
@@ -123,13 +123,13 @@ const MembresList = [
   },
 ];
 
-const Membres = ({ users, loading, error, getUsers }) => {
+const MembresComponent = () => {
   const [contents, setContents] = useState(tableList);
   const [conseillers, setConseillers] = useState(conseillerList);
   const [Membres, setMembres] = useState(MembresList);
-
+const dispatch = useDispatch()
   useEffect(() => {
-    getUsers();
+    dispatch(getUsers());
   }, [getUsers]);
 
   // if (loading) {
@@ -780,8 +780,6 @@ const mapStateToProps = (state) => ({
   error: state.users.error,
 });
 
-const mapDispatchToProps = {
-  getUsers,
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Membres);
+
+export default connect(mapStateToProps)(MembresComponent);

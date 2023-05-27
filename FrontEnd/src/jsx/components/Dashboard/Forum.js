@@ -91,7 +91,7 @@ const Forum = () => {
   });
 
   const handleAddFormChange = (event) => {
-    event.preventDefault();
+    console.log(event);
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
     const newFormData = { ...addFormData };
@@ -100,7 +100,7 @@ const Forum = () => {
   };
 
   const handleAddFormSubmit = (event) => {
-    event.preventDefault();
+    
     var error = false;
     var errorMsg = "";
     if (addFormData.Date_Join === "") {
@@ -150,7 +150,7 @@ const Forum = () => {
 
   // Edit function button click to edit
   const handleEditClick = (event, Forum) => {
-    event.preventDefault();
+    
     setEditForumId(Forum.id);
     const forumValues = {
       Title: Forum.Title,
@@ -167,7 +167,7 @@ const Forum = () => {
 
   //update data function
   const handleEditFormChange = (event) => {
-    event.preventDefault();
+    
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
     const newFormData = { ...editForumData };
@@ -177,7 +177,7 @@ const Forum = () => {
 
   // edit form data submit
   const handleEditFormSubmit = (event) => {
-    event.preventDefault();
+   
     const editedContact = {
       id: editForumId,
       Title: editForumData.Title,

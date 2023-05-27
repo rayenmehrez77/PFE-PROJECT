@@ -29,10 +29,10 @@ const ClearIndicatorStyles = (base, state) => ({
 
 export default function CustomClearIndicator({ onChange }) {
   const handleCollaboratorsChange = (selectedOptions, event) => {
-    event.preventDefault();
+    
     const collaborators = selectedOptions.map((option) => option.value);
     console.log(collaborators);
-    onChange("collaborators", collaborators); // Pass fieldName and fieldValue to onChange
+    onChange("collaborators", event); // Pass fieldName and fieldValue to onChange
   };
 
   return (
@@ -42,7 +42,7 @@ export default function CustomClearIndicator({ onChange }) {
       styles={{ clearIndicator: ClearIndicatorStyles }}
       defaultValue={[colourOptions[4], colourOptions[5]]}
       isMulti
-      onChange={handleCollaboratorsChange}
+      onChange={onchange}
       options={colourOptions}
     />
   );

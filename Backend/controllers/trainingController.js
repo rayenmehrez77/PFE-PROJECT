@@ -15,7 +15,7 @@ const trainingController = {
     try {
       // Extract data from the request body
       const {
-        image,
+        
         title,
         date,
         duration,
@@ -24,10 +24,10 @@ const trainingController = {
         etat,
         nParticipants,
       } = req.body;
-
+      const image = req.file.path
       // Create a new training
       const newTraining = new Training({
-        image,
+        image:image,
         title,
         date,
         duration,
@@ -40,7 +40,7 @@ const trainingController = {
 
       res.json(newTraining);
     } catch (error) {
-      res.status(500).json({ error: "Failed to add a new training" });
+      res.status(500).json({ error: "Failed to add a new training",error });
     }
   },
 

@@ -24,7 +24,7 @@ app.use(express.json());
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
 const port = process.env.PORT || 3001;
-
+app.use(express.static(`${__dirname}/public`));
 // Routes
 const userRoutes = require("./routes/userRoutes");
 const trainingsRoutes = require("./routes/TrainingRoutes");

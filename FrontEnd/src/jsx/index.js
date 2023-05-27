@@ -113,7 +113,7 @@ import Error404 from "./pages/Error404";
 import Error500 from "./pages/Error500";
 import Error503 from "./pages/Error503";
 import { ThemeContext } from "../context/ThemeContext";
-import Membres from "./pages/Membres";
+import MembresComponent from "./pages/Membres";
 import Administrateurs from "./pages/Administrateurs";
 
 const Markup = () => {
@@ -136,7 +136,7 @@ const Markup = () => {
 
     ///Redux
     { url: "administrateurs", component: Administrateurs },
-    { url: "membres", component: Membres },
+    { url: "membres", component: MembresComponent },
 
     /// table
     { url: "table-filtering", component: FilteringTable },

@@ -18,21 +18,21 @@ const trainingSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  Formateur: {
+  formateur: {
     type: String,
     required: true,
   },
-  Location: {
+  location: {
     type: "String",
     required: true,
   },
-  Etat: {
+  etat: {
     type: "String",
-    required: true,
+    required: false,
   },
   nbParticipants: {
     type: Number,
-    required: true,
+    required: false,
   },
 });
 
