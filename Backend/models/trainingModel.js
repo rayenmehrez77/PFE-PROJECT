@@ -11,14 +11,14 @@ const trainingSchema = new mongoose.Schema({
     required: true,
   },
   date: {
-    type: "String",
+    type: String,
     default: Date.now,
   },
   duration: {
     type: Number,
     required: true,
   },
-  formateur: {
+  trainer: {
     type: String,
     required: true,
   },
@@ -32,6 +32,10 @@ const trainingSchema = new mongoose.Schema({
   },
   nbParticipants: {
     type: Number,
+    required: false,
+  },
+  status: {
+    type: "String",
     required: false,
   },
 });

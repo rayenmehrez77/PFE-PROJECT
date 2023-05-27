@@ -13,13 +13,12 @@ const trainingController = {
 
   addTraining: async (req, res) => {
     try {
-      // Extract data from the request body
       const {
         
         title,
         date,
         duration,
-        formateur,
+        trainer,
         location,
         etat,
         nParticipants,
@@ -31,7 +30,7 @@ const trainingController = {
         title,
         date,
         duration,
-        formateur,
+        trainer,
         location,
         etat,
         nParticipants,
@@ -64,19 +63,28 @@ const trainingController = {
       // Extract data from the request body
       const {
         image,
-        title,
-        date,
-        duration,
-        formateur,
-        location,
-        etat,
+        Title,
+        Date,
+        Duration,
+        Trainer,
+        Location,
+        Status,
         nParticipants,
       } = req.body;
 
       // Update a specific training by ID
       const updatedTraining = await Training.findByIdAndUpdate(
         trainingID,
-        { title, date, duration, formateur, location, etat, nParticipants },
+        {
+          image,
+          Title,
+          Date,
+          Duration,
+          Trainer,
+          Location,
+          Status,
+          nParticipants,
+        },
         { new: true }
       );
 
