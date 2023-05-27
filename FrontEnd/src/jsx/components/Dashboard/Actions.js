@@ -6,9 +6,9 @@ import swal from "sweetalert";
 import { nanoid } from "nanoid";
 //Images
 //import data from './../Boltz/Task/Postpage.json';
-import card1 from "./../../../images/formations/awards.png";
-import card2 from "./../../../images/formations/linkedIn.jpg";
-import card3 from "./../../../images/formations/personal-brand.jpg";
+import card1 from "./../../../images/actions/ramadan.jpg";
+import card2 from "./../../../images/actions/journee.png";
+import card3 from "./../../../images/actions/aid.png";
 
 import user from "./../../../images/formations/user.jpg";
 
@@ -18,27 +18,30 @@ const CardListBlog = [
     image: card1,
     nom_action: "رمضان يجمعمنا",
     _Id: "01",
-    Date: "02/06/2023",
-    Location: "Municipalité de Menzel Fersi",
-    Directeur: "Rayen Mehrez",
+    Date: "19 Avril 2023",
+    Location: "Ecole primaire de Menzel Fersi",
+    Directeur: "Azhar Mabrouk",
+    Etat: "Terminé",
   },
   {
     id: 2,
     image: card2,
     _Id: "02",
-    nom_action: "Formation LinkedIn",
-    Date: "28/06/2023",
-    Location: "Ecole primaire de Menzel Fersi ",
-    Directeur: "Rayen Mehrez",
+    nom_action: "Journée Jeunesse",
+    Date: "21 Mars 2023",
+    Location: "Municipalité de Menzel Fersi ",
+    Directeur: "Hedil Mabrouk, Roua Ahmed",
+    Etat: "Terminé",
   },
   {
     id: 2,
     image: card3,
     Cust_Id: "02",
-    nom_action: "رمضان يجمعمنا",
-    Date: "20/06/2023",
-    Location: "Maison des jeunes de Menzel Fersi ",
-    Directeur: "Rayen Mehrez",
+    nom_action: "للعيد فرحة",
+    Date: "18 Avril 2023",
+    Location: "Menzel Fersi",
+    Directeur: "Roua Ahmed",
+    Etat: "Terminé",
   },
 ];
 
@@ -60,6 +63,7 @@ const Actions = () => {
     Date: "",
     Location: "",
     Directeur: "",
+    Etat: "",
   });
 
   // Add contact function
@@ -121,6 +125,7 @@ const Actions = () => {
       Date: contact.Date,
       Location: contact.Location,
       Directeur: contact.Directeur,
+      Etat: contact.Etat,
     };
     setEditFormData(formValues);
     setEditModal(true);
@@ -132,6 +137,7 @@ const Actions = () => {
     nom_action: "",
     Date: "",
     Location: "",
+    Etat: "",
   });
 
   //update data function
@@ -154,6 +160,7 @@ const Actions = () => {
       Date: editFormData.Date,
       Location: editFormData.Location,
       Directeur: editFormData.Directeur,
+      Etat: editFormData.Etat,
     };
     const newContacts = [...contacts];
     const index = contacts.findIndex((contact) => contact.id === editContactId);
@@ -206,9 +213,9 @@ const Actions = () => {
                   </svg>
                 </span>
                 <div className="media-body">
-                  <h5 className="mb-1">Nombre total des membres :</h5>
+                  <h5 className="mb-1">Nombre total d'action:</h5>
                   {/* <h4 className="mb-0">30</h4> */}
-                  <h5 className="badge badge-primary">50 Membres</h5>
+                  <h5 className="badge badge-primary"> 8 actions </h5>
                 </div>
               </div>
             </div>
@@ -222,9 +229,9 @@ const Actions = () => {
                   <i className="la la-graduation-cap"></i>
                 </span>
                 <div className="media-body">
-                  <h5 className="mb-1">Nombre Total d'inscription:</h5>
+                  <h5 className="mb-1">Action à venir:</h5>
                   {/* <h4 className="mb-0">30</h4> */}
-                  <h5 className="badge badge-primary">25 membres</h5>
+                  <h5 className="badge badge-primary"> 5 actions </h5>
                 </div>
               </div>
             </div>
@@ -238,8 +245,8 @@ const Actions = () => {
                   <i className="flaticon-381-calendar-1"></i>
                 </span>
                 <div className="media-body">
-                  <h5 className="mb-1">Nombre Total des Formations :</h5>
-                  <h5 className="badge badge-primary">3 Formations</h5>
+                  <h5 className="mb-1">Action Terminé :</h5>
+                  <h5 className="badge badge-primary">3 actions</h5>
                 </div>
               </div>
             </div>
@@ -555,14 +562,14 @@ const Actions = () => {
                         onClick={() =>
                           swal({
                             title: "Supprimer?",
-                            text: "Une fois supprimé, vous ne pourrez pas récupérer ce fichier imaginaire !",
+                            text: "Une fois supprimé, vous ne pourrez pas récupérer cette action !",
                             icon: "warning",
                             buttons: true,
                             dangerMode: true,
                           }).then((willDelete) => {
                             if (willDelete) {
                               handleDeleteClick(contact.id);
-                              swal("Votre Formation a été supprimé", {
+                              swal("Votre Action a été supprimé", {
                                 icon: "success",
                               });
                             } else {
@@ -597,6 +604,12 @@ const Actions = () => {
                     :
                     <span className="text-black desc-text ms-2">
                       {contact.Directeur}
+                    </span>
+                  </li>
+                  <li className="list-group-item">
+                    <span className="mb-0 title fw-bold">Etat : </span>
+                    <span className="text-white desc-text ms-2 badge badge-primary">
+                      {contact.Etat}
                     </span>
                   </li>
                 </ul>
