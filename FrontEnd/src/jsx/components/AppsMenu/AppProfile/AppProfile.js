@@ -137,374 +137,38 @@ const AppProfile = () => {
             <div className="card-body">
               <div className="profile-tab">
                 <div className="custom-tab-1">
-                  <Tab.Container defaultActiveKey="Posts">
-                    <Nav as="ul" className="nav nav-tabs">
-                      <Nav.Item as="li" className="nav-item">
-                        <Nav.Link to="#my-posts" eventKey="Posts">
-                          Posts
-                        </Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item as="li" className="nav-item">
-                        <Nav.Link to="#about-me" eventKey="About">
-                          About Me
-                        </Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item as="li" className="nav-item">
-                        <Nav.Link to="#profile-settings" eventKey="Setting">
-                          Setting
-                        </Nav.Link>
-                      </Nav.Item>
-                    </Nav>
-                    <Tab.Content>
-                      <Tab.Pane id="my-posts" eventKey="Posts">
-                        <div className="my-post-content pt-3">
-                          <div className="post-input">
-                            <textarea
-                              name="textarea"
-                              id="textarea"
-                              cols={30}
-                              rows={5}
-                              className="form-control bg-transparent"
-                              placeholder="Please type what you want...."
-                              defaultValue={""}
+                  <div id="profile-settings" eventKey="Setting">
+                    <div className="pt-3">
+                      <div className="settings-form">
+                        <h4 className="text-primary">Edit Profile</h4>
+                        <form onSubmit={(e) => e.preventDefault()}>
+                          <div className="row">
+                            <div className="form-group mb-3 col-md-6">
+                              <label className="form-label">Email</label>
+                              <input
+                                type="email"
+                                placeholder="Email"
+                                className="form-control"
+                              />
+                            </div>
+                            <div className="form-group mb-3 col-md-6">
+                              <label className="form-label">Mot de Passe</label>
+                              <input
+                                type="password"
+                                placeholder="Password"
+                                className="form-control"
+                              />
+                            </div>
+                          </div>
+                          <div className="form-group mb-3">
+                            <label className="form-label">Téléphone</label>
+                            <input
+                              type="text"
+                              placeholder="Téléphone"
+                              className="form-control"
                             />
-                            <Link
-                              to="/app-profile"
-                              className="btn btn-primary light px-3 me-1"
-                              onClick={() => dispatch({ type: "linkModal" })}
-                            >
-                              <i className="fa fa-link m-0" />{" "}
-                            </Link>
-                            {/* Modal */}
-
-                            <Link
-                              to={"#"}
-                              className="btn btn-primary light px-3 me-1"
-                              data-target="#cameraModal"
-                              onClick={() => dispatch({ type: "cameraModal" })}
-                            >
-                              <i className="fa fa-camera m-0" />{" "}
-                            </Link>
-                            {/* Modal */}
-
-                            <Link
-                              to={"#"}
-                              className="btn btn-primary ms-1"
-                              data-target="#postModal"
-                              onClick={() => dispatch({ type: "postModal" })}
-                            >
-                              Post
-                            </Link>
-                            {/* Modal */}
                           </div>
-
-                          <div className="profile-uoloaded-post border-bottom-1 pb-5">
-                            <img
-                              src={profile08}
-                              alt=""
-                              className="img-fluid w-100 rounded"
-                            />
-                            <Link className="post-title" to="/post-details">
-                              <h3 className="text-black">
-                                Collection of textile samples lay spread
-                              </h3>
-                            </Link>
-                            <p>
-                              A wonderful serenity has take possession of my
-                              entire soul like these sweet morning of spare
-                              which enjoy whole heart.A wonderful serenity has
-                              take possession of my entire soul like these sweet
-                              morning of spare which enjoy whole heart.
-                            </p>
-                            <button className="btn btn-primary me-2">
-                              <span className="me-2">
-                                {" "}
-                                <i className="fa fa-heart" />{" "}
-                              </span>
-                              Like
-                            </button>
-                            <button
-                              className="btn btn-secondary"
-                              onClick={() => dispatch({ type: "replyModal" })}
-                            >
-                              <span className="me-2">
-                                {" "}
-                                <i className="fa fa-reply" />
-                              </span>
-                              Reply
-                            </button>
-                          </div>
-                          <div className="profile-uoloaded-post border-bottom-1 pb-5">
-                            <img
-                              src={profile09}
-                              alt=""
-                              className="img-fluid w-100 rounded"
-                            />
-                            <Link className="post-title" to="/post-details">
-                              <h3 className="text-black">
-                                Collection of textile samples lay spread
-                              </h3>
-                            </Link>
-                            <p>
-                              A wonderful serenity has take possession of my
-                              entire soul like these sweet morning of spare
-                              which enjoy whole heart.A wonderful serenity has
-                              take possession of my entire soul like these sweet
-                              morning of spare which enjoy whole heart.
-                            </p>
-                            <button className="btn btn-primary me-2">
-                              <span className="me-2">
-                                {" "}
-                                <i className="fa fa-heart" />{" "}
-                              </span>
-                              Like
-                            </button>
-                            <button
-                              className="btn btn-secondary"
-                              onClick={() => dispatch({ type: "replyModal" })}
-                            >
-                              <span className="me-2">
-                                {" "}
-                                <i className="fa fa-reply" />
-                              </span>
-                              Reply
-                            </button>
-                          </div>
-                          <div className="profile-uoloaded-post pb-3">
-                            <img
-                              src={profile08}
-                              alt=""
-                              className="img-fluid  w-100 rounded"
-                            />
-                            <Link className="post-title" to="/post-details">
-                              <h3 className="text-black">
-                                Collection of textile samples lay spread
-                              </h3>
-                            </Link>
-                            <p>
-                              A wonderful serenity has take possession of my
-                              entire soul like these sweet morning of spare
-                              which enjoy whole heart.A wonderful serenity has
-                              take possession of my entire soul like these sweet
-                              morning of spare which enjoy whole heart.
-                            </p>
-                            <button className="btn btn-primary me-2">
-                              <span className="me-2">
-                                <i className="fa fa-heart" />
-                              </span>
-                              Like
-                            </button>
-                            <button
-                              className="btn btn-secondary"
-                              onClick={() => dispatch({ type: "replyModal" })}
-                            >
-                              <span className="me-2">
-                                {" "}
-                                <i className="fa fa-reply" />
-                              </span>
-                              Reply
-                            </button>
-                          </div>
-                        </div>
-                      </Tab.Pane>
-                      <Tab.Pane id="about-me" eventKey="About">
-                        <div className="profile-about-me">
-                          <div className="pt-4 border-bottom-1 pb-3">
-                            <h4 className="text-primary">About Me</h4>
-                            <p className="mb-2">
-                              A wonderful serenity has taken possession of my
-                              entire soul, like these sweet mornings of spring
-                              which I enjoy with my whole heart. I am alone, and
-                              feel the charm of existence was created for the
-                              bliss of souls like mine.I am so happy, my dear
-                              friend, so absorbed in the exquisite sense of mere
-                              tranquil existence, that I neglect my talents.
-                            </p>
-                            <p>
-                              A collection of textile samples lay spread out on
-                              the table - Samsa was a travelling salesman - and
-                              above it there hung a picture that he had recently
-                              cut out of an illustrated magazine and housed in a
-                              nice, gilded frame.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="profile-skills mb-5">
-                          <h4 className="text-primary mb-2">Skills</h4>
-                          <Link
-                            to="/app-profile"
-                            className="btn btn-primary light btn-xs mb-1 me-1"
-                          >
-                            {" "}
-                            Admin
-                          </Link>
-                          <Link
-                            to="/app-profile"
-                            className="btn btn-primary light btn-xs mb-1 me-1"
-                          >
-                            {" "}
-                            Dashboard
-                          </Link>
-                          <Link
-                            to="/app-profile"
-                            className="btn btn-primary light btn-xs mb-1 me-1"
-                          >
-                            Photoshop
-                          </Link>
-                          <Link
-                            to="/app-profile"
-                            className="btn btn-primary light btn-xs mb-1 me-1"
-                          >
-                            Bootstrap
-                          </Link>
-                          <Link
-                            to="/app-profile"
-                            className="btn btn-primary light btn-xs mb-1 me-1"
-                          >
-                            Responsive
-                          </Link>
-                          <Link
-                            to="/app-profile"
-                            className="btn btn-primary light btn-xs mb-1 me-1"
-                          >
-                            Crypto
-                          </Link>
-                        </div>
-                        <div className="profile-lang  mb-5">
-                          <h4 className="text-primary mb-2">Language</h4>
-                          <Link
-                            to="/app-profile"
-                            className="text-muted pe-3 f-s-16"
-                          >
-                            <i className="flag-icon flag-icon-us" />
-                            English
-                          </Link>
-                          <Link
-                            to="/app-profile"
-                            className="text-muted pe-3 f-s-16"
-                          >
-                            <i className="flag-icon flag-icon-fr" />
-                            French
-                          </Link>
-                          <Link
-                            to="/app-profile"
-                            className="text-muted pe-3 f-s-16"
-                          >
-                            <i className="flag-icon flag-icon-bd" />
-                            Bangla
-                          </Link>
-                        </div>
-                        <div className="profile-personal-info">
-                          <h4 className="text-primary mb-4">
-                            Personal Information
-                          </h4>
-                          <div className="row mb-2">
-                            <div className="col-3">
-                              <h5 className="f-w-500">
-                                {" "}
-                                Name<span className="pull-right">:</span>
-                              </h5>
-                            </div>
-                            <div className="col-9">
-                              <span>Mitchell C.Shay</span>
-                            </div>
-                          </div>
-                          <div className="row mb-2">
-                            <div className="col-3">
-                              <h5 className="f-w-500">
-                                Email<span className="pull-right">:</span>
-                              </h5>
-                            </div>
-                            <div className="col-9">
-                              <span>example@examplel.com</span>
-                            </div>
-                          </div>
-                          <div className="row mb-2">
-                            <div className="col-3">
-                              <h5 className="f-w-500">
-                                {" "}
-                                Availability
-                                <span className="pull-right">:</span>
-                              </h5>
-                            </div>
-                            <div className="col-9">
-                              <span>Full Time (Free Lancer)</span>
-                            </div>
-                          </div>
-                          <div className="row mb-2">
-                            <div className="col-3">
-                              <h5 className="f-w-500">
-                                Age<span className="pull-right">:</span>
-                              </h5>
-                            </div>
-                            <div className="col-9">
-                              <span>27</span>
-                            </div>
-                          </div>
-                          <div className="row mb-2">
-                            <div className="col-3">
-                              <h5 className="f-w-500">
-                                {" "}
-                                Location<span className="pull-right">:</span>
-                              </h5>
-                            </div>
-                            <div className="col-9">
-                              <span>Rosemont Avenue Melbourne, Florida</span>
-                            </div>
-                          </div>
-                          <div className="row mb-2">
-                            <div className="col-3">
-                              <h5 className="f-w-500">
-                                Year Experience
-                                <span className="pull-right">:</span>
-                              </h5>
-                            </div>
-                            <div className="col-9">
-                              <span>07 Year Experiences</span>
-                            </div>
-                          </div>
-                        </div>
-                      </Tab.Pane>
-                      <Tab.Pane id="profile-settings" eventKey="Setting">
-                        <div className="pt-3">
-                          <div className="settings-form">
-                            <h4 className="text-primary">Account Setting</h4>
-                            <form onSubmit={(e) => e.preventDefault()}>
-                              <div className="row">
-                                <div className="form-group mb-3 col-md-6">
-                                  <label className="form-label">Email</label>
-                                  <input
-                                    type="email"
-                                    placeholder="Email"
-                                    className="form-control"
-                                  />
-                                </div>
-                                <div className="form-group mb-3 col-md-6">
-                                  <label className="form-label">Password</label>
-                                  <input
-                                    type="password"
-                                    placeholder="Password"
-                                    className="form-control"
-                                  />
-                                </div>
-                              </div>
-                              <div className="form-group mb-3">
-                                <label className="form-label">Address</label>
-                                <input
-                                  type="text"
-                                  placeholder="1234 Main St"
-                                  className="form-control"
-                                />
-                              </div>
-                              <div className="form-group mb-3">
-                                <label className="form-label">Address 2</label>
-                                <input
-                                  type="text"
-                                  placeholder="Apartment, studio, or floor"
-                                  className="form-control"
-                                />
-                              </div>
-                              <div className="row">
+                          {/* <div className="row">
                                 <div className="form-group mb-3 col-md-6">
                                   <label className="form-label">City</label>
                                   <input type="text" className="form-control" />
@@ -526,8 +190,8 @@ const AppProfile = () => {
                                   <label className="form-label">Zip</label>
                                   <input type="text" className="form-control" />
                                 </div>
-                              </div>
-                              <div className="form-group mb-3">
+                              </div> */}
+                          {/* <div className="form-group mb-3">
                                 <div className="form-check custom-checkbox">
                                   <input
                                     type="checkbox"
@@ -541,16 +205,14 @@ const AppProfile = () => {
                                     Check me out
                                   </label>
                                 </div>
-                              </div>
-                              <button className="btn btn-primary" type="submit">
-                                Sign in
-                              </button>
-                            </form>
-                          </div>
-                        </div>
-                      </Tab.Pane>
-                    </Tab.Content>
-                  </Tab.Container>
+                              </div> */}
+                          <button className="btn btn-primary" type="submit">
+                            Confirmer
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

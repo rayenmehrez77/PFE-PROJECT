@@ -6,28 +6,28 @@ const trainingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  title: {
+  Title: {
     type: String,
     required: true,
   },
-  date: {
-    type: "String",
+  Date: {
+    type: String,
     default: Date.now,
   },
-  duration: {
+  Duration: {
     type: Number,
     required: true,
   },
-  Formateur: {
+  Location: {
     type: String,
     required: true,
   },
-  Location: {
-    type: "String",
+  Trainer: {
+    type: String,
     required: true,
   },
-  Etat: {
-    type: "String",
+  Status: {
+    type: String,
     required: true,
   },
   nbParticipants: {

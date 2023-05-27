@@ -13,28 +13,27 @@ const trainingController = {
 
   addTraining: async (req, res) => {
     try {
-      // Extract data from the request body
       const {
         image,
-        title,
-        date,
-        duration,
-        formateur,
-        location,
-        etat,
-        nParticipants,
+        Title,
+        Date,
+        Duration,
+        Trainer,
+        Location,
+        Status,
+        nbParticipants,
       } = req.body;
 
       // Create a new training
       const newTraining = new Training({
         image,
-        title,
-        date,
-        duration,
-        formateur,
-        location,
-        etat,
-        nParticipants,
+        Title,
+        Date,
+        Duration,
+        Trainer,
+        Location,
+        Status,
+        nbParticipants,
       });
       await newTraining.save();
 
@@ -64,19 +63,28 @@ const trainingController = {
       // Extract data from the request body
       const {
         image,
-        title,
-        date,
-        duration,
-        formateur,
-        location,
-        etat,
+        Title,
+        Date,
+        Duration,
+        Trainer,
+        Location,
+        Status,
         nParticipants,
       } = req.body;
 
       // Update a specific training by ID
       const updatedTraining = await Training.findByIdAndUpdate(
         trainingID,
-        { title, date, duration, formateur, location, etat, nParticipants },
+        {
+          image,
+          Title,
+          Date,
+          Duration,
+          Trainer,
+          Location,
+          Status,
+          nParticipants,
+        },
         { new: true }
       );
 

@@ -33,8 +33,6 @@ class MM extends Component {
 const SideBar = () => {
   const user = useSelector((state) => state.auth.auth.user);
 
-  console.log(user);
-
   const { iconHover, sidebarposition, headerposition, sidebarLayout } =
     useContext(ThemeContext);
 
@@ -227,6 +225,17 @@ const SideBar = () => {
             <LogoutPage />
           </Dropdown.Menu>
         </Dropdown>
+        <MM className="metismenu" id="menu">
+          <li>
+            <Link
+              className={`${path === "dashboard" ? "mm-active" : ""}`}
+              to="/acceuil"
+            >
+              <i className="fas fa-list-alt"></i>
+              Acceuil
+            </Link>
+          </li>
+        </MM>
         <MM className="metismenu" id="menu">
           <li className={`${deshBoard.includes(path) ? "mm-active" : ""}`}>
             <Link className="has-arrow" to="#">
