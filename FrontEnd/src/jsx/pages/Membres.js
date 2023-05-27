@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import { nanoid } from "nanoid";
@@ -6,6 +6,8 @@ import swal from "sweetalert";
 import PageTitle from "../layouts/PageTitle";
 import pic1 from "./../../images/profile/small/pic1.jpg";
 import Editable from "./Editable";
+import { getUsers } from "../../store/Thunks/userThunks";
+import { connect } from "formik";
 
 const tableList = [
   {
@@ -121,10 +123,19 @@ const MembresList = [
   },
 ];
 
-const Membres = () => {
+const Membres = ({ users, loading, error, getUsers }) => {
   const [contents, setContents] = useState(tableList);
   const [conseillers, setConseillers] = useState(conseillerList);
   const [Membres, setMembres] = useState(MembresList);
+
+  useEffect(() => {
+    getUsers();
+  }, [getUsers]);
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
   // delete data
   const handleDeleteClick = (contentId) => {
     const newContents = [...contents];
@@ -762,4 +773,15 @@ const Membres = () => {
     </>
   );
 };
-export default Membres;
+
+const mapStateToProps = (state) => ({
+  users: state.users.users,
+  loading: state.users.loading,
+  error: state.users.error,
+});
+
+const mapDispatchToProps = {
+  getUsers,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Membres);

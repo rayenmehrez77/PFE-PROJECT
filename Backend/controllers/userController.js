@@ -122,16 +122,12 @@ exports.deleteUser = asyncErrorHandler(async (req, res) => {
 });
 
 // GET method to get all users
-exports.getAllUsers = asyncErrorHandler(async (req, res) => {
+exports.getUsers = asyncErrorHandler(async (req, res) => {
   try {
-    // Retrieve all users from the database
-    const users = await User.find({});
-
-    res.status(200).json(users);
-  } catch (error) {
-    console.error("Error retrieving users:", error);
-    res
-      .status(500)
-      .json({ message: "Internal server error", error: error.message });
+    const users = await User.find(); // Retrieve all users from the database
+    res.json(users); // Return the users as a JSON response
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
   }
 });

@@ -21,6 +21,8 @@ const CardListBlog = [
     Date_Join: "02/06/2023",
     Cust_Name: "Hakim Ben Hammouda",
     Location: "Municipalité de Menzel Fersi",
+    Etat: "A venir",
+    Durée: "2h",
   },
   {
     id: 2,
@@ -30,6 +32,8 @@ const CardListBlog = [
     Date_Join: "28/06/2023",
     Cust_Name: "Rayen Mehrez",
     Location: "Ecole primaire de Menzel Fersi ",
+    Etat: "A venir",
+    Durée: "2h",
   },
   {
     id: 2,
@@ -39,6 +43,8 @@ const CardListBlog = [
     Date_Join: "20/06/2023",
     Cust_Name: "Rayen Mehrez",
     Location: "Maison des jeunes de Menzel Fersi ",
+    Etat: "Terminé",
+    Durée: "2h",
   },
 ];
 
@@ -61,6 +67,8 @@ const Formations = () => {
     Cust_Name: "",
     Location: "",
     image: "",
+    Etat: "",
+    Durée: "",
   });
 
   // Add contact function
@@ -122,6 +130,8 @@ const Formations = () => {
       Cust_Name: contact.Cust_Name,
       Location: contact.Location,
       image: contact.image,
+      Etat: contact.Etat,
+      Durée: contact.Durée,
     };
     setEditFormData(formValues);
     setEditModal(true);
@@ -134,6 +144,8 @@ const Formations = () => {
     Cust_Name: "",
     Location: "",
     image: "",
+    Etat: "",
+    Durée: "",
   });
 
   //update data function
@@ -156,6 +168,8 @@ const Formations = () => {
       Cust_Name: editFormData.Cust_Name,
       Location: editFormData.Location,
       image: editFormData.image,
+      Etat: editFormData.Etat,
+      Durée: editFormData.Durée,
     };
     const newContacts = [...contacts];
     const index = contacts.findIndex((contact) => contact.id === editContactId);
@@ -184,6 +198,8 @@ const Formations = () => {
       >
         + Ajouter une formation
       </Link>
+
+      {/* les statistiques  */}
       <div className="d-flex ">
         <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
           <div className="widget-stat card m-3">
@@ -208,9 +224,9 @@ const Formations = () => {
                   </svg>
                 </span>
                 <div className="media-body">
-                  <h5 className="mb-1">Nombre total des membres :</h5>
+                  <h5 className="mb-1">Nombre total des formations :</h5>
                   {/* <h4 className="mb-0">30</h4> */}
-                  <h5 className="badge badge-primary">50 Membres</h5>
+                  <h5 className="badge badge-primary">15 formations</h5>
                 </div>
               </div>
             </div>
@@ -224,9 +240,9 @@ const Formations = () => {
                   <i className="la la-graduation-cap"></i>
                 </span>
                 <div className="media-body">
-                  <h5 className="mb-1">Nombre Total d'inscription:</h5>
+                  <h5 className="mb-1">Formation à venir :</h5>
                   {/* <h4 className="mb-0">30</h4> */}
-                  <h5 className="badge badge-primary">25 membres</h5>
+                  <h5 className="badge badge-primary">5 formations</h5>
                 </div>
               </div>
             </div>
@@ -240,14 +256,15 @@ const Formations = () => {
                   <i className="flaticon-381-calendar-1"></i>
                 </span>
                 <div className="media-body">
-                  <h5 className="mb-1">Nombre Total des Formations :</h5>
-                  <h5 className="badge badge-primary">3 Formations</h5>
+                  <h5 className="mb-1">Formation Terminé :</h5>
+                  <h5 className="badge badge-primary">2 Formations</h5>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div className="mb-sm-5 mb-3 d-flex flex-wrap align-items-center text-head">
         {/* <!-- Modal --> */}
         <Modal className="modal fade" show={postModal} onHide={setPostModal}>
@@ -351,6 +368,20 @@ const Formations = () => {
                           />
                         </div>
                       </div>
+                      <div className="form-group mb-3">
+                        <label className="text-black font-w500">Durée</label>
+                        <div className="contact-occupation">
+                          <input
+                            type="text"
+                            autoComplete="off"
+                            name="Durée"
+                            required="required"
+                            onChange={handleAddFormChange}
+                            className="form-control"
+                            placeholder="durée"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -360,7 +391,7 @@ const Formations = () => {
                     className="btn btn-primary"
                     onClick={handleAddFormSubmit}
                   >
-                    Add
+                    Ajouter
                   </button>
                   <button
                     type="button"
@@ -368,7 +399,7 @@ const Formations = () => {
                     className="btn btn-danger"
                   >
                     {" "}
-                    <i className="flaticon-delete-1"></i> Discard
+                    <i className="flaticon-delete-1"></i> Annuler
                   </button>
                 </div>
               </form>
@@ -441,6 +472,21 @@ const Formations = () => {
                             required="required"
                             className="form-control"
                             placeholder="name"
+                          />
+                        </div>
+                      </div>
+                      <div className="form-group mb-3">
+                        <label className="text-black font-w500">Durée</label>
+                        <div className="contact-occupation">
+                          <input
+                            type="text"
+                            autoComplete="off"
+                            name="Durée"
+                            required="required"
+                            value={editFormData.Durée}
+                            onChange={handleEditFormChange}
+                            className="form-control"
+                            placeholder="durée"
                           />
                         </div>
                       </div>
@@ -565,7 +611,7 @@ const Formations = () => {
                         onClick={() =>
                           swal({
                             title: "Supprimer?",
-                            text: "Une fois supprimé, vous ne pourrez pas récupérer ce fichier imaginaire !",
+                            text: "Une fois supprimé, vous ne pourrez pas récupérer cette formation !",
                             icon: "warning",
                             buttons: true,
                             dangerMode: true,
@@ -607,10 +653,22 @@ const Formations = () => {
                       {contact.Location}
                     </span>
                   </li>
+                  <li className="list-group-item">
+                    <span className="mb-0 title fw-bold">Durée</span> :
+                    <span className="text-black desc-text ms-2">
+                      {contact.Durée}
+                    </span>
+                  </li>
+                  <li className="list-group-item">
+                    <span className="mb-0 title fw-bold">Etat : </span>
+                    <span className="text-white desc-text ms-2 badge badge-primary">
+                      {contact.Etat}
+                    </span>
+                  </li>
                 </ul>
               </div>
-              <h6 className="p-3 fw-bold">
-                <span className=" mr-3">Nombre d'inscription :</span>
+              <h6 className="p-3 fw-bold d-flex justify-content-between">
+                <span className="">Nombre d'inscription :</span>
                 <Badge bg="" className="badge-primary">
                   {" "}
                   25 Membres:{" "}

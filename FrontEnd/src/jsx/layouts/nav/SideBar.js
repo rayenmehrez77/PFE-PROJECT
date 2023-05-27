@@ -169,12 +169,12 @@ const SideBar = () => {
               <img src={profile} width={20} alt="" />
               <div className="d-flex align-items-center sidebar-info">
                 <div>
-                  <h6 className="font-w700 d-block mb-2">{user.name}</h6>
+                  <h6 className="font-w700 d-block mb-2">{user?.name}</h6>
                   <small className="text-end font-w400">
-                    {user.role === "Super Admin"
+                    {user?.role === "Super Admin"
                       ? "Comité de la zone C"
-                      : user.role === "Admin"
-                      ? user.OLM
+                      : user?.role === "Admin"
+                      ? user?.OLM
                       : "Membre"}
                   </small>
                 </div>
@@ -234,7 +234,7 @@ const SideBar = () => {
               <span className="nav-text">Dashboard</span>
             </Link>
             <ul>
-              {user.role === "Super Admin" ? (
+              {user?.role === "Super Admin" ? (
                 <li>
                   <Link
                     className={`${path === "dashboard" ? "mm-active" : ""}`}
@@ -245,7 +245,7 @@ const SideBar = () => {
                   </Link>
                 </li>
               ) : null}
-              {user.role === "Admin" ? (
+              {user?.role === "Admin" ? (
                 <>
                   <li>
                     <Link
@@ -273,6 +273,16 @@ const SideBar = () => {
                       to="/app-calender"
                     >
                       Evénements zonal 2023
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className={`${
+                        path === "app-calender" ? "mm-active" : ""
+                      }`}
+                      to="/forum"
+                    >
+                      Planification des Forums Zonal
                     </Link>
                   </li>
                 </>
@@ -528,7 +538,7 @@ const SideBar = () => {
               </Link>
             ) : null}
             <ul>
-              {user.role === "Super Admin" ? (
+              {user?.role === "Super Admin" ? (
                 <>
                   <li>
                     <Link

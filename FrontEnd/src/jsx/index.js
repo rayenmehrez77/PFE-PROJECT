@@ -23,6 +23,7 @@ import TransactionDetails from "./components/Dashboard/TransactionDetails";
 
 import Formations from "./components/Dashboard/Formations";
 import Actions from "./components/Dashboard/Actions";
+import Forum from "./components/Dashboard/Forum";
 
 /////Demo
 import Theme1 from "./components/Dashboard/Demo/Theme1";
@@ -123,6 +124,7 @@ const Markup = () => {
     { url: "dashboard", component: Home },
     { url: "formations", component: Formations },
     { url: "actions", component: Actions },
+    { url: "forum", component: Forum },
 
     /// Apps
     { url: "app-profile", component: AppProfile },
