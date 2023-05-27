@@ -11,6 +11,7 @@ import LogoutPage from "./Logout";
 
 /// Image
 import profile from "../../../images/user.jpg";
+import { useSelector } from "react-redux";
 
 class MM extends Component {
   componentDidMount() {
@@ -30,8 +31,13 @@ class MM extends Component {
 }
 
 const SideBar = () => {
+  const user = useSelector((state) => state.auth.auth.user);
+
+  console.log(user);
+
   const { iconHover, sidebarposition, headerposition, sidebarLayout } =
     useContext(ThemeContext);
+
   useEffect(() => {
     var btn = document.querySelector(".nav-control");
     var aaa = document.querySelector("#main-wrapper");
@@ -163,8 +169,14 @@ const SideBar = () => {
               <img src={profile} width={20} alt="" />
               <div className="d-flex align-items-center sidebar-info">
                 <div>
-                  <span className="font-w700 d-block mb-2">Rayen Mehrez</span>
-                  <small className="text-end font-w400">Super Admin</small>
+                  <h6 className="font-w700 d-block mb-2">{user.name}</h6>
+                  <small className="text-end font-w400">
+                    {user.role === "Super Admin"
+                      ? "Comité de la zone C"
+                      : user.role === "Admin"
+                      ? user.OLM
+                      : "Membre"}
+                  </small>
                 </div>
                 <i className="fas fa-sort-down ms-4"></i>
               </div>
@@ -222,31 +234,49 @@ const SideBar = () => {
               <span className="nav-text">Dashboard</span>
             </Link>
             <ul>
-              <li>
-                <Link
-                  className={`${path === "dashboard" ? "mm-active" : ""}`}
-                  to="/dashboard"
-                >
-                  {" "}
-                  Statistique
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "task" ? "mm-active" : ""}`}
-                  to="/formations"
-                >
-                  Formations
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "app-calender" ? "mm-active" : ""}`}
-                  to="/app-calender"
-                >
-                  Evénements zonal 2023
-                </Link>
-              </li>
+              {user.role === "Super Admin" ? (
+                <li>
+                  <Link
+                    className={`${path === "dashboard" ? "mm-active" : ""}`}
+                    to="/dashboard"
+                  >
+                    {" "}
+                    Statistique
+                  </Link>
+                </li>
+              ) : null}
+              {user.role === "Admin" ? (
+                <>
+                  <li>
+                    <Link
+                      className={`${path === "task" ? "mm-active" : ""}`}
+                      to="/formations"
+                    >
+                      Gestion des Formations
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className={`${
+                        path === "app-calender" ? "mm-active" : ""
+                      }`}
+                      to="/actions"
+                    >
+                      Gestion des Actions
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className={`${
+                        path === "app-calender" ? "mm-active" : ""
+                      }`}
+                      to="/app-calender"
+                    >
+                      Evénements zonal 2023
+                    </Link>
+                  </li>
+                </>
+              ) : null}
             </ul>
           </li>
           <li className={`${charts.includes(path) ? "mm-active" : ""}`}>
@@ -491,27 +521,37 @@ const SideBar = () => {
             </ul> */}
           </li>
           <li className={`${table.includes(path) ? "mm-active" : ""}`}>
-            <Link className="has-arrow ai-icon" to="#">
-              <i className="fas fa-table"></i>
-              <span className="nav-text">Gestion des utilisateurs </span>
-            </Link>
+            {user.role === "Super Admin" || user.role === "Admin" ? (
+              <Link className="has-arrow ai-icon" to="#">
+                <i className="fas fa-table"></i>
+                <span className="nav-text">Gestion des utilisateurs </span>
+              </Link>
+            ) : null}
             <ul>
-              <li>
-                <Link
-                  className={`${path === "administrateurs" ? "mm-active" : ""}`}
-                  to="/administrateurs"
-                >
-                  Gestion des administrateurs Local
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "table-filtering" ? "mm-active" : ""}`}
-                  to="/table-filtering"
-                >
-                  Filtrage des administrateurs Local
-                </Link>
-              </li>
+              {user.role === "Super Admin" ? (
+                <>
+                  <li>
+                    <Link
+                      className={`${
+                        path === "administrateurs" ? "mm-active" : ""
+                      }`}
+                      to="/administrateurs"
+                    >
+                      Gestion des administrateurs Local
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className={`${
+                        path === "table-filtering" ? "mm-active" : ""
+                      }`}
+                      to="/table-filtering"
+                    >
+                      Filtrage des administrateurs Local
+                    </Link>
+                  </li>
+                </>
+              ) : null}
               <li>
                 <Link
                   className={`${path === "membres" ? "mm-active" : ""}`}

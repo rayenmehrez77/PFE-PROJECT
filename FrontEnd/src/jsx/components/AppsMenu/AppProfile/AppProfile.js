@@ -14,6 +14,7 @@ import profile08 from "../../../../images/profile/8.jpg";
 import profile09 from "../../../../images/profile/9.jpg";
 import profile from "../../../../images/profile/profile.png";
 import PageTitle from "../../../layouts/PageTitle";
+import { useSelector } from "react-redux";
 
 const initialState = false;
 const reducer = (state, action) => {
@@ -35,6 +36,7 @@ const reducer = (state, action) => {
 
 const AppProfile = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const user = useSelector((state) => state.auth.auth.user);
 
   const options = {
     settings: {
@@ -63,11 +65,17 @@ const AppProfile = () => {
                 </div>
                 <div className="profile-details">
                   <div className="profile-name px-3 pt-2">
-                    <h4 className="text-primary mb-0">Rayen Mehrez</h4>
-                    <p>Super Admin</p>
+                    <h4 className="text-primary mb-0">{user.name}</h4>
+                    <p className="text-start font-w400">
+                      {user.role === "Super Admin"
+                        ? "Comité de la zone C"
+                        : user.role === "Admin"
+                        ? user.OLM
+                        : "Membre"}
+                    </p>
                   </div>
                   <div className="profile-email px-2 pt-2">
-                    <h4 className="text-muted mb-0">rayenmehrez28@gmail.com</h4>
+                    <h4 className="text-muted mb-0">{user.email}</h4>
                     <p>Email</p>
                   </div>
                   <Dropdown className="dropdown ms-auto">

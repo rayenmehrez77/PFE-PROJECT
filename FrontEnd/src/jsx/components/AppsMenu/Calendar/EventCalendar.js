@@ -5,6 +5,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import Alert from "sweetalert2";
+import axios from "axios";
 
 class EventCalendar extends Component {
   state = {
@@ -29,6 +30,38 @@ class EventCalendar extends Component {
     ],
     change: false,
   };
+
+  // drop = (dropInfo) => {
+  //   const event = dropInfo.draggedEl.getAttribute("title");
+  //   const id = dropInfo.draggedEl.getAttribute("data");
+  //   const start = dropInfo.dateStr;
+
+  //   // Make an API request to save the event in the database
+  //   axios.post("/api/events", { title: event, id, start })
+  //     .then((response) => {
+  //       // Handle success response
+  //       console.log("Event saved:", response.data);
+  //     })
+  //     .catch((error) => {
+  //       // Handle error
+  //       console.error("Error saving event:", error);
+  //     });
+  // };
+
+  // eventReceive = (eventReceiveInfo) => {
+  //   const { title, id, start } = eventReceiveInfo.event;
+
+  //   // Make an API request to save the event in the database
+  //   axios.post("/api/events", { title, id, start })
+  //     .then((response) => {
+  //       // Handle success response
+  //       console.log("Event saved:", response.data);
+  //     })
+  //     .catch((error) => {
+  //       // Handle error
+  //       console.error("Error saving event:", error);
+  //     });
+  // };
 
   /**
    * adding dragable properties to external events through javascript

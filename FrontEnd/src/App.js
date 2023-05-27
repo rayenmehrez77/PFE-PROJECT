@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect } from "react";
 
 /// Components
 import Index from "./jsx";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Route, Switch, withRouter } from "react-router-dom";
 // action
 import { checkAutoLogin } from "./services/AuthService";

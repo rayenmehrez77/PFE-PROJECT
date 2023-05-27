@@ -22,6 +22,7 @@ import CardCenter from "./components/Dashboard/CardCenter";
 import TransactionDetails from "./components/Dashboard/TransactionDetails";
 
 import Formations from "./components/Dashboard/Formations";
+import Actions from "./components/Dashboard/Actions";
 
 /////Demo
 import Theme1 from "./components/Dashboard/Demo/Theme1";
@@ -121,6 +122,7 @@ const Markup = () => {
     { url: "", component: Home },
     { url: "dashboard", component: Home },
     { url: "formations", component: Formations },
+    { url: "actions", component: Actions },
 
     /// Apps
     { url: "app-profile", component: AppProfile },

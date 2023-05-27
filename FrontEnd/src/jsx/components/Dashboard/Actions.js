@@ -16,33 +16,33 @@ const CardListBlog = [
   {
     id: 1,
     image: card1,
-    nom_formation: "Formation The Art of Awards",
-    Cust_Id: "01",
-    Date_Join: "02/06/2023",
-    Cust_Name: "Hakim Ben Hammouda",
+    nom_action: "رمضان يجمعمنا",
+    _Id: "01",
+    Date: "02/06/2023",
     Location: "Municipalité de Menzel Fersi",
+    Directeur: "Rayen Mehrez",
   },
   {
     id: 2,
     image: card2,
-    Cust_Id: "02",
-    nom_formation: "Formation LinkedIn",
-    Date_Join: "28/06/2023",
-    Cust_Name: "Rayen Mehrez",
+    _Id: "02",
+    nom_action: "Formation LinkedIn",
+    Date: "28/06/2023",
     Location: "Ecole primaire de Menzel Fersi ",
+    Directeur: "Rayen Mehrez",
   },
   {
     id: 2,
     image: card3,
     Cust_Id: "02",
-    nom_formation: "Personal Branding",
-    Date_Join: "20/06/2023",
-    Cust_Name: "Rayen Mehrez",
+    nom_action: "رمضان يجمعمنا",
+    Date: "20/06/2023",
     Location: "Maison des jeunes de Menzel Fersi ",
+    Directeur: "Rayen Mehrez",
   },
 ];
 
-const Formations = () => {
+const Actions = () => {
   const [postModal, setPostModal] = useState(false);
   const [contacts, setContacts] = useState(CardListBlog);
 
@@ -56,11 +56,10 @@ const Formations = () => {
 
   //Add data
   const [addFormData, setAddFormData] = useState({
-    nom_formation: "",
-    Date_Join: "",
-    Cust_Name: "",
+    nom_action: "",
+    Date: "",
     Location: "",
-    image: "",
+    Directeur: "",
   });
 
   // Add contact function
@@ -91,17 +90,17 @@ const Formations = () => {
     if (!error) {
       const newContact = {
         id: nanoid(),
-        nom_formation: addFormData.nom_formation,
-        Date_Join: addFormData.Date_Join,
-        Cust_Name: addFormData.Cust_Name,
-        Location: addFormData.Location,
         image: addFormData.image,
+        nom_action: addFormData.nom_action,
+        Date: addFormData.Date,
+        Location: addFormData.Location,
+        Directeur: addFormData.Directeur,
       };
       const newContacts = [...contacts, newContact];
       setContacts(newContacts);
       setPostModal(false);
       swal("Good job!", "Successfully Added", "success");
-      addFormData.Cust_Name = addFormData.Location = addFormData.Date_Join = "";
+      addFormData.nom_action = addFormData.Location = addFormData.Date = "";
     } else {
       swal("Oops", errorMsg, "error");
     }
@@ -117,11 +116,11 @@ const Formations = () => {
     event.preventDefault();
     setEditContactId(contact.id);
     const formValues = {
-      nom_formation: contact.nom_formation,
-      Date_Join: contact.Date_Join,
-      Cust_Name: contact.Cust_Name,
-      Location: contact.Location,
       image: contact.image,
+      nom_action: contact.nom_action,
+      Date: contact.Date,
+      Location: contact.Location,
+      Directeur: contact.Directeur,
     };
     setEditFormData(formValues);
     setEditModal(true);
@@ -129,11 +128,10 @@ const Formations = () => {
 
   // edit  data
   const [editFormData, setEditFormData] = useState({
-    nom_formation: "",
-    Date_Join: "",
-    Cust_Name: "",
-    Location: "",
     image: "",
+    nom_action: "",
+    Date: "",
+    Location: "",
   });
 
   //update data function
@@ -151,11 +149,11 @@ const Formations = () => {
     event.preventDefault();
     const editedContact = {
       id: editContactId,
-      nom_formation: editFormData.nom_formation,
-      Date_Join: editFormData.Date_Join,
-      Cust_Name: editFormData.Cust_Name,
-      Location: editFormData.Location,
       image: editFormData.image,
+      nom_action: editFormData.nom_action,
+      Date: editFormData.Date,
+      Location: editFormData.Location,
+      Directeur: editFormData.Directeur,
     };
     const newContacts = [...contacts];
     const index = contacts.findIndex((contact) => contact.id === editContactId);
@@ -182,7 +180,7 @@ const Formations = () => {
         className="btn btn-primary font-w600 mb-3 me-auto"
         onClick={() => setPostModal(true)}
       >
-        + Ajouter une formation
+        + Ajouter une Action
       </Link>
       <div className="d-flex ">
         <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
@@ -255,7 +253,7 @@ const Formations = () => {
             <div className="">
               <form>
                 <div className="modal-header">
-                  <h4 className="modal-title fs-20">Ajouter une formation</h4>
+                  <h4 className="modal-title fs-20">Ajouter une action</h4>
                   <button
                     type="button"
                     className="btn-close"
@@ -289,17 +287,17 @@ const Formations = () => {
                       </div>
                       <div className="form-group mb-3">
                         <label className="text-black font-w500">
-                          Nom de formation
+                          Nom de l'action
                         </label>
                         <div className="contact-name">
                           <input
                             type="text"
                             className="form-control"
                             autoComplete="off"
-                            name="nom_formation"
+                            name="nom_action"
                             required="required"
                             onChange={handleAddFormChange}
-                            placeholder="Nom de formation"
+                            placeholder="Nom de l'action"
                           />
                           <span className="validation-text"></span>
                         </div>
@@ -321,22 +319,6 @@ const Formations = () => {
                       </div>
                       <div className="form-group mb-3">
                         <label className="text-black font-w500">
-                          Formateur / formatrice
-                        </label>
-                        <div className="contact-occupation">
-                          <input
-                            type="text"
-                            autoComplete="off"
-                            onChange={handleAddFormChange}
-                            name="Cust_Name"
-                            required="required"
-                            className="form-control"
-                            placeholder="Nom et prénom"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group mb-3">
-                        <label className="text-black font-w500">
                           Localisation
                         </label>
                         <div className="contact-occupation">
@@ -351,6 +333,22 @@ const Formations = () => {
                           />
                         </div>
                       </div>
+                      <div className="form-group mb-3">
+                        <label className="text-black font-w500">
+                          Directeur / Directrice
+                        </label>
+                        <div className="contact-occupation">
+                          <input
+                            type="text"
+                            autoComplete="off"
+                            name="Directeur"
+                            required="required"
+                            onChange={handleAddFormChange}
+                            className="form-control"
+                            placeholder="Directeur / Directrice"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -360,7 +358,7 @@ const Formations = () => {
                     className="btn btn-primary"
                     onClick={handleAddFormSubmit}
                   >
-                    Add
+                    Ajouter
                   </button>
                   <button
                     type="button"
@@ -368,7 +366,7 @@ const Formations = () => {
                     className="btn btn-danger"
                   >
                     {" "}
-                    <i className="flaticon-delete-1"></i> Discard
+                    <i className="flaticon-delete-1"></i> Annuler
                   </button>
                 </div>
               </form>
@@ -380,7 +378,7 @@ const Formations = () => {
             <div className="">
               <form>
                 <div className="modal-header">
-                  <h4 className="modal-title fs-20">Modifier la formation</h4>
+                  <h4 className="modal-title fs-20">Modifier l'action</h4>
                   <button
                     type="button"
                     className="btn-close"
@@ -397,16 +395,16 @@ const Formations = () => {
                     <div className="add-contact-content">
                       <div className="form-group mb-3">
                         <label className="text-black font-w500">
-                          Nom de Formation
+                          Nom de d'action
                         </label>
                         <div className="contact-name">
                           <input
                             type="text"
                             className="form-control"
                             autoComplete="off"
-                            name="Cust_Id"
+                            name="Id"
                             required="required"
-                            value={editFormData.nom_formation}
+                            value={editFormData.nom_action}
                             onChange={handleEditFormChange}
                           />
                           <span className="validation-text"></span>
@@ -421,27 +419,10 @@ const Formations = () => {
                             autoComplete="off"
                             name="Date"
                             required="required"
-                            value={editFormData.Date_Join}
+                            value={editFormData.Date}
                             onChange={handleEditFormChange}
                           />
                           <span className="validation-text"></span>
-                        </div>
-                      </div>
-                      <div className="form-group mb-3">
-                        <label className="text-black font-w500">
-                          Formateur / Formatrice
-                        </label>
-                        <div className="contact-occupation">
-                          <input
-                            type="text"
-                            autoComplete="off"
-                            value={editFormData.Cust_Name}
-                            onChange={handleEditFormChange}
-                            name="Cust_Name"
-                            required="required"
-                            className="form-control"
-                            placeholder="name"
-                          />
                         </div>
                       </div>
                       <div className="form-group mb-3">
@@ -455,6 +436,23 @@ const Formations = () => {
                             name="Location"
                             required="required"
                             value={editFormData.Location}
+                            onChange={handleEditFormChange}
+                            className="form-control"
+                            placeholder="Location"
+                          />
+                        </div>
+                      </div>
+                      <div className="form-group mb-3">
+                        <label className="text-black font-w500">
+                          Directeur / Directrice
+                        </label>
+                        <div className="contact-occupation">
+                          <input
+                            type="text"
+                            autoComplete="off"
+                            name="directeur"
+                            required="required"
+                            value={editFormData.Directeur}
                             onChange={handleEditFormChange}
                             className="form-control"
                             placeholder="Location"
@@ -485,11 +483,7 @@ const Formations = () => {
             </div>
           </div>
         </Modal>
-        <div>
-          {/* <Link to={"#"} className="btn btn-secondary btn-sm me-3">
-            <i className="fas fa-phone-alt"></i>
-          </Link> */}
-        </div>
+        <div></div>
       </div>
       <div className="row">
         {contacts.map((contact, index) => (
@@ -508,11 +502,7 @@ const Formations = () => {
               </div>
               <div className="card-header align-items-start">
                 <div>
-                  <h2 className="fs-18 fw-bold">
-                    {/* <Link to={"#"} className="text-black user-name"> */}
-                    {contact.nom_formation}
-                    {/* </Link> */}
-                  </h2>
+                  <h2 className="fs-18 fw-bold">{contact.nom_action}</h2>
                 </div>
                 <Dropdown className="">
                   <Dropdown.Toggle
@@ -592,14 +582,7 @@ const Formations = () => {
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item">
                     <span className="mb-0 title fw-bold">Date</span> :
-                    <span className="text-black ms-2">{contact.Date_Join}</span>
-                  </li>
-                  <li className="list-group-item">
-                    <span className="mb-0 title fw-bold">
-                      Formateur / Formatrice:{" "}
-                    </span>{" "}
-                    :
-                    <span className="text-black ms-2">{contact.Cust_Name}</span>
+                    <span className="text-black ms-2">{contact.Date}</span>
                   </li>
                   <li className="list-group-item">
                     <span className="mb-0 title fw-bold">Localisation</span> :
@@ -607,15 +590,17 @@ const Formations = () => {
                       {contact.Location}
                     </span>
                   </li>
+                  <li className="list-group-item">
+                    <span className="mb-0 title fw-bold">
+                      Directeur / Directrice :{" "}
+                    </span>{" "}
+                    :
+                    <span className="text-black desc-text ms-2">
+                      {contact.Directeur}
+                    </span>
+                  </li>
                 </ul>
               </div>
-              <h6 className="p-3 fw-bold">
-                <span className=" mr-3">Nombre d'inscription :</span>
-                <Badge bg="" className="badge-primary">
-                  {" "}
-                  25 Membres:{" "}
-                </Badge>
-              </h6>
             </div>
           </div>
         ))}
@@ -624,4 +609,4 @@ const Formations = () => {
   );
 };
 
-export default Formations;
+export default Actions;
