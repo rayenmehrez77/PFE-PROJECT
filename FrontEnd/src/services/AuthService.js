@@ -13,7 +13,7 @@ export function signUp(name, email, OLM, password, confirmPassword) {
     confirmPassword,
     returnSecureToken: true,
   };
-  return axiosInstance.post("/signup", postData);
+  return axiosInstance.post("/users/signup", postData);
 }
 
 export function login(email, password) {
@@ -22,7 +22,7 @@ export function login(email, password) {
     password,
     returnSecureToken: true,
   };
-  return axiosInstance.post("/login", postData);
+  return axiosInstance.post("/users/login", postData);
 }
 
 export function formatError(errorResponse) {

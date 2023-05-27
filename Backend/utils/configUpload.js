@@ -2,7 +2,7 @@ const multer = require ("multer")
 const path = require("path")
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
-        cb(null, './public/uploads')
+        cb(null, 'public/uploads/')
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();

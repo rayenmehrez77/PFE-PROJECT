@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getUsersList } from "../../services/userServices";
 import {
   getUsersRequest,
   getUsersSuccess,
@@ -8,12 +9,22 @@ import {
 export const getUsers = () => {
   return async (dispatch) => {
     try {
-      dispatch(getUsersRequest());
+      getUsersList()
+      .then((response) => {
+        console.log(response);
+        
+          dispatch(getUsersSuccess(response.data));
+       
+      })
+      .catch((error) => {
+        console.log(error);
+        // const errorMessage = formatError(error);
+        // dispatch(loginFailedAction(errorMessage));
+      });
 
-      const response = await axios.get("/users");
-      const users = response.data;
+      
 
-      dispatch(getUsersSuccess(users));
+      
     } catch (error) {
       dispatch(getUsersFailure(error.message));
     }

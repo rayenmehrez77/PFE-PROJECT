@@ -11,6 +11,7 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
 dotenv.config({ path: "./config.env" });
