@@ -8,7 +8,7 @@ router.route("/").get(trainingController.getTrainings);
 
 router.route("/addTraining").post(upload.single("image"),trainingController.addTraining);
 
-router.route("/:trainingID").put(trainingController.updateTraining);
+router.route("/editTrainer/:trainingID").put(upload.single("image"),trainingController.updateTraining);
 
 router.route("/:trainingID").delete(trainingController.deleteTraining);
 

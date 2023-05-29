@@ -13,20 +13,13 @@ const trainingController = {
 
   addTraining: async (req, res) => {
     try {
-      const {
-        
-        title,
-        date,
-        duration,
-        trainer,
-        location,
-        etat,
-        nParticipants,
-      } = req.body;
-      const image = req.file.path
+      const { title, date, duration, trainer, location, etat, nParticipants } =
+        req.body;
+      const image = req.file.path;
+      const existingTrainingByName = await Training.findOne({ title });
       // Create a new training
       const newTraining = new Training({
-        image:image,
+        image: image,
         title,
         date,
         duration,
@@ -35,11 +28,16 @@ const trainingController = {
         etat,
         nParticipants,
       });
+      if (existingTrainingByName) {
+        return res
+          .status(400)
+          .json({ message: "training with the same title already exists" });
+      }
       await newTraining.save();
 
       res.json(newTraining);
     } catch (error) {
-      res.status(500).json({ error: "Failed to add a new training",error });
+      res.status(500).json({ error: "Failed to add a new training", error });
     }
   },
 
@@ -58,41 +56,36 @@ const trainingController = {
   },
 
   updateTraining: async (req, res) => {
-    const trainingID = req.params.trainingID;
+    const {trainingID} = req.params;
+    const { title, date, duration, trainer, location, etat, nParticipants } =
+    req.body;
+    const training = await Training.findById(trainingID);
+    console.log(training,trainingID);
     try {
       // Extract data from the request body
-      const {
-        image,
-        Title,
-        Date,
-        Duration,
-        Trainer,
-        Location,
-        Status,
-        nParticipants,
-      } = req.body;
-
+    
+      
+      const image = req.file.path;
+      console.log(training);
       // Update a specific training by ID
-      const updatedTraining = await Training.findByIdAndUpdate(
-        trainingID,
-        {
-          image,
-          Title,
-          Date,
-          Duration,
-          Trainer,
-          Location,
-          Status,
-          nParticipants,
-        },
-        { new: true }
-      );
+      training.title = title;
+      training.date = date;
+      training.duration = duration;
+      training.trainer = trainer;
+      training.location = location;
+      training.etat = etat;
+      training.nParticipants = nParticipants;
+      training.image = image;
+      await training.save();
 
-      res.json(updatedTraining);
-    } catch (error) {
       res
-        .status(500)
-        .json({ error: `Failed to update training with ID ${trainingID}` });
+        .status(200)
+        .json({ message: "trainer updated successfully", training });
+    } catch (error) {
+      res.status(500).json({
+        error: `Failed to update training with ID ${trainingID}`,
+        error,
+      });
     }
   },
 };

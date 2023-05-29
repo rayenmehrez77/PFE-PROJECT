@@ -13,6 +13,7 @@ const corsOptions = {
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
+app.use(express.json());
 
 dotenv.config({ path: "./config.env" });
 
