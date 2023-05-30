@@ -235,7 +235,7 @@ const SideBar = () => {
                         ? "/dashboard"
                         : user.role === "Admin"
                         ? "/statistiques"
-                        : "/statistiques"
+                        : "/acceuil"
                     }`}
                   >
                     {" "}
@@ -281,6 +281,50 @@ const SideBar = () => {
                       to="/forum"
                     >
                       Planification des Forums Zonal
+                    </Link>
+                  </li>
+                </>
+              ) : null}
+              {user?.role === "Member" ? (
+                <>
+                  <li>
+                    <Link
+                      className={`${
+                        path === "app-calender" ? "mm-active" : ""
+                      }`}
+                      to="/FORMATIONS"
+                    >
+                      FORMATIONS
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className={`${
+                        path === "app-calender" ? "mm-active" : ""
+                      }`}
+                      to="/ACTIONS"
+                    >
+                      ACTIONS
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className={`${
+                        path === "app-calender" ? "mm-active" : ""
+                      }`}
+                      to="/FORUMS"
+                    >
+                      FORUMS
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className={`${
+                        path === "app-calender" ? "mm-active" : ""
+                      }`}
+                      to="/app-calender"
+                    >
+                      Evénements zonal 2023
                     </Link>
                   </li>
                 </>

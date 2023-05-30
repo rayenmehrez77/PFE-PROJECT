@@ -9,49 +9,6 @@ import { connect, useSelector } from "react-redux";
 const StatistiqueLocaux = ({ users }) => {
   const user = useSelector((state) => state.auth.auth.user);
 
-  const calUserPerGouvernement = (gouvernement) => {
-    let count = 0;
-    users.map((user) => {
-      if (user.gouvernement === gouvernement) {
-        count++;
-      }
-    });
-    return count;
-  };
-
-  const calMasculin = () => {
-    let count = 0;
-    users.map((user) => {
-      if (user.sexe === "Masculin") {
-        count++;
-      }
-    });
-    return count;
-  };
-
-  const calFeminin = () => {
-    return users.reduce((acc, user) => {
-      if (user.sexe === "Féminin") {
-        acc++;
-      }
-      return acc;
-    }, 0);
-  };
-
-  function countUniqueOLMS() {
-    const uniqueOLMS = users.reduce((acc, user) => {
-      const OLM = user.OLM;
-
-      if (!acc.includes(OLM)) {
-        acc.push(OLM);
-      }
-
-      return acc;
-    }, []);
-
-    return uniqueOLMS.length;
-  }
-
   const { changeBackground } = useContext(ThemeContext);
   useEffect(() => {
     changeBackground({ value: "light", label: "Light" });
@@ -270,9 +227,6 @@ const StatistiqueLocaux = ({ users }) => {
 
 const mapStateToProps = (state) => ({
   users: state.users.users,
-  loading: state.users.loading,
-  error: state.users.error,
-  user: state.auth.auth.user,
 });
 
 export default connect(mapStateToProps)(StatistiqueLocaux);

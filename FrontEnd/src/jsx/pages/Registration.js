@@ -12,7 +12,6 @@ import logo from "../../images/Zone C.png";
 function Register(props) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [OLM, setOLM] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
@@ -20,14 +19,43 @@ function Register(props) {
 
   const [selectedGovValue, setSelectedGocValue] = useState("");
   const [selectedSexeValue, setSelectedSexeValue] = useState("");
+  const [selectedOLMValue, setSelectedOLMValue] = useState("");
+
+  const OLMs = [
+    "MENZEL FERSI",
+    "MONASTIR",
+    "MAHDIA",
+    "SOUSSE",
+    "MOKNINE",
+    "BENI HASSEN",
+    "KALAA KEBIRA",
+    "KALAA SOUGHRA",
+    "SAYADA",
+    "TEBOULBA",
+    "KSIBET EL MEDIOUNI",
+    "ZERAMDINE",
+    "BENI HASSINE",
+    "KSAR HELAL",
+    "BEKALTA",
+    "SIDI ALOUANE",
+    "BANNEN",
+    "BEMBLA",
+    "JEMMAL",
+    "MENZEL HAYAT",
+    "SAHLINE",
+    "NEFIDHA",
+  ];
 
   const handleGovChange = (event) => {
     setSelectedGocValue(event.target.value); // Update the state when the dropdown value changes
   };
 
   const handleSexeChange = (event) => {
-    console.log(event.target.value);
     setSelectedSexeValue(event.target.value); // Update the state when the dropdown value changes
+  };
+
+  const handleOLMChange = (event) => {
+    setSelectedOLMValue(event.target.value); // Update the state when the dropdown value changes
   };
 
   const dispatch = useDispatch();
@@ -48,10 +76,10 @@ function Register(props) {
       swal("Oops", errorObj.email, "error");
     }
 
-    if (OLM === "") {
-      errorObj.OLM = "OLM is Required";
+    if (selectedOLMValue === "") {
+      errorObj.selectedOLMValue = "OLM is Required";
       error = true;
-      swal("Oops", errorObj.OLM, "error");
+      swal("Oops", errorObj.selectedOLMValue, "error");
     }
 
     if (password === "") {
@@ -73,7 +101,7 @@ function Register(props) {
       signupAction(
         name,
         email,
-        OLM.toUpperCase(),
+        selectedOLMValue,
         selectedGovValue,
         selectedSexeValue,
         password,
@@ -134,12 +162,17 @@ function Register(props) {
                         <label className="mb-1 ">
                           <strong>OLM</strong>
                         </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          onChange={(e) => setOLM(e.target.value)}
-                          placeholder="OLM"
-                        />
+                        <select
+                          defaultValue={selectedOLMValue}
+                          onChange={handleOLMChange}
+                          className="form-control form-control-lg"
+                        >
+                          {OLMs.map((OLM) => (
+                            <option key={OLM} value={OLM}>
+                              JCI {OLM}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                       {errors.OLM && <div>{errors.OLM}</div>}
                       <div className="form-group mb-3">
@@ -167,8 +200,8 @@ function Register(props) {
                           onChange={handleSexeChange}
                           className="form-control form-control-lg"
                         >
-                          <option value='Masculin'>Masculin</option>
-                          <option value='Féminin'>Féminin</option>
+                          <option value="Masculin">Masculin</option>
+                          <option value="Féminin">Féminin</option>
                         </select>
                       </div>
                       {errors.sexe && <div>{errors.sexe}</div>}

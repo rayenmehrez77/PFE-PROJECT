@@ -24,16 +24,18 @@ export function signupAction(
   confirmPassword,
   history
 ) {
-  console.log(name, email, OLM, gouvernement, sexe);
   return (dispatch) => {
     signUp(name, email, OLM, gouvernement, sexe, password, confirmPassword)
       .then((response) => {
         if (response.data.success) {
           console.log(response.data);
           saveTokenInLocalStorage(response.data);
-          // runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
           dispatch(confirmedSignupAction(response.data));
-          history.push("/dashboard");
+          if (response.data.data.user.role === "Super Admin") {
+            history.push("/dashboard)");
+          } else {
+            history.push("/acceuil");
+          }
         } else {
           const errorMessage = formatError(response.data.message);
           dispatch(signupFailedAction(errorMessage));
@@ -62,7 +64,12 @@ export function loginAction(email, password, history) {
           saveTokenInLocalStorage(response.data);
           // runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
           dispatch(loginConfirmedAction(response.data));
-          history.push("/dashboard");
+
+          if (response.data.data.user.role === "Super Admin") {
+            history.push("/dashboard)");
+          } else {
+            history.push("/acceuil");
+          }
         } else {
           const errorMessage = formatError(response.data?.message);
           dispatch(loginFailedAction(errorMessage));
