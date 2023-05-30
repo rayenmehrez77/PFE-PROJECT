@@ -97,7 +97,7 @@ const Acceuil = () => {
       <Card eventKey="Posts">
         <div className="my-post-content p-3">
           <div className="post-input">
-            <input type="text" className="form-input" placeholder="Title" />
+            <input type="text" className="form-control" placeholder="Title" />
             <textarea
               name="textarea"
               id="textarea"
