@@ -1,22 +1,103 @@
-import React from "react";
+import React, { useReducer } from "react";
 import profile08 from "../../../images/profile/8.jpg";
 import profile09 from "../../../images/profile/9.jpg";
 import profile from "../../../images/profile/profile.png";
 import PageTitle from "../../layouts/PageTitle";
 import { useSelector } from "react-redux";
-import { Card } from "react-bootstrap";
+import { Card, Form, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+const initialState = false;
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "sendMessage":
+      return { ...state, sendMessage: !state.sendMessage };
+    case "postModal":
+      return { ...state, post: !state.post };
+    case "linkModal":
+      return { ...state, link: !state.link };
+    case "cameraModal":
+      return { ...state, camera: !state.camera };
+    case "replyModal":
+      return { ...state, reply: !state.reply };
+    default:
+      return state;
+  }
+};
+
 const Acceuil = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const user = useSelector((state) => state.auth.auth.user);
 
   return (
     <div>
       <PageTitle activeMenu="Acceuil" motherMenu="Acceuil" />
       <h1 className="fw-bold">{`Bienvenue, ${user.name}!`}</h1>
+      <Modal
+        show={state.camera}
+        className="modal fade"
+        id="cameraModal"
+        onHide={() => dispatch({ type: "cameraModal" })}
+      >
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Upload images</h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-dismiss="modal"
+              onClick={() => dispatch({ type: "cameraModal" })}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <div className="input-group mb-3">
+              <span className="input-group-text">Upload</span>
+              <div className="form-file">
+                <input type="file" className="form-file-input" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        show={state.reply}
+        className="modal fade"
+        id="replyModal"
+        onHide={() => dispatch({ type: "replyModal" })}
+      >
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Post Reply</h5>
+            <button
+              type="button"
+              className="btn-close"
+              onClick={() => dispatch({ type: "replyModal" })}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <form>
+              {/* <textarea className="form-control" rows="4" >Message</textarea> */}
+              <Form.Control as="textarea" rows="4" placeholder="Message" />
+            </form>
+          </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-danger light"
+              onClick={() => dispatch({ type: "replyModal" })}
+            >
+              Close
+            </button>
+            <button type="button" className="btn btn-primary">
+              Reply
+            </button>
+          </div>
+        </div>
+      </Modal>
       <Card eventKey="Posts">
         <div className="my-post-content p-3">
           <div className="post-input">
+            <input type="text" className="form-input" placeholder="Title" />
             <textarea
               name="textarea"
               id="textarea"
@@ -28,33 +109,21 @@ const Acceuil = () => {
               defaultValue={""}
             />
             <Link
-              to="/app-profile"
-              className="btn btn-primary light px-3 me-1"
-              // onClick={() => dispatch({ type: "linkModal" })}
-            >
-              <i className="fa fa-link m-0" />{" "}
-            </Link>
-            {/* Modal */}
-
-            <Link
               to={"#"}
               className="btn btn-primary light px-3 me-1"
               data-target="#cameraModal"
-              // onClick={() => dispatch({ type: "cameraModal" })}
+              onClick={() => dispatch({ type: "cameraModal" })}
             >
               <i className="fa fa-camera m-0" />{" "}
             </Link>
-            {/* Modal */}
-
             <Link
               to={"#"}
               className="btn btn-primary ms-1"
               data-target="#postModal"
-              // onClick={() => dispatch({ type: "postModal" })}
+              onClick={() => dispatch({ type: "postModal" })}
             >
               Post
             </Link>
-            {/* Modal */}
           </div>
 
           <div className="profile-uoloaded-post border-bottom-1 pb-5">
@@ -79,7 +148,7 @@ const Acceuil = () => {
             </button>
             <button
               className="btn btn-secondary"
-              // onClick={() => dispatch({ type: "replyModal" })}
+              onClick={() => dispatch({ type: "replyModal" })}
             >
               <span className="me-2">
                 {" "}

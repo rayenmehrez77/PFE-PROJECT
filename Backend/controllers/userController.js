@@ -1,52 +1,6 @@
 const User = require("../models/userModel");
 const asyncErrorHandler = require("../utils/asyncErrorHandler");
 
-exports.createUser = asyncErrorHandler(async (req, res) => {
-  try {
-    const { name, email, OLM, gouvernement, sexe, phone, password, role } =
-      req.body;
-
-    const existingUserByEmail = await User.findOne({ email });
-    const existingUserByName = await User.findOne({ name });
-
-    if (existingUserByName) {
-      return res
-        .status(400)
-        .json({ message: "User with the same name already exists" });
-    }
-
-    if (existingUserByEmail && existingUserByName) {
-      return res
-        .status(400)
-        .json({ message: "User with the same name and email already exists" });
-    } else if (existingUserByEmail) {
-      return res
-        .status(400)
-        .json({ message: "User with the same email already exists" });
-    }
-
-    const user = new User({
-      name,
-      email,
-      OLM,
-      gouvernement,
-      sexe,
-      phone,
-      password,
-      role,
-    });
-
-    db.users.dropIndex("gouvernement_1");
-    db.users.createIndex({ gouvernement: 1 });
-    await user.save();
-
-    res.status(201).json({ message: "User created successfully", user });
-  } catch (error) {
-    console.error("Error creating user:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
 exports.getUser = asyncErrorHandler(async (req, res) => {
   const { userId } = req.params;
 

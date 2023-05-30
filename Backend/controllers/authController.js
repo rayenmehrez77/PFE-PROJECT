@@ -13,57 +13,62 @@ const generateToken = (userid) => {
 };
 
 exports.signup = asyncErrorHandler(async (req, res, next) => {
-  const newUser = await User.create({
-    _id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
-    email: req.body.email,
-    OLM: req.body.OLM,
-    sexe: req.body.sexe,
-    gouvernement: req.body.gouvernement,
-    password: req.body.password,
-    comparePassword: req.body.confirmPassword,
-    role: req.body.role,
-  });
-
-  const token = generateToken(newUser._id);
-
-  if (
-    !newUser.name ||
-    !newUser.email ||
-    !newUser.OLM ||
-    !newUser.gouvernement ||
-    !newUser.sexe ||
-    !newUser.password ||
-    !newUser.comparePassword ||
-    !newUser.role
-  ) {
-    res.status(200).json({
-      success: false,
-      status: "fail",
-      message: "All fields are required!",
+  try {
+    const newUser = await User.create({
+      _id: new mongoose.Types.ObjectId(),
+      name: req.body.name,
+      email: req.body.email,
+      OLM: req.body.OLM,
+      sexe: req.body.sexe,
+      gouvernement: req.body.gouvernement,
+      phone: req.body.phone,
+      password: req.body.password,
+      comparePassword: req.body.confirmPassword,
+      role: req.body.role,
     });
-    return;
+
+    const token = generateToken(newUser._id);
+
+    if (
+      !newUser.name ||
+      !newUser.email ||
+      !newUser.OLM ||
+      !newUser.gouvernement ||
+      !newUser.sexe ||
+      !newUser.password ||
+      !newUser.comparePassword ||
+      !newUser.role
+    ) {
+      res.status(200).json({
+        success: false,
+        status: "fail",
+        message: "All fields are required!",
+      });
+      return;
+    }
+
+    // if (newUser.password !== newUser.comparePassword) {
+    //   res.status(200).json({
+    //     success: false,
+    //     status: "fail",
+    //     message: "Passwords do not match!",
+    //   });
+    //   return;
+    // }
+
+    // User created successfully!
+    res.status(200).json({
+      success: true,
+      status: "success",
+      message: "User created successfully",
+      data: {
+        user: newUser,
+        token: token,
+      },
+    });
+  } catch (error) {
+    res.status(200).json({ success: false, status: "fail", message: error });
   }
-
-  // if (newUser.password !== newUser.comparePassword) {
-  //   res.status(200).json({
-  //     success: false,
-  //     status: "fail",
-  //     message: "Passwords do not match!",
-  //   });
-  //   return;
-  // }
-
-  // User created successfully!
-  res.status(200).json({
-    success: true,
-    status: "success",
-    message: "User created successfully",
-    data: {
-      user: newUser,
-      token: token,
-    },
-  });
 });
 
 exports.login = asyncErrorHandler(async (req, res, next) => {
