@@ -3,12 +3,14 @@ import swal from "sweetalert";
 import { loginConfirmedAction, logout } from "../store/actions/AuthActions";
 import axiosInstance from "../services/AxiosInstance";
 
-export function signUp(name, email, OLM, password, confirmPassword) {
+export function signUp(name, email,OLM,gouvernement,sexe, password, confirmPassword) {
   //axios call
   const postData = {
     name,
     email,
     OLM,
+    gouvernement,
+    sexe,
     password,
     confirmPassword,
     returnSecureToken: true,

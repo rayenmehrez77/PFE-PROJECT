@@ -26,6 +26,7 @@ function Register(props) {
   };
 
   const handleSexeChange = (event) => {
+    console.log(event.target.value);
     setSelectedSexeValue(event.target.value); // Update the state when the dropdown value changes
   };
 
@@ -72,7 +73,7 @@ function Register(props) {
       signupAction(
         name,
         email,
-        OLM.toLowerCase(),
+        OLM.toUpperCase(),
         selectedGovValue,
         selectedSexeValue,
         password,
@@ -166,8 +167,8 @@ function Register(props) {
                           onChange={handleSexeChange}
                           className="form-control form-control-lg"
                         >
-                          <option>Masculin</option>
-                          <option>Féminin</option>
+                          <option value='Masculin'>Masculin</option>
+                          <option value='Féminin'>Féminin</option>
                         </select>
                       </div>
                       {errors.sexe && <div>{errors.sexe}</div>}
