@@ -167,12 +167,14 @@ const SideBar = () => {
               <img src={profile} width={20} alt="" />
               <div className="d-flex align-items-center sidebar-info">
                 <div>
-                  <h6 className="font-w700 d-block mb-2">{user?.name}</h6>
+                  <h6 className="font-w700 d-block mb-2">
+                    {(user?.name).toUpperCase()}
+                  </h6>
                   <small className="text-end font-w400">
                     {user?.role === "Super Admin"
                       ? "Comité de la zone C"
                       : user?.role === "Admin"
-                      ? user?.OLM
+                      ? (user?.OLM).toUpperCase()
                       : "Membre"}
                   </small>
                 </div>
@@ -203,25 +205,6 @@ const SideBar = () => {
               </svg>
               <span className="ms-2">Profile </span>
             </Link>
-            {/* <Link to="/email-inbox" className="dropdown-item ai-icon">
-              <svg
-                id="icon-inbox"
-                xmlns="http://www.w3.org/2000/svg"
-                className="text-success me-1"
-                width={18}
-                height={18}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
-              <span className="ms-2">Inbox</span>
-            </Link> */}
             <LogoutPage />
           </Dropdown.Menu>
         </Dropdown>
@@ -243,11 +226,17 @@ const SideBar = () => {
               <span className="nav-text">Dashboard</span>
             </Link>
             <ul>
-              {user?.role === "Super Admin" ? (
+              {user?.role === "Super Admin" || user?.role === "Admin" ? (
                 <li>
                   <Link
                     className={`${path === "dashboard" ? "mm-active" : ""}`}
-                    to="/dashboard"
+                    to={`${
+                      user.role === "Super Admin"
+                        ? "/dashboard"
+                        : user.role === "Admin"
+                        ? "/statistiques"
+                        : "/statistiques"
+                    }`}
                   >
                     {" "}
                     Statistique
@@ -297,247 +286,6 @@ const SideBar = () => {
                 </>
               ) : null}
             </ul>
-          </li>
-          <li className={`${charts.includes(path) ? "mm-active" : ""}`}>
-            {/* <Link className="has-arrow ai-icon" to="#">
-              <i className="fas fa-chart-line"></i>
-              <span className="nav-text">Charts</span>
-            </Link> */}
-            <ul>
-              <li>
-                <Link
-                  className={`${path === "chart-rechart" ? "mm-active" : ""}`}
-                  to="/chart-rechart"
-                >
-                  RechartJs
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "chart-chartjs" ? "mm-active" : ""}`}
-                  to="/chart-chartjs"
-                >
-                  Chartjs
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "chart-chartist" ? "mm-active" : ""}`}
-                  to="/chart-chartist"
-                >
-                  Chartist
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "chart-sparkline" ? "mm-active" : ""}`}
-                  to="/chart-sparkline"
-                >
-                  Sparkline
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "chart-apexchart" ? "mm-active" : ""}`}
-                  to="/chart-apexchart"
-                >
-                  Apexchart
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li className={`${bootstrap.includes(path) ? "mm-active" : ""}`}>
-            {/* <Link className="has-arrow ai-icon" to="#">
-              <i className="fab fa-bootstrap"></i>
-              <span className="nav-text">Bootstrap</span>
-            </Link> */}
-            {/* <ul>
-              <li>
-                <Link
-                  className={`${path === "ui-accordion" ? "mm-active" : ""}`}
-                  to="/ui-accordion"
-                >
-                  Accordion
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-alert" ? "mm-active" : ""}`}
-                  to="/ui-alert"
-                >
-                  {" "}
-                  Alert
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-badge" ? "mm-active" : ""}`}
-                  to="/ui-badge"
-                >
-                  Badge
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-button" ? "mm-active" : ""}`}
-                  to="/ui-button"
-                >
-                  Button
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-modal" ? "mm-active" : ""}`}
-                  to="/ui-modal"
-                >
-                  Modal
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-button-group" ? "mm-active" : ""}`}
-                  to="/ui-button-group"
-                >
-                  Button Group
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-list-group" ? "mm-active" : ""}`}
-                  to="/ui-list-group"
-                >
-                  List Group
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-card" ? "mm-active" : ""}`}
-                  to="/ui-card"
-                >
-                  Cards
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-carousel" ? "mm-active" : ""}`}
-                  to="/ui-carousel"
-                >
-                  Carousel
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-dropdown" ? "mm-active" : ""}`}
-                  to="/ui-dropdown"
-                >
-                  Dropdown
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-popover" ? "mm-active" : ""}`}
-                  to="/ui-popover"
-                >
-                  Popover
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-progressbar" ? "mm-active" : ""}`}
-                  to="/ui-progressbar"
-                >
-                  Progressbar
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-tab" ? "mm-active" : ""}`}
-                  to="/ui-tab"
-                >
-                  Tab
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-typography" ? "mm-active" : ""}`}
-                  to="/ui-typography"
-                >
-                  Typography
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-pagination" ? "mm-active" : ""}`}
-                  to="/ui-pagination"
-                >
-                  Pagination
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "ui-grid" ? "mm-active" : ""}`}
-                  to="/ui-grid"
-                >
-                  Grid
-                </Link>
-              </li>
-            </ul> */}
-          </li>
-          <li className={`${plugins.includes(path) ? "mm-active" : ""}`}>
-            {/* <Link className="has-arrow ai-icon" to="#">
-              <i className="fas fa-heart"></i>
-              <span className="nav-text">Plugins</span>
-            </Link> */}
-            {/* <ul>
-              <li>
-                <Link
-                  className={`${path === "uc-select2" ? "mm-active" : ""}`}
-                  to="/uc-select2"
-                >
-                  Select 2
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "uc-noui-slider" ? "mm-active" : ""}`}
-                  to="/uc-noui-slider"
-                >
-                  Noui Slider
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "uc-sweetalert" ? "mm-active" : ""}`}
-                  to="/uc-sweetalert"
-                >
-                  Sweet Alert
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "uc-toastr" ? "mm-active" : ""}`}
-                  to="/uc-toastr"
-                >
-                  Toastr
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "map-jqvmap" ? "mm-active" : ""}`}
-                  to="/map-jqvmap"
-                >
-                  Jqv Map
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${path === "uc-lightgallery" ? "mm-active" : ""}`}
-                  to="/uc-lightgallery"
-                >
-                  Light Gallery
-                </Link>
-              </li>
-            </ul> */}
           </li>
           <li className={`${table.includes(path) ? "mm-active" : ""}`}>
             {user.role === "Super Admin" || user.role === "Admin" ? (

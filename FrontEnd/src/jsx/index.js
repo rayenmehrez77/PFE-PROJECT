@@ -25,6 +25,7 @@ import Formations from "./components/Dashboard/Formations";
 import Actions from "./components/Dashboard/Actions";
 import Forum from "./components/Dashboard/Forum";
 import Acceuil from "./components/Dashboard/Acceuil";
+import StatistiqueLocaux from "./components/Dashboard/StatistiqueLocaux";
 
 /////Demo
 import Theme1 from "./components/Dashboard/Demo/Theme1";
@@ -127,6 +128,7 @@ const Markup = () => {
     { url: "actions", component: Actions },
     { url: "forum", component: Forum },
     { url: "acceuil", component: Acceuil },
+    { url: "Statistiques", component: StatistiqueLocaux },
 
     /// Apps
     { url: "app-profile", component: AppProfile },

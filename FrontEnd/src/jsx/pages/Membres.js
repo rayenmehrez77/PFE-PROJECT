@@ -319,7 +319,9 @@ const MembresComponent = ({ users, user }) => {
   return (
     <>
       <PageTitle activeMenu="Membres" motherMenu="Gestion des membres" />
-      <h1 className="text-center fw-bold mb-3 text-cyan">MEMBRES {} 2023</h1>
+      <h1 className="text-center fw-bold mb-3 text-cyan">
+        MEMBRES {user.OLM.toUpperCase()} 2023
+      </h1>
       <div className="col-12">
         <Modal className="modal fade" show={addCard} onHide={setAddCard}>
           <div className="" role="document">
@@ -461,7 +463,12 @@ const MembresComponent = ({ users, user }) => {
                     </svg>
                   </span>
                   <div className="invoices">
-                    <h4>{users.length}</h4>
+                    <h4>
+                      {
+                        users.filter((content) => content.OLM === user.OLM)
+                          .length
+                      }
+                    </h4>
                     <span>Membres Totals</span>
                   </div>
                 </div>
@@ -498,10 +505,12 @@ const MembresComponent = ({ users, user }) => {
                   </span>
                   <div className="invoices">
                     <h4>
-                      {users.reduce((acc, user) => {
-                        if (user.sexe === "Masculin") return acc + 1;
-                        return acc;
-                      }, 0)}
+                      {users
+                        .filter((item) => item.OLM === user.OLM)
+                        .reduce((acc, user) => {
+                          if (user.sexe === "Masculin") return acc + 1;
+                          return acc;
+                        }, 0)}
                     </h4>
                     <span>Masculin</span>
                   </div>
@@ -539,10 +548,12 @@ const MembresComponent = ({ users, user }) => {
                   </span>
                   <div className="invoices">
                     <h4>
-                      {users.reduce((acc, user) => {
-                        if (user.sexe === "Féminin") return acc + 1;
-                        return acc;
-                      }, 0)}
+                      {users
+                        .filter((item) => item.OLM === user.OLM)
+                        .reduce((acc, user) => {
+                          if (user.sexe === "Féminin") return acc + 1;
+                          return acc;
+                        }, 0)}
                     </h4>
                     <span>Féminin</span>
                   </div>
@@ -553,7 +564,7 @@ const MembresComponent = ({ users, user }) => {
         </div>
         <div className="card">
           <div className="card-header">
-            <h4 className="card-title">Membres Bureaux</h4>
+            <h4 className="card-title">Les Membres</h4>
           </div>
           <div className="card-body">
             <div className="w-100 table-responsive">
@@ -570,55 +581,57 @@ const MembresComponent = ({ users, user }) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {contents.map((content, index) => (
-                        <tr key={index}>
-                          {editContentId === content.id ? (
-                            <Editable
-                              editFormData={editFormData}
-                              handleEditFormChange={handleEditFormChange}
-                              handleCancelClick={handleCancelClick}
-                            />
-                          ) : (
-                            <>
-                              <td></td>
-                              <td>{content.name}</td>
-                              <td>{content.poste}</td>
-                              <td>
-                                <Link to={"#"}>
-                                  <strong>{content.email}</strong>
-                                </Link>
-                              </td>
-                              <td>{content.téléphone}</td>
-                              <td>
-                                <div className="d-flex">
-                                  <Link
-                                    className="btn btn-primary shadow btn-xs sharp me-2"
-                                    onClick={() => setAddCard(true)}
-                                  >
-                                    <i className="fa fa-plus"></i>
+                      {users
+                        .filter((content) => content.OLM === user.OLM)
+                        .map((content, index) => (
+                          <tr key={index}>
+                            {editContentId === content.id ? (
+                              <Editable
+                                editFormData={editFormData}
+                                handleEditFormChange={handleEditFormChange}
+                                handleCancelClick={handleCancelClick}
+                              />
+                            ) : (
+                              <>
+                                <td></td>
+                                <td>{content.name}</td>
+                                <td>Membre</td>
+                                <td>
+                                  <Link to={"#"}>
+                                    <strong>{content.email}</strong>
                                   </Link>
-                                  <Link
-                                    className="btn btn-secondary	 shadow btn-xs sharp me-2"
-                                    onClick={(event) =>
-                                      handleEditClick(event, content)
-                                    }
-                                  >
-                                    <i className="fas fa-pen"></i>
-                                  </Link>
-                                  <Link
-                                    className="btn btn-danger shadow btn-xs sharp"
-                                    onClick={() =>
-                                      handleDeleteClick(content.id)
-                                    }
-                                  >
-                                    <i className="fa fa-trash"></i>
-                                  </Link>
-                                </div>
-                              </td>
-                            </>
-                          )}
-                        </tr>
-                      ))}
+                                </td>
+                                <td>+216 {content.phone}</td>
+                                <td>
+                                  <div className="d-flex">
+                                    <Link
+                                      className="btn btn-primary shadow btn-xs sharp me-2"
+                                      onClick={() => setAddCard(true)}
+                                    >
+                                      <i className="fa fa-plus"></i>
+                                    </Link>
+                                    <Link
+                                      className="btn btn-secondary	 shadow btn-xs sharp me-2"
+                                      onClick={(event) =>
+                                        handleEditClick(event, content)
+                                      }
+                                    >
+                                      <i className="fas fa-pen"></i>
+                                    </Link>
+                                    <Link
+                                      className="btn btn-danger shadow btn-xs sharp"
+                                      onClick={() =>
+                                        handleDeleteClick(content.id)
+                                      }
+                                    >
+                                      <i className="fa fa-trash"></i>
+                                    </Link>
+                                  </div>
+                                </td>
+                              </>
+                            )}
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </form>

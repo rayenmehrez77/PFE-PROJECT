@@ -131,36 +131,37 @@ const Acceuil = () => {
       </Modal>
       <Card eventKey="Posts">
         <div className="my-post-content p-3">
-          <div className="post-input">
-            <input type="text" className="form-control" placeholder="Title" />
-            <textarea
-              name="textarea"
-              id="textarea"
-              cols={30}
-              rows={5}
-              FontSize="20px"
-              className="form-control bg-transparent p-3"
-              placeholder={`Écrivez quelque chose d'intéressant, ${user.name} ?`}
-              defaultValue={""}
-            />
-            <Link
-              to={"#"}
-              className="btn btn-primary light px-3 me-1"
-              data-target="#cameraModal"
-              onClick={() => dispatch({ type: "cameraModal" })}
-            >
-              <i className="fa fa-camera m-0" />{" "}
-            </Link>
-            <Link
-              to={"#"}
-              className="btn btn-primary ms-1"
-              data-target="#postModal"
-              onClick={() => dispatch({ type: "postModal" })}
-            >
-              Post
-            </Link>
-          </div>
-
+          {user.role === "Super Admin" && (
+            <div className="post-input">
+              <input type="text" className="form-control" placeholder="Title" />
+              <textarea
+                name="textarea"
+                id="textarea"
+                cols={30}
+                rows={5}
+                FontSize="20px"
+                className="form-control bg-transparent p-3"
+                placeholder={`Écrivez quelque chose d'intéressant, ${user.name} ?`}
+                defaultValue={""}
+              />
+              <Link
+                to={"#"}
+                className="btn btn-primary light px-3 me-1"
+                data-target="#cameraModal"
+                onClick={() => dispatch({ type: "cameraModal" })}
+              >
+                <i className="fa fa-camera m-0" />{" "}
+              </Link>
+              <Link
+                to={"#"}
+                className="btn btn-primary ms-1"
+                data-target="#postModal"
+                onClick={() => dispatch({ type: "postModal" })}
+              >
+                Post
+              </Link>
+            </div>
+          )}
           <div className="profile-uoloaded-post border-bottom-1 pb-5">
             <img src={profile08} alt="" className="img-fluid w-80 rounded" />
             <Link className="post-title" to="#">

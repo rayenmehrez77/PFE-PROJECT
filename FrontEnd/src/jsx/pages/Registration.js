@@ -18,6 +18,17 @@ function Register(props) {
   const [errors, setErrors] = useState(errorsObj);
   const [password, setPassword] = useState("");
 
+  const [selectedGovValue, setSelectedGocValue] = useState("");
+  const [selectedSexeValue, setSelectedSexeValue] = useState("");
+
+  const handleGovChange = (event) => {
+    setSelectedGocValue(event.target.value); // Update the state when the dropdown value changes
+  };
+
+  const handleSexeChange = (event) => {
+    setSelectedSexeValue(event.target.value); // Update the state when the dropdown value changes
+  };
+
   const dispatch = useDispatch();
 
   function onSignUp(e) {
@@ -58,7 +69,16 @@ function Register(props) {
     if (error) return;
     dispatch(loadingToggleAction(true));
     dispatch(
-      signupAction(name, email, OLM, password, confirmPassword, props.history)
+      signupAction(
+        name,
+        email,
+        OLM.toLowerCase(),
+        selectedGovValue,
+        selectedSexeValue,
+        password,
+        confirmPassword,
+        props.history
+      )
     );
   }
   return (
@@ -121,6 +141,36 @@ function Register(props) {
                         />
                       </div>
                       {errors.OLM && <div>{errors.OLM}</div>}
+                      <div className="form-group mb-3">
+                        <label className="mb-1 ">
+                          <strong>Gouvernement</strong>
+                        </label>
+                        <select
+                          defaultValue={selectedGovValue}
+                          onChange={handleGovChange}
+                          className="form-control form-control-lg"
+                        >
+                          <option value="Mahdia">Mahdia</option>
+                          <option value="Sousse">Sousse</option>
+                          <option value="Monastir">Monastir</option>
+                        </select>
+                      </div>
+                      {errors.gouvernement && <div>{errors.gouvernement}</div>}
+
+                      <div className="form-group mb-3">
+                        <label className="mb-1 ">
+                          <strong>Sexe</strong>
+                        </label>
+                        <select
+                          defaultValue={selectedSexeValue}
+                          onChange={handleSexeChange}
+                          className="form-control form-control-lg"
+                        >
+                          <option>Masculin</option>
+                          <option>Féminin</option>
+                        </select>
+                      </div>
+                      {errors.sexe && <div>{errors.sexe}</div>}
                       <div className="form-group mb-3">
                         <label className="mb-1 ">
                           <strong>Mot de passe</strong>

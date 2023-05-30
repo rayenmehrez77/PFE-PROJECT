@@ -1,7 +1,6 @@
 import {
   formatError,
   login,
-  runLogoutTimer,
   saveTokenInLocalStorage,
   signUp,
 } from "../../services/AuthService";
@@ -19,24 +18,26 @@ export function signupAction(
   name,
   email,
   OLM,
+  gouvernement,
+  sexe,
   password,
   confirmPassword,
   history
 ) {
+  console.log(name, email, OLM, gouvernement, sexe);
   return (dispatch) => {
-    signUp(name, email, OLM, password, confirmPassword)
+    signUp(name, email, OLM, gouvernement, sexe, password, confirmPassword)
       .then((response) => {
-        if(response.data.success){
-          console.log(response);
+        if (response.data.success) {
+          console.log(response.data);
           saveTokenInLocalStorage(response.data);
           // runLogoutTimer(dispatch, response.data.expiresIn * 1000, history);
           dispatch(confirmedSignupAction(response.data));
           history.push("/dashboard");
-        }else{
+        } else {
           const errorMessage = formatError(response.data.message);
-        dispatch(signupFailedAction(errorMessage));
+          dispatch(signupFailedAction(errorMessage));
         }
-        
       })
       .catch((error) => {
         console.log(error);

@@ -1,16 +1,14 @@
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
-import loadable from "@loadable/component";
-import pMinDelay from "p-min-delay";
-import { Dropdown } from "react-bootstrap";
 
 //Import Components
 import { ThemeContext } from "../../../context/ThemeContext";
 
 import DonutChart from "./Dashboard/DonutChart";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
-const Home = ({ users }) => {
+const StatistiqueLocaux = ({ users }) => {
+  const user = useSelector((state) => state.auth.auth.user);
+
   const calUserPerGouvernement = (gouvernement) => {
     let count = 0;
     users.map((user) => {
@@ -18,7 +16,7 @@ const Home = ({ users }) => {
         count++;
       }
     });
-    return Math.trunc(count);
+    return count;
   };
 
   const calMasculin = () => {
@@ -51,7 +49,7 @@ const Home = ({ users }) => {
       return acc;
     }, []);
 
-    return Math.trunc(uniqueOLMS.length);
+    return uniqueOLMS.length;
   }
 
   const { changeBackground } = useContext(ThemeContext);
@@ -92,7 +90,9 @@ const Home = ({ users }) => {
                       </svg>
                     </span>
                     <div className="invoices">
-                      <h4>{users.length}</h4>
+                      <h4>
+                        {users.filter((item) => item.OLM === user.OLM).length}
+                      </h4>
                       <span>Membres Totals</span>
                     </div>
                   </div>
@@ -120,7 +120,15 @@ const Home = ({ users }) => {
                       </svg>
                     </span>
                     <div className="invoices">
-                      <h4>{calMasculin()}</h4>
+                      <h4>
+                        {" "}
+                        {
+                          users.filter(
+                            (item) =>
+                              item.OLM === user.OLM && item.sexe === "Masculin"
+                          ).length
+                        }
+                      </h4>
                       <span>Masculin</span>
                     </div>
                   </div>
@@ -156,44 +164,16 @@ const Home = ({ users }) => {
                       </svg>
                     </span>
                     <div className="invoices">
-                      <h4>{calFeminin()}</h4>
+                      <h4>
+                        {" "}
+                        {
+                          users.filter(
+                            (item) =>
+                              item.OLM === user.OLM && item.sexe === "Féminin"
+                          ).length
+                        }
+                      </h4>
                       <span>Féminin </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-sm-6">
-              <div className="card overflow-hidden">
-                <div className="card-header border-0">
-                  <div className="d-flex">
-                    <span className="mt-1">
-                      <svg
-                        width="58"
-                        height="58"
-                        viewBox="0 0 58 58"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M17.812 48.64L11.2 53.6C10.594 54.054 9.784 54.128 9.106 53.788C8.428 53.45 8 52.758 8 52V16C8 14.896 8.896 14 10 14H38C39.104 14 40 14.896 40 16V52C40 52.758 39.572 53.45 38.894 53.788C38.216 54.128 37.406 54.054 36.8 53.6L30.188 48.64L25.414 53.414C24.634 54.196 23.366 54.196 22.586 53.414L17.812 48.64ZM36 48V18H12V48L16.8 44.4C17.596 43.802 18.71 43.882 19.414 44.586L24 49.172L28.586 44.586C29.29 43.882 30.404 43.802 31.2 44.4L36 48ZM22 34H26C27.104 34 28 33.104 28 32C28 30.896 27.104 30 26 30H22C20.896 30 20 30.896 20 32C20 33.104 20.896 34 22 34ZM18 26H30C31.104 26 32 25.104 32 24C32 22.896 31.104 22 30 22H18C16.896 22 16 22.896 16 24C16 25.104 16.896 26 18 26Z"
-                          fill="#44814E"
-                        />
-                        <circle
-                          cx="43.5"
-                          cy="14.5"
-                          r="12.5"
-                          fill="#FFAA2B"
-                          stroke="white"
-                          strokeWidth="4"
-                        />
-                      </svg>
-                    </span>
-                    <div className="invoices">
-                      <h4>{countUniqueOLMS()}</h4>
-                      <span>Organisation Locale</span>
                     </div>
                   </div>
                 </div>
@@ -213,13 +193,28 @@ const Home = ({ users }) => {
                           <div className="d-inline-block position-relative donut-chart-sale mb-3">
                             <DonutChart
                               value={Math.trunc(
-                                (calFeminin() / users.length) * 100
+                                (users.filter(
+                                  (item) =>
+                                    item.OLM === user.OLM &&
+                                    item.sexe === "Féminin"
+                                ).length /
+                                  users.length) *
+                                  100
                               )}
                               backgroundColor="rgba(255, 255, 255,1)"
                               backgroundColor2="rgba(255, 255, 255, 0.2)"
                             />
                             <small className="text-white">
-                              {Math.trunc((calFeminin() / users.length) * 100)}%
+                              {Math.trunc(
+                                (users.filter(
+                                  (item) =>
+                                    item.OLM === user.OLM &&
+                                    item.sexe === "Féminin"
+                                ).length /
+                                  users.length) *
+                                  100
+                              )}{" "}
+                              %
                             </small>
                           </div>
                           <span className="fs-14 text-white d-block">
@@ -231,12 +226,28 @@ const Home = ({ users }) => {
                         <div className="rounded text-center p-3 bg-gradient4">
                           <div className="d-inline-block position-relative donut-chart-sale mb-3">
                             <DonutChart
-                              value={(calMasculin() / users.length) * 100}
+                              value={Math.trunc(
+                                (users.filter(
+                                  (item) =>
+                                    item.OLM === user.OLM &&
+                                    item.sexe === "Masculin"
+                                ).length /
+                                  users.length) *
+                                  100
+                              )}
                               backgroundColor="rgba(255, 255, 255,1)"
                               backgroundColor2="rgba(255, 255, 255, 0.2)"
                             />
                             <small className="text-white">
-                              {Math.trunc((calMasculin() / users.length) * 100)}{" "}
+                              {Math.trunc(
+                                (users.filter(
+                                  (item) =>
+                                    item.OLM === user.OLM &&
+                                    item.sexe === "Masculin"
+                                ).length /
+                                  users.length) *
+                                  100
+                              )}{" "}
                               %
                             </small>
                           </div>
@@ -244,94 +255,6 @@ const Home = ({ users }) => {
                             Masculin
                           </span>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-xl-6">
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="row">
-                <div className="col-xl-6 col-xxl-12 col-sm-6"></div>
-                <div className="col-xl-6 col-xxl-12 col-sm-6">
-                  <div className="card">
-                    <div className="card-header border-0 pb-0">
-                      <div>
-                        <h4 className="mb-2 fs-20 font-w700">
-                          Statistique des membres par gouvernements
-                        </h4>
-                      </div>
-                    </div>
-                    <div className="card-body">
-                      <div className="progress default-progress mt-4">
-                        <div
-                          className="progress-bar bg-gradient2 progress-animated"
-                          style={{
-                            width:
-                              (calUserPerGouvernement("Mahdia") / 100) * 100 +
-                              "%",
-                            height: "20px",
-                          }}
-                        >
-                          {/* <span className="sr-only">30% Complete</span> */}
-                        </div>
-                      </div>
-                      <div className="d-flex align-items-end mt-2 pb-3 justify-content-between">
-                        <span>Monastir</span>
-                        <span className="fs-16 font-w600 text-light">
-                          <span className="text-black pe-2">{`${calUserPerGouvernement(
-                            "Monastir"
-                          )} members`}</span>
-                          /{users.length} membres
-                        </span>
-                      </div>
-                      <div className="progress default-progress mt-4">
-                        <div
-                          className="progress-bar bg-gradient4 progress-animated"
-                          style={{
-                            width:
-                              (calUserPerGouvernement("Mahdia") / 100) * 100 +
-                              "%",
-                            height: "20px",
-                          }}
-                        >
-                          {/* <span className="sr-only">35% Complete</span> */}
-                        </div>
-                      </div>
-                      <div className="d-flex align-items-end mt-2 pb-3 justify-content-between">
-                        <span>Mahdia</span>
-                        <span className="fs-16 font-w600 text-light">
-                          <span className="text-black pe-2">{`${calUserPerGouvernement(
-                            "Mahdia"
-                          )} members`}</span>
-                          /{users.length} membres
-                        </span>
-                      </div>
-                      <div className="progress default-progress mt-4">
-                        <div
-                          className="progress-bar bg-gradient3 progress-animated"
-                          style={{
-                            width:
-                              (calUserPerGouvernement("Sousse") / 100) * 100 +
-                              "%",
-                            height: "20px",
-                          }}
-                        >
-                          {/* <span className="sr-only">30% Complete</span> */}
-                        </div>
-                      </div>
-                      <div className="d-flex align-items-end mt-2 justify-content-between">
-                        <span>Sousse</span>
-                        <span className="fs-16 font-w600 text-light">
-                          <span className="text-black pe-2">{`${calUserPerGouvernement(
-                            "Sousse"
-                          )} members`}</span>
-                          /{users.length} membres
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -352,4 +275,4 @@ const mapStateToProps = (state) => ({
   user: state.auth.auth.user,
 });
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(StatistiqueLocaux);
