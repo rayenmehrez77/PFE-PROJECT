@@ -23,15 +23,15 @@ const userSchema = new mongoose.Schema(
     gouvernement: {
       type: String,
       required: [true, "Gouvernement is required!"],
-      unique: true,
     },
     sexe: {
       type: String,
       required: [true, "Sexe is required!"],
     },
-    téléphone: {
+    phone: {
       type: String,
-      required: [true, "Téléphone is required!"],
+      required: [false, "Phone is required!"],
+      unique: true,
     },
     password: {
       type: String,
