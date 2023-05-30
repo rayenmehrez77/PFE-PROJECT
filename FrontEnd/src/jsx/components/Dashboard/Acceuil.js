@@ -94,6 +94,41 @@ const Acceuil = () => {
           </div>
         </div>
       </Modal>
+      <Modal
+        show={state.reply}
+        className="modal fade"
+        id="replyModal"
+        onHide={() => dispatch({ type: "replyModal" })}
+      >
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Post Reply</h5>
+            <button
+              type="button"
+              className="btn-close"
+              onClick={() => dispatch({ type: "replyModal" })}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <form>
+              {/* <textarea className="form-control" rows="4" >Message</textarea> */}
+              <Form.Control as="textarea" rows="4" placeholder="Message" />
+            </form>
+          </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-danger light"
+              onClick={() => dispatch({ type: "replyModal" })}
+            >
+              Close
+            </button>
+            <button type="button" className="btn btn-primary">
+              Reply
+            </button>
+          </div>
+        </div>
+      </Modal>
       <Card eventKey="Posts">
         <div className="my-post-content p-3">
           <div className="post-input">
@@ -179,7 +214,7 @@ const Acceuil = () => {
             </button>
             <button
               className="btn btn-secondary"
-              // onClick={() => dispatch({ type: "replyModal" })}
+              onClick={() => dispatch({ type: "replyModal" })}
             >
               <span className="me-2">
                 {" "}
