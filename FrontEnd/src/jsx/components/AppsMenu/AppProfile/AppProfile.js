@@ -3,15 +3,6 @@ import { Button, Dropdown, Modal, Tab, Nav, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { SRLWrapper } from "simple-react-lightbox";
 //** Import Image */
-import profile01 from "../../../../images/profile/1.jpg";
-import profile02 from "../../../../images/profile/2.jpg";
-import profile03 from "../../../../images/profile/3.jpg";
-import profile04 from "../../../../images/profile/4.jpg";
-import profile05 from "../../../../images/profile/5.jpg";
-import profile06 from "../../../../images/profile/6.jpg";
-import profile07 from "../../../../images/profile/7.jpg";
-import profile08 from "../../../../images/profile/8.jpg";
-import profile09 from "../../../../images/profile/9.jpg";
 import profile from "../../../../images/profile/profile.png";
 import PageTitle from "../../../layouts/PageTitle";
 import { useSelector } from "react-redux";
@@ -144,10 +135,20 @@ const AppProfile = () => {
                         <form onSubmit={(e) => e.preventDefault()}>
                           <div className="row">
                             <div className="form-group mb-3 col-md-6">
+                              <label className="form-label">
+                                Nom et prénom
+                              </label>
+                              <input
+                                type="name"
+                                placeholder={user.name}
+                                className="form-control"
+                              />
+                            </div>
+                            <div className="form-group mb-3 col-md-6">
                               <label className="form-label">Email</label>
                               <input
                                 type="email"
-                                placeholder="Email"
+                                placeholder={user.email}
                                 className="form-control"
                               />
                             </div>
@@ -159,14 +160,14 @@ const AppProfile = () => {
                                 className="form-control"
                               />
                             </div>
-                          </div>
-                          <div className="form-group mb-3">
-                            <label className="form-label">Téléphone</label>
-                            <input
-                              type="text"
-                              placeholder="Téléphone"
-                              className="form-control"
-                            />
+                            <div className="form-group mb-3 col-md-6">
+                              <label className="form-label">Téléphone</label>
+                              <input
+                                type="text"
+                                placeholder={user.phone}
+                                className="form-control"
+                              />
+                            </div>
                           </div>
                           {/* <div className="row">
                                 <div className="form-group mb-3 col-md-6">

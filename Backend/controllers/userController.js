@@ -36,6 +36,8 @@ exports.createUser = asyncErrorHandler(async (req, res) => {
       role,
     });
 
+    db.users.dropIndex("gouvernement_1");
+    db.users.createIndex({ gouvernement: 1 });
     await user.save();
 
     res.status(201).json({ message: "User created successfully", user });

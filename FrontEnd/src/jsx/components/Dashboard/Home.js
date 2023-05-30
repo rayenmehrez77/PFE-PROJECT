@@ -8,11 +8,14 @@ import { Dropdown } from "react-bootstrap";
 import { ThemeContext } from "../../../context/ThemeContext";
 
 import DonutChart from "./Dashboard/DonutChart";
+import { connect } from "react-redux";
 const ChartBarApex = loadable(() =>
   pMinDelay(import("./Dashboard/ChartBarApex"), 1000)
 );
 
-const Home = () => {
+const Home = ({ users }) => {
+  console.log(users);
+
   const { changeBackground } = useContext(ThemeContext);
   useEffect(() => {
     changeBackground({ value: "light", label: "Light" });
@@ -51,7 +54,7 @@ const Home = () => {
                       </svg>
                     </span>
                     <div className="invoices">
-                      <h4>1000</h4>
+                      <h4>{users.length}</h4>
                       <span>Membres Totals</span>
                     </div>
                   </div>
@@ -79,8 +82,14 @@ const Home = () => {
                       </svg>
                     </span>
                     <div className="invoices">
-                      <h4>800</h4>
-                      <span>Membres déclarés</span>
+                      <h4>
+                        {/* {users.reduce((acc, user) => {
+                          if (user.sexe === "Masculin") return acc + 1;
+                          return acc;
+                        })} */}
+                        0
+                      </h4>
+                      <span>Masculin</span>
                     </div>
                   </div>
                 </div>
@@ -115,8 +124,15 @@ const Home = () => {
                       </svg>
                     </span>
                     <div className="invoices">
-                      <h4>200</h4>
-                      <span>Membres Observateurs </span>
+                      <h4>
+                        {" "}
+                        {/* {users.reduce((acc, user) => {
+                          if (user.sexe === "Féminin") return acc + 1;
+                          return acc;
+                        })} */}{" "}
+                        0
+                      </h4>
+                      <span>Féminin </span>
                     </div>
                   </div>
                 </div>
@@ -151,7 +167,11 @@ const Home = () => {
                       </svg>
                     </span>
                     <div className="invoices">
-                      <h4>40</h4>
+                      <h4>
+                        {users.reduce((acc, user) => {
+                          return acc + 1;
+                        }, 0)}
+                      </h4>
                       <span>Organisation Locale</span>
                     </div>
                   </div>
@@ -655,4 +675,12 @@ const Home = () => {
     </>
   );
 };
-export default Home;
+
+const mapStateToProps = (state) => ({
+  users: state.users.users,
+  loading: state.users.loading,
+  error: state.users.error,
+  user: state.auth.auth.user,
+});
+
+export default connect(mapStateToProps)(Home);

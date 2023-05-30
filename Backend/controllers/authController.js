@@ -18,8 +18,8 @@ exports.signup = asyncErrorHandler(async (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     OLM: req.body.OLM,
-    gouvernement: req.body.gouvernement,
     sexe: req.body.sexe,
+    gouvernement: req.body.gouvernement,
     password: req.body.password,
     comparePassword: req.body.confirmPassword,
     role: req.body.role,
@@ -32,6 +32,7 @@ exports.signup = asyncErrorHandler(async (req, res, next) => {
     !newUser.email ||
     !newUser.OLM ||
     !newUser.gouvernement ||
+    !newUser.sexe ||
     !newUser.password ||
     !newUser.comparePassword ||
     !newUser.role

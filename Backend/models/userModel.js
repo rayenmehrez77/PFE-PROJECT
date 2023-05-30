@@ -4,7 +4,6 @@ const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
-    _id: mongoose.Schema.Types.ObjectId,
     name: {
       type: String,
       required: [true, "Name is required!"],
@@ -22,6 +21,7 @@ const userSchema = new mongoose.Schema(
     },
     gouvernement: {
       type: String,
+      enum: ["Monastir", "Sousse", "Mahdia"],
       required: [true, "Gouvernement is required!"],
     },
     sexe: {
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
     phone: {
       type: String,
       required: [false, "Phone is required!"],
-      unique: true,
+      unique: false,
     },
     password: {
       type: String,
