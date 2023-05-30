@@ -20,11 +20,25 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "OLM is required!"],
     },
+    gouvernement: {
+      type: String,
+      required: [true, "Gouvernement is required!"],
+      unique: true,
+    },
+    sexe: {
+      type: String,
+      required: [true, "Sexe is required!"],
+    },
+    téléphone: {
+      type: String,
+      required: [true, "Téléphone is required!"],
+    },
     password: {
       type: String,
       required: [true, "Password is required!"],
       minLength: [8, "Password is shorter than the minimum length(8)"],
     },
+
     role: {
       type: String,
       enum: ["Super Admin", "Admin", "Member"],

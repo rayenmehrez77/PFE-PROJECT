@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const asyncErrorHandler = require("../utils/asyncErrorHandler");
 const jwt = require("jsonwebtoken");
 const AppError = require("../utils/appError");
+const { default: mongoose } = require("mongoose");
 
 const generateToken = (userid) => {
   return jwt.sign({ id: userid }, process.env.JWT_SECRET, {
@@ -13,9 +14,12 @@ const generateToken = (userid) => {
 
 exports.signup = asyncErrorHandler(async (req, res, next) => {
   const newUser = await User.create({
+    _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     email: req.body.email,
     OLM: req.body.OLM,
+    gouvernement: req.body.gouvernement,
+    sexe: req.body.sexe,
     password: req.body.password,
     comparePassword: req.body.confirmPassword,
     role: req.body.role,
@@ -27,6 +31,7 @@ exports.signup = asyncErrorHandler(async (req, res, next) => {
     !newUser.name ||
     !newUser.email ||
     !newUser.OLM ||
+    !newUser.gouvernement ||
     !newUser.password ||
     !newUser.comparePassword ||
     !newUser.role

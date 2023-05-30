@@ -3,7 +3,8 @@ const asyncErrorHandler = require("../utils/asyncErrorHandler");
 
 exports.createUser = asyncErrorHandler(async (req, res) => {
   try {
-    const { name, email, OLM, password, role } = req.body;
+    const { name, email, OLM, gouvernement, sexe, téléphone, password, role } =
+      req.body;
 
     const existingUserByEmail = await User.findOne({ email });
     const existingUserByName = await User.findOne({ name });
@@ -28,6 +29,9 @@ exports.createUser = asyncErrorHandler(async (req, res) => {
       name,
       email,
       OLM,
+      gouvernement,
+      sexe,
+      téléphone,
       password,
       role,
     });
@@ -60,7 +64,7 @@ exports.getUser = asyncErrorHandler(async (req, res) => {
 
 exports.updateUser = asyncErrorHandler(async (req, res, next) => {
   const { userId } = req.params;
-  const { name, email, OLM, phone } = req.body;
+  const { name, email, OLM, téléphone } = req.body;
 
   try {
     // Find the user by ID
@@ -82,6 +86,7 @@ exports.updateUser = asyncErrorHandler(async (req, res, next) => {
     // Update the user's information
     user.name = name;
     user.email = email;
+    user.téléphone = téléphone;
     user.OLM = OLM;
     user.phone = phone;
 

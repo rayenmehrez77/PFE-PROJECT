@@ -7,7 +7,7 @@ import PageTitle from "../layouts/PageTitle";
 import pic1 from "./../../images/profile/small/pic1.jpg";
 import Editable from "./Editable";
 import { getUsers } from "../../store/Thunks/userThunks";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 
 const tableList = [
   {
@@ -123,11 +123,14 @@ const MembresList = [
   },
 ];
 
-const MembresComponent = () => {
+const MembresComponent = ({ users, user }) => {
   const [contents, setContents] = useState(tableList);
   const [conseillers, setConseillers] = useState(conseillerList);
   const [Membres, setMembres] = useState(MembresList);
-const dispatch = useDispatch()
+
+  // const users = useSelector((state) => state.users.users);
+
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
   }, [getUsers]);
@@ -316,9 +319,7 @@ const dispatch = useDispatch()
   return (
     <>
       <PageTitle activeMenu="Membres" motherMenu="Gestion des membres" />
-      <h1 className="text-center fw-bold mb-3 text-cyan">
-        MEMBRES JCI MENZEL FERSI 2023
-      </h1>
+      <h1 className="text-center fw-bold mb-3 text-cyan">MEMBRES {} 2023</h1>
       <div className="col-12">
         <Modal className="modal fade" show={addCard} onHide={setAddCard}>
           <div className="" role="document">
@@ -460,11 +461,7 @@ const dispatch = useDispatch()
                     </svg>
                   </span>
                   <div className="invoices">
-                    <h4>
-                      {tableList.length +
-                        conseillerList.length +
-                        MembresList.length}
-                    </h4>
+                    <h4>{users.length}</h4>
                     <span>Membres Totals</span>
                   </div>
                 </div>
@@ -500,8 +497,13 @@ const dispatch = useDispatch()
                     </svg>
                   </span>
                   <div className="invoices">
-                    <h4>{tableList.length}</h4>
-                    <span>Membres Bureaux</span>
+                    <h4>
+                      {users.reduce((acc, user) => {
+                        if (user.sexe === "Masculin") return acc + 1;
+                        return acc;
+                      }, 0)}
+                    </h4>
+                    <span>Masculin</span>
                   </div>
                 </div>
               </div>
@@ -536,8 +538,13 @@ const dispatch = useDispatch()
                     </svg>
                   </span>
                   <div className="invoices">
-                    <h4>{conseillerList.length}</h4>
-                    <span>Conseillers</span>
+                    <h4>
+                      {users.reduce((acc, user) => {
+                        if (user.sexe === "Féminin") return acc + 1;
+                        return acc;
+                      }, 0)}
+                    </h4>
+                    <span>Féminin</span>
                   </div>
                 </div>
               </div>
@@ -619,156 +626,6 @@ const dispatch = useDispatch()
             </div>
           </div>
         </div>
-        <div className="card">
-          <div className="card-header">
-            <h4 className="card-title">Les Conseillers</h4>
-          </div>
-          <div className="card-body">
-            <div className="w-100 table-responsive">
-              <div id="example_wrapper" className="dataTables_wrapper">
-                <form onSubmit={handleEditFormSubmit}>
-                  <table id="example" className="display w-100 dataTable">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Nom et prénom</th>
-                        <th>Poste</th>
-                        <th>Email</th>
-                        <th>Téléphone</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {conseillerList.map((content, index) => (
-                        <tr key={index}>
-                          {editContentId === content.id ? (
-                            <Editable
-                              editFormData={editFormData}
-                              handleEditFormChange={handleEditFormChange}
-                              handleCancelClick={handleCancelClick}
-                            />
-                          ) : (
-                            <>
-                              <td></td>
-                              <td>{content.name}</td>
-                              <td>{content.poste}</td>
-                              <td>
-                                <Link to={"#"}>
-                                  <strong>{content.email}</strong>
-                                </Link>
-                              </td>
-                              <td>{content.téléphone}</td>
-                              <td>
-                                <div className="d-flex">
-                                  <Link
-                                    className="btn btn-primary shadow btn-xs sharp me-2"
-                                    onClick={() => setAddCard(true)}
-                                  >
-                                    <i className="fa fa-plus"></i>
-                                  </Link>
-                                  <Link
-                                    className="btn btn-secondary	 shadow btn-xs sharp me-2"
-                                    onClick={(event) =>
-                                      handleEditClick(event, content)
-                                    }
-                                  >
-                                    <i className="fas fa-pen"></i>
-                                  </Link>
-                                  <Link
-                                    className="btn btn-danger shadow btn-xs sharp"
-                                    onClick={() =>
-                                      handleDeleteConseillerClick(content.id)
-                                    }
-                                  >
-                                    <i className="fa fa-trash"></i>
-                                  </Link>
-                                </div>
-                              </td>
-                            </>
-                          )}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-header">
-            <h4 className="card-title">Les Membres</h4>
-          </div>
-          <div className="card-body">
-            <div className="w-100 table-responsive">
-              <div id="example_wrapper" className="dataTables_wrapper">
-                <form onSubmit={handleEditFormSubmit}>
-                  <table id="example" className="display w-100 dataTable">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Nom et prénom</th>
-                        <th>Poste</th>
-                        <th>Email</th>
-                        <th>Téléphone</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {Membres.map((content, index) => (
-                        <tr key={index}>
-                          {editContentId === content.id ? (
-                            <Editable
-                              editFormData={editFormData}
-                              handleEditFormChange={handleEditFormChange}
-                              handleCancelClick={handleCancelClick}
-                            />
-                          ) : (
-                            <>
-                              <td></td>
-                              <td>{content.name}</td>
-                              <td>{content.poste}</td>
-                              <td>
-                                <Link to={"#"}>
-                                  <strong>{content.email}</strong>
-                                </Link>
-                              </td>
-                              <td>{content.téléphone}</td>
-                              <td>
-                                <div className="d-flex">
-                                  <Link
-                                    className="btn btn-primary shadow btn-xs sharp me-2"
-                                    onClick={() => setAddCard(true)}
-                                  >
-                                    <i className="fa fa-plus"></i>
-                                  </Link>
-                                  <Link
-                                    className="btn btn-secondary	 shadow btn-xs sharp me-2"
-                                    onClick={(event) =>
-                                      handleEditClick(event, content)
-                                    }
-                                  >
-                                    <i className="fas fa-pen"></i>
-                                  </Link>
-                                  <Link
-                                    className="btn btn-danger shadow btn-xs sharp"
-                                    onClick={() =>
-                                      handleDeleteConseillerClick(content.id)
-                                    }
-                                  >
-                                    <i className="fa fa-trash"></i>
-                                  </Link>
-                                </div>
-                              </td>
-                            </>
-                          )}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );
@@ -778,8 +635,7 @@ const mapStateToProps = (state) => ({
   users: state.users.users,
   loading: state.users.loading,
   error: state.users.error,
+  user: state.auth.auth.user,
 });
-
-
 
 export default connect(mapStateToProps)(MembresComponent);
