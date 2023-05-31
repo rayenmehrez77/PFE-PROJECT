@@ -66,7 +66,7 @@ export function loginAction(email, password, history) {
           dispatch(loginConfirmedAction(response.data));
 
           if (response.data.data.user.role === "Super Admin") {
-            history.push("/dashboard)");
+            history.push("/dashboard");
           } else {
             history.push("/acceuil");
           }
@@ -77,8 +77,6 @@ export function loginAction(email, password, history) {
       })
       .catch((error) => {
         console.log(error);
-        // const errorMessage = formatError(error);
-        // dispatch(loginFailedAction(errorMessage));
       });
   };
 }

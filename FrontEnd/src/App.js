@@ -3,9 +3,9 @@ import { lazy, Suspense, useEffect } from "react";
 /// Components
 import Index from "./jsx";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Redirect, Route, Switch, withRouter } from "react-router-dom";
+import Error404 from "./jsx/pages/Error404";
 // action
-import { checkAutoLogin } from "./services/AuthService";
 import { isAuthenticated } from "./store/selectors/AuthSelectors";
 /// Style
 import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
@@ -13,24 +13,28 @@ import "./css/style.css";
 
 const SignUp = lazy(() => import("./jsx/pages/Registration"));
 const ForgotPassword = lazy(() => import("./jsx/pages/ForgotPassword"));
-const Login = lazy(() => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(import("./jsx/pages/Login")), 500);
-  });
-});
+const Login = lazy(() =>
+  import("./jsx/pages/Login").then((module) => {
+    module.loaded = true;
+    return module;
+  })
+);
 
 function App(props) {
-  const dispatch = useDispatch();
+  const { isAuthenticated } = props;
 
   useEffect(() => {
-    // checkAutoLogin(dispatch, props.history);
-  }, [dispatch, props.history]);
+    if (!isAuthenticated && props.location.pathname !== "/login") {
+      props.history.push("/login");
+    }
+  }, [isAuthenticated, props.location.pathname, props.history]);
 
   let routes = (
     <Switch>
-      <Route path="/login" component={Login} />
+      <Route path="/login" exact component={Login} />
       <Route path="/page-register" component={SignUp} />
       <Route path="/page-forgot-password" component={ForgotPassword} />
+      <Redirect to="/login" />
     </Switch>
   );
   if (props.isAuthenticated) {

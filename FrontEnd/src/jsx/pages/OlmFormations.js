@@ -6,6 +6,7 @@ import { Badge } from "react-bootstrap";
 import card1 from "./../../images/formations/awards.png";
 import card2 from "./../../images/formations/linkedIn.jpg";
 import card3 from "./../../images/formations/personal-brand.jpg";
+import PageTitle from "../layouts/PageTitle";
 
 const CardListBlog = [
   {
@@ -44,47 +45,16 @@ const CardListBlog = [
 ];
 
 const OlmFormations = () => {
-  const [postModal, setPostModal] = useState(false);
   const [contacts, setContacts] = useState(CardListBlog);
 
   return (
     <>
-      <div className="d-flex ">
-        <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
-          <div className="widget-stat card m-3">
-            <div className="card-body p-4">
-              <div className="media ai-icon">
-                <span className="me-3 bgl-primary text-primary">
-                  <i className="la la-graduation-cap"></i>
-                </span>
-                <div className="media-body">
-                  <h5 className="mb-1">Formation à venir :</h5>
-                  <h5 className="badge badge-primary">5 formations</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
-          <div className="widget-stat card m-3">
-            <div className="card-body p-4 ">
-              <div className="media ai-icon">
-                <span className="me-3 bgl-primary text-primary">
-                  <i className="flaticon-381-calendar-1"></i>
-                </span>
-                <div className="media-body">
-                  <h5 className="mb-1">Formation Terminé :</h5>
-                  <h5 className="badge badge-primary">2 Formations</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageTitle activeMenu="FORMATIONS" motherMenu="FORMATIONS" />
+      <h1 className="fw-bold text-center mb-3">LES FORMATIONS</h1>
       <div className="row">
         {contacts.map((contact, index) => (
           <div
-            className="col-xl-3 col-xxl-4 col-lg-6 col-md-6 col-sm-6"
+            className="col-xl-4 col-xxl-4 col-lg-6 col-md-6 col-sm-6"
             key={index}
           >
             <div className="card project-boxed">
@@ -134,12 +104,10 @@ const OlmFormations = () => {
                   </li>
                 </ul>
               </div>
-              <h6 className="p-3 fw-bold d-flex justify-content-between">
-                <Badge bg="" className="badge-primary">
-                  {" "}
-                  S'inscrire:{" "}
-                </Badge>
-              </h6>
+              <button bg="" className="badge-primary p-3 text-white fw-bold">
+                {" "}
+                S'inscrire:{" "}
+              </button>
             </div>
           </div>
         ))}

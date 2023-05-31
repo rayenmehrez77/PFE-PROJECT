@@ -5,6 +5,7 @@ import { ThemeContext } from "../../../context/ThemeContext";
 
 import DonutChart from "./Dashboard/DonutChart";
 import { connect, useSelector } from "react-redux";
+import PageTitle from "../../layouts/PageTitle";
 
 const StatistiqueLocaux = ({ users }) => {
   const user = useSelector((state) => state.auth.auth.user);
@@ -15,10 +16,15 @@ const StatistiqueLocaux = ({ users }) => {
   }, []);
   return (
     <>
+      <PageTitle
+        activeMenu={`Statistique JCI ${user.OLM}`}
+        motherMenu="Statistiques"
+      />
+      <h1 className="fw-bold text-center mb-3">Statistique OLM {user.OLM}</h1>
       <div className="row">
         <div className="col-xl-12">
           <div className="row">
-            <div className="col-xl-3 col-sm-6">
+            <div className="col-xl-4 col-sm-6">
               <div className="card overflow-hidden">
                 <div className="card-header border-0">
                   <div className="d-flex">
@@ -56,7 +62,7 @@ const StatistiqueLocaux = ({ users }) => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6">
+            <div className="col-xl-4 col-sm-6">
               <div className="card overflow-hidden">
                 <div className="card-header border-0">
                   <div className="d-flex">
@@ -92,7 +98,7 @@ const StatistiqueLocaux = ({ users }) => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6">
+            <div className="col-xl-4 col-sm-6">
               <div className="card overflow-hidden">
                 <div className="card-header border-0">
                   <div className="d-flex">
@@ -138,84 +144,65 @@ const StatistiqueLocaux = ({ users }) => {
             </div>
           </div>
         </div>
-        <div className="col-xl-6">
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-xl-7  col-xxl-12 col-md-7">
-                    <div className="row">
-                      <div className="col-sm-6 mb-4">
-                        <div className="bg-gradient1 rounded text-center p-3">
-                          <div className="d-inline-block position-relative donut-chart-sale mb-3">
-                            <DonutChart
-                              value={Math.trunc(
-                                (users.filter(
-                                  (item) =>
-                                    item.OLM === user.OLM &&
-                                    item.sexe === "Féminin"
-                                ).length /
-                                  users.length) *
-                                  100
-                              )}
-                              backgroundColor="rgba(255, 255, 255,1)"
-                              backgroundColor2="rgba(255, 255, 255, 0.2)"
-                            />
-                            <small className="text-white">
-                              {Math.trunc(
-                                (users.filter(
-                                  (item) =>
-                                    item.OLM === user.OLM &&
-                                    item.sexe === "Féminin"
-                                ).length /
-                                  users.length) *
-                                  100
-                              )}{" "}
-                              %
-                            </small>
-                          </div>
-                          <span className="fs-14 text-white d-block">
-                            Féminin
-                          </span>
-                        </div>
-                      </div>
-                      <div className="col-sm-6 mb-sm-0 mb-4">
-                        <div className="rounded text-center p-3 bg-gradient4">
-                          <div className="d-inline-block position-relative donut-chart-sale mb-3">
-                            <DonutChart
-                              value={Math.trunc(
-                                (users.filter(
-                                  (item) =>
-                                    item.OLM === user.OLM &&
-                                    item.sexe === "Masculin"
-                                ).length /
-                                  users.length) *
-                                  100
-                              )}
-                              backgroundColor="rgba(255, 255, 255,1)"
-                              backgroundColor2="rgba(255, 255, 255, 0.2)"
-                            />
-                            <small className="text-white">
-                              {Math.trunc(
-                                (users.filter(
-                                  (item) =>
-                                    item.OLM === user.OLM &&
-                                    item.sexe === "Masculin"
-                                ).length /
-                                  users.length) *
-                                  100
-                              )}{" "}
-                              %
-                            </small>
-                          </div>
-                          <span className="fs-14 text-white d-block">
-                            Masculin
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+        <div className="row">
+          <div className="col-xl-7 col-xxl-12 col-md-7">
+            <div className="d-flex">
+              <div className="col-xl-8"></div>
+              <div className="bg-gradient1 rounded text-center p-3 ">
+                <div className="d-inline-block position-relative donut-chart-sale mb-3">
+                  <DonutChart
+                    value={Math.trunc(
+                      (users.filter(
+                        (item) =>
+                          item.OLM === user.OLM && item.sexe === "Féminin"
+                      ).length /
+                        users.length) *
+                        100
+                    )}
+                    backgroundColor="rgba(255, 255, 255,1)"
+                    backgroundColor2="rgba(255, 255, 255, 0.2)"
+                  />
+                  <small className="text-white">
+                    {Math.trunc(
+                      (users.filter(
+                        (item) =>
+                          item.OLM === user.OLM && item.sexe === "Féminin"
+                      ).length /
+                        users.length) *
+                        100
+                    )}{" "}
+                    %
+                  </small>
                 </div>
+                <span className="fs-14 text-white d-block">Féminin</span>
+              </div>
+              <div className="rounded text-center p-3 bg-gradient4">
+                <div className="d-inline-block position-relative donut-chart-sale mb-3">
+                  <DonutChart
+                    value={Math.trunc(
+                      (users.filter(
+                        (item) =>
+                          item.OLM === user.OLM && item.sexe === "Masculin"
+                      ).length /
+                        users.length) *
+                        100
+                    )}
+                    backgroundColor="rgba(255, 255, 255,1)"
+                    backgroundColor2="rgba(255, 255, 255, 0.2)"
+                  />
+                  <small className="text-white">
+                    {Math.trunc(
+                      (users.filter(
+                        (item) =>
+                          item.OLM === user.OLM && item.sexe === "Masculin"
+                      ).length /
+                        users.length) *
+                        100
+                    )}{" "}
+                    %
+                  </small>
+                </div>
+                <span className="fs-14 text-white d-block">Masculin</span>
               </div>
             </div>
           </div>

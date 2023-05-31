@@ -201,7 +201,7 @@ const Formations = () => {
 
       {/* les statistiques  */}
       <div className="d-flex ">
-        <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
           <div className="widget-stat card m-3">
             <div className="card-body p-4">
               <div className="media ai-icon">
@@ -232,7 +232,7 @@ const Formations = () => {
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
           <div className="widget-stat card m-3">
             <div className="card-body p-4">
               <div className="media ai-icon">
@@ -248,7 +248,7 @@ const Formations = () => {
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
           <div className="widget-stat card m-3">
             <div className="card-body p-4 ">
               <div className="media ai-icon">
@@ -531,16 +531,11 @@ const Formations = () => {
             </div>
           </div>
         </Modal>
-        <div>
-          {/* <Link to={"#"} className="btn btn-secondary btn-sm me-3">
-            <i className="fas fa-phone-alt"></i>
-          </Link> */}
-        </div>
       </div>
       <div className="row">
         {contacts.map((contact, index) => (
           <div
-            className="col-xl-3 col-xxl-4 col-lg-6 col-md-6 col-sm-6"
+            className="col-xl-4 col-xxl-4 col-lg-6 col-md-6 col-sm-6"
             key={index}
           >
             <div className="card project-boxed">
@@ -554,11 +549,7 @@ const Formations = () => {
               </div>
               <div className="card-header align-items-start">
                 <div>
-                  <h2 className="fs-18 fw-bold">
-                    {/* <Link to={"#"} className="text-black user-name"> */}
-                    {contact.nom_formation}
-                    {/* </Link> */}
-                  </h2>
+                  <h2 className="fs-18 fw-bold">{contact.nom_formation}</h2>
                 </div>
                 <Dropdown className="">
                   <Dropdown.Toggle
