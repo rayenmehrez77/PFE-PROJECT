@@ -20,8 +20,8 @@ exports.getUser = asyncErrorHandler(async (req, res) => {
 
 exports.updateUser = asyncErrorHandler(async (req, res, next) => {
   const { userId } = req.params;
-  const { name, email, phone, password } = req.body;
-
+  const { name, email, phone } = req.body;
+  const image = req.file.path;
   try {
     // Find the user by ID
     const user = await User.findById(userId);
@@ -42,9 +42,8 @@ exports.updateUser = asyncErrorHandler(async (req, res, next) => {
     // Update the user's information
     user.name = name;
     user.email = email;
-    user.password = password;
     user.phone = phone;
-
+    user.image = image;
     await user.save();
 
     res.status(200).json({ message: "User updated successfully", user });
