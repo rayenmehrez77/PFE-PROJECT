@@ -30,9 +30,11 @@ app.use(express.static(`${__dirname}/public`));
 // Routes
 const userRoutes = require("./routes/userRoutes");
 const trainingsRoutes = require("./routes/TrainingRoutes");
+const postRoutes = require("./routes/postRoutes");
 
 app.use("/users", userRoutes);
 app.use("/trainings", trainingsRoutes);
+app.use("/posts", postRoutes);
 
 // handle hundled routes
 
