@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 /// Components
 import Index from "./jsx";
@@ -19,6 +20,7 @@ const Login = lazy(() =>
     return module;
   })
 );
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 function App(props) {
   const { isAuthenticated } = props;
