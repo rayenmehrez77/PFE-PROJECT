@@ -24,7 +24,11 @@ function App(props) {
   const { isAuthenticated } = props;
 
   useEffect(() => {
-    if (!isAuthenticated && props.location.pathname !== "/login") {
+    if (
+      !isAuthenticated &&
+      props.location.pathname !== "/login" &&
+      props.location.pathname !== "/page-register"
+    ) {
       props.history.push("/login");
     }
   }, [isAuthenticated, props.location.pathname, props.history]);
