@@ -17,9 +17,9 @@ function Register(props) {
   const [errors, setErrors] = useState(errorsObj);
   const [password, setPassword] = useState("");
 
-  const [selectedGovValue, setSelectedGocValue] = useState("");
-  const [selectedSexeValue, setSelectedSexeValue] = useState("");
-  const [selectedOLMValue, setSelectedOLMValue] = useState("");
+  const [selectedGovValue, setSelectedGocValue] = useState("Monastir");
+  const [selectedSexeValue, setSelectedSexeValue] = useState("Masculin");
+  const [selectedOLMValue, setSelectedOLMValue] = useState("MENZEL FERSI");
 
   const OLMs = [
     "MENZEL FERSI",
@@ -51,6 +51,7 @@ function Register(props) {
   };
 
   const handleSexeChange = (event) => {
+    console.log(event.target.value);
     setSelectedSexeValue(event.target.value); // Update the state when the dropdown value changes
   };
 
