@@ -5,6 +5,8 @@ import { nanoid } from "nanoid";
 import swal from "sweetalert";
 import PageTitle from "../layouts/PageTitle";
 import Editable from "./Editable";
+import { connect } from "react-redux";
+import axios from "axios";
 
 const tableList = [
   {
@@ -51,16 +53,23 @@ const tableList = [
   },
 ];
 
-const Administrateurs = () => {
-  const [contents, setContents] = useState(tableList);
-  // delete data
-  const handleDeleteClick = (contentId) => {
-    const newContents = [...contents];
-    const index = contents.findIndex((content) => content.id === contentId);
-    newContents.splice(index, 1);
-    setContents(newContents);
-  };
+const Administrateurs = ({ users }) => {
+  const [contents, setContents] = useState(users);
 
+  // delete data
+  const handleDeleteClick = (userId) => {
+    axios
+      .delete(`/users/${userId}`)
+      .then((response) => {
+        // If the request is successful, you can handle the deletion on the client-side
+        const newContents = users.filter((content) => content.id !== userId);
+        setContents(newContents);
+      })
+      .catch((error) => {
+        // Handle any error that occurs during the deletion process
+        console.error("Error deleting user:", error);
+      });
+  };
   //Modal box
   const [addCard, setAddCard] = useState(false);
   const [deleteCard, setDeleteCard] = useState(false);
@@ -136,7 +145,6 @@ const Administrateurs = () => {
       téléphone: content.téléphone,
     };
     setEditFormData(formValues);
-    //setEditModal(true);
   };
 
   // edit  data
@@ -323,7 +331,7 @@ const Administrateurs = () => {
                   <button
                     type="submit"
                     className="btn btn-primary"
-                    // onClick={handleAddFormSubmit}
+                    onClick={handleDeleteClick(editContentId)}
                   >
                     Supprimer
                   </button>
@@ -370,7 +378,7 @@ const Administrateurs = () => {
                     </svg>
                   </span>
                   <div className="invoices">
-                    <h4>6</h4>
+                    <h4>2</h4>
                     <span>Admin</span>
                   </div>
                 </div>
@@ -433,55 +441,58 @@ const Administrateurs = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {contents.map((content, index) => (
-                        <tr key={index}>
-                          {editContentId === content.id ? (
-                            <Editable
-                              editFormData={editFormData}
-                              handleEditFormChange={handleEditFormChange}
-                              handleCancelClick={handleCancelClick}
-                            />
-                          ) : (
-                            <>
-                              <td></td>
-                              <td>{content.name}</td>
-                              <td>{content.OLM}</td>
-                              <td>
-                                <Link to={"#"}>
-                                  <strong>{content.email}</strong>
-                                </Link>
-                              </td>
-                              <td>{content.téléphone}</td>
-                              <td>
-                                <div className="d-flex">
-                                  <Link
-                                    className="btn btn-primary shadow btn-xs sharp me-2"
-                                    onClick={() => setAddCard(true)}
-                                  >
-                                    <i className="fa fa-plus"></i>
+                      {contents
+                        .filter((content) => content.role === "Admin")
+                        .map((content, index) => (
+                          <tr key={index}>
+                            {editContentId === content.id ? (
+                              <Editable
+                                editFormData={editFormData}
+                                handleEditFormChange={handleEditFormChange}
+                                handleCancelClick={handleCancelClick}
+                              />
+                            ) : (
+                              <>
+                                <td></td>
+                                <td>{content.name}</td>
+                                <td>{content.OLM}</td>
+                                <td>
+                                  <Link to={"#"}>
+                                    <strong>{content.email}</strong>
                                   </Link>
-                                  <Link
-                                    className="btn btn-secondary	 shadow btn-xs sharp me-2"
-                                    onClick={(event) =>
-                                      handleEditClick(event, content)
-                                    }
-                                  >
-                                    <i className="fas fa-pen"></i>
-                                  </Link>
-                                  <Link
-                                    className="btn btn-danger shadow btn-xs sharp"
-                                    onClick={() => setDeleteCard(true)}
-                                    // handleDeleteClick(content.id)
-                                    // }
-                                  >
-                                    <i className="fa fa-trash"></i>
-                                  </Link>
-                                </div>
-                              </td>
-                            </>
-                          )}
-                        </tr>
-                      ))}
+                                </td>
+                                <td>{content.phone}</td>
+                                <td>
+                                  <div className="d-flex">
+                                    <Link
+                                      className="btn btn-primary shadow btn-xs sharp me-2"
+                                      onClick={() => setAddCard(true)}
+                                    >
+                                      <i className="fa fa-plus"></i>
+                                    </Link>
+                                    <Link
+                                      className="btn btn-secondary	 shadow btn-xs sharp me-2"
+                                      onClick={(event) =>
+                                        handleEditClick(event, content)
+                                      }
+                                    >
+                                      <i className="fas fa-pen"></i>
+                                    </Link>
+                                    <Link
+                                      className="btn btn-danger shadow btn-xs sharp"
+                                      onClick={() => {
+                                        handleDeleteClick(content.id);
+                                        setDeleteCard(true);
+                                      }}
+                                    >
+                                      <i className="fa fa-trash"></i>
+                                    </Link>
+                                  </div>
+                                </td>
+                              </>
+                            )}
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </form>
@@ -493,4 +504,10 @@ const Administrateurs = () => {
     </>
   );
 };
-export default Administrateurs;
+
+const mapStateToProps = (state) => ({
+  users: state.users.users,
+  user: state.auth.auth.user,
+});
+
+export default connect(mapStateToProps)(Administrateurs);

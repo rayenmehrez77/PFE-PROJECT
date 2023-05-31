@@ -283,6 +283,14 @@ const SideBar = () => {
                       Planification des Forums Zonal
                     </Link>
                   </li>
+                  {/* <li>
+                    <Link
+                      className={`${path === "membres" ? "mm-active" : ""}`}
+                      to="/membres"
+                    >
+                      Gestion des membres
+                    </Link>
+                  </li> */}
                 </>
               ) : null}
               {user?.role === "Member" ? (
@@ -292,7 +300,7 @@ const SideBar = () => {
                       className={`${
                         path === "app-calender" ? "mm-active" : ""
                       }`}
-                      to="/FORMATIONS"
+                      to="/FORMATIONS_OLM"
                     >
                       FORMATIONS
                     </Link>
@@ -302,7 +310,7 @@ const SideBar = () => {
                       className={`${
                         path === "app-calender" ? "mm-active" : ""
                       }`}
-                      to="/ACTIONS"
+                      to="/ACTIONS_OLM"
                     >
                       ACTIONS
                     </Link>
@@ -363,14 +371,16 @@ const SideBar = () => {
                   </li>
                 </>
               ) : null}
-              <li>
-                <Link
-                  className={`${path === "membres" ? "mm-active" : ""}`}
-                  to="/membres"
-                >
-                  Gestion des membres
-                </Link>
-              </li>
+              {user?.role === "Admin" && (
+                <li>
+                  <Link
+                    className={`${path === "membres" ? "mm-active" : ""}`}
+                    to="/membres"
+                  >
+                    Gestion des membres
+                  </Link>
+                </li>
+              )}
             </ul>
           </li>
         </MM>

@@ -1,13 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
-import loadable from "@loadable/component";
-import pMinDelay from "p-min-delay";
-import { Dropdown } from "react-bootstrap";
 
 //Import Components
 import { ThemeContext } from "../../../context/ThemeContext";
 
 import DonutChart from "./Dashboard/DonutChart";
+
 import { connect } from "react-redux";
 
 const Home = ({ users }) => {
@@ -231,7 +228,9 @@ const Home = ({ users }) => {
                         <div className="rounded text-center p-3 bg-gradient4">
                           <div className="d-inline-block position-relative donut-chart-sale mb-3">
                             <DonutChart
-                              value={(calMasculin() / users.length) * 100}
+                              value={Math.trunc(
+                                (calFeminin() / users.length) * 100
+                              )}
                               backgroundColor="rgba(255, 255, 255,1)"
                               backgroundColor2="rgba(255, 255, 255, 0.2)"
                             />
@@ -254,86 +253,72 @@ const Home = ({ users }) => {
         </div>
         <div className="col-xl-6">
           <div className="row">
-            <div className="col-xl-12">
-              <div className="row">
-                <div className="col-xl-6 col-xxl-12 col-sm-6"></div>
-                <div className="col-xl-6 col-xxl-12 col-sm-6">
-                  <div className="card">
-                    <div className="card-header border-0 pb-0">
-                      <div>
-                        <h4 className="mb-2 fs-20 font-w700">
-                          Statistique des membres par gouvernements
-                        </h4>
-                      </div>
-                    </div>
-                    <div className="card-body">
-                      <div className="progress default-progress mt-4">
-                        <div
-                          className="progress-bar bg-gradient2 progress-animated"
-                          style={{
-                            width:
-                              (calUserPerGouvernement("Mahdia") / 100) * 100 +
-                              "%",
-                            height: "20px",
-                          }}
-                        >
-                          {/* <span className="sr-only">30% Complete</span> */}
-                        </div>
-                      </div>
-                      <div className="d-flex align-items-end mt-2 pb-3 justify-content-between">
-                        <span>Monastir</span>
-                        <span className="fs-16 font-w600 text-light">
-                          <span className="text-black pe-2">{`${calUserPerGouvernement(
-                            "Monastir"
-                          )} members`}</span>
-                          /{users.length} membres
-                        </span>
-                      </div>
-                      <div className="progress default-progress mt-4">
-                        <div
-                          className="progress-bar bg-gradient4 progress-animated"
-                          style={{
-                            width:
-                              (calUserPerGouvernement("Mahdia") / 100) * 100 +
-                              "%",
-                            height: "20px",
-                          }}
-                        >
-                          {/* <span className="sr-only">35% Complete</span> */}
-                        </div>
-                      </div>
-                      <div className="d-flex align-items-end mt-2 pb-3 justify-content-between">
-                        <span>Mahdia</span>
-                        <span className="fs-16 font-w600 text-light">
-                          <span className="text-black pe-2">{`${calUserPerGouvernement(
-                            "Mahdia"
-                          )} members`}</span>
-                          /{users.length} membres
-                        </span>
-                      </div>
-                      <div className="progress default-progress mt-4">
-                        <div
-                          className="progress-bar bg-gradient3 progress-animated"
-                          style={{
-                            width:
-                              (calUserPerGouvernement("Sousse") / 100) * 100 +
-                              "%",
-                            height: "20px",
-                          }}
-                        >
-                          {/* <span className="sr-only">30% Complete</span> */}
-                        </div>
-                      </div>
-                      <div className="d-flex align-items-end mt-2 justify-content-between">
-                        <span>Sousse</span>
-                        <span className="fs-16 font-w600 text-light">
-                          <span className="text-black pe-2">{`${calUserPerGouvernement(
-                            "Sousse"
-                          )} members`}</span>
-                          /{users.length} membres
-                        </span>
-                      </div>
-                    </div>
+            <div className="col-xl-12 col-xxl-12 col-sm-6">
+              <div className="card">
+                <div className="card-header border-0 pb-0">
+                  <div>
+                    <h4 className="mb-2 fs-20 font-w700">
+                      Statistique des membres par gouvernements
+                    </h4>
+                  </div>
+                </div>
+                <div className="card-body">
+                  <div className="progress default-progress mt-4">
+                    <div
+                      className="progress-bar bg-gradient2 progress-animated"
+                      style={{
+                        width:
+                          (calUserPerGouvernement("Mahdia") / 100) * 100 + "%",
+                        height: "20px",
+                      }}
+                    ></div>
+                  </div>
+                  <div className="d-flex align-items-end mt-2 pb-3 justify-content-between">
+                    <span>Monastir</span>
+                    <span className="fs-16 font-w600 text-light">
+                      <span className="text-black pe-2">{`${calUserPerGouvernement(
+                        "Monastir"
+                      )} members`}</span>
+                      /{users.length} membres
+                    </span>
+                  </div>
+                  <div className="progress default-progress mt-4">
+                    <div
+                      className="progress-bar bg-gradient4 progress-animated"
+                      style={{
+                        width:
+                          (calUserPerGouvernement("Mahdia") / 100) * 100 + "%",
+                        height: "20px",
+                      }}
+                    ></div>
+                  </div>
+                  <div className="d-flex align-items-end mt-2 pb-3 justify-content-between">
+                    <span>Mahdia</span>
+                    <span className="fs-16 font-w600 text-light">
+                      <span className="text-black pe-2">{`${calUserPerGouvernement(
+                        "Mahdia"
+                      )} members`}</span>
+                      /{users.length} membres
+                    </span>
+                  </div>
+                  <div className="progress default-progress mt-4">
+                    <div
+                      className="progress-bar bg-gradient3 progress-animated"
+                      style={{
+                        width:
+                          (calUserPerGouvernement("Sousse") / 100) * 100 + "%",
+                        height: "20px",
+                      }}
+                    ></div>
+                  </div>
+                  <div className="d-flex align-items-end mt-2 justify-content-between">
+                    <span>Sousse</span>
+                    <span className="fs-16 font-w600 text-light">
+                      <span className="text-black pe-2">{`${calUserPerGouvernement(
+                        "Sousse"
+                      )} members`}</span>
+                      /{users.length} membres
+                    </span>
                   </div>
                 </div>
               </div>

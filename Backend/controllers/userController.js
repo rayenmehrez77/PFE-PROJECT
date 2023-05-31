@@ -84,7 +84,8 @@ exports.deleteUser = asyncErrorHandler(async (req, res) => {
 // GET method to get all users
 exports.getUsers = asyncErrorHandler(async (req, res) => {
   try {
-    const users = await User.find(); // Retrieve all users from the database
+    const users = await User.find();
+    console.log(users);
     res.json(users); // Return the users as a JSON response
   } catch (err) {
     console.error(err);

@@ -12,6 +12,7 @@ import "./step.css";
 import Nav from "./layouts/nav";
 import Footer from "./layouts/Footer";
 import ScrollToTop from "./layouts/ScrollToTop";
+
 /// Dashboard
 import Home from "./components/Dashboard/Home";
 
@@ -20,7 +21,6 @@ import Actions from "./components/Dashboard/Actions";
 import Forum from "./components/Dashboard/Forum";
 import Acceuil from "./components/Dashboard/Acceuil";
 import StatistiqueLocaux from "./components/Dashboard/StatistiqueLocaux";
-import OlmForums from "./pages/OlmForums";
 
 /// App
 import AppProfile from "./components/AppsMenu/AppProfile/AppProfile";
@@ -28,7 +28,6 @@ import Compose from "./components/AppsMenu/Email/Compose/Compose";
 import Inbox from "./components/AppsMenu/Email/Inbox/Inbox";
 import Read from "./components/AppsMenu/Email/Read/Read";
 import Calendar from "./components/AppsMenu/Calendar/Calendar";
-import PostDetails from "./components/AppsMenu/AppProfile/PostDetails";
 
 /// Table
 import SortingTable from "./components/table/SortingTable/SortingTable";
@@ -46,6 +45,9 @@ import MembresComponent from "./pages/Membres";
 import Administrateurs from "./pages/Administrateurs";
 import OlmFormations from "./pages/OlmFormations";
 import OlmActions from "./pages/OlmActions";
+import Events from "./pages/Events";
+import OlmForums from "./pages/OlmForums";
+import Error404 from "./pages/Error404";
 
 const Markup = () => {
   const { menuToggle } = useContext(ThemeContext);
@@ -53,14 +55,15 @@ const Markup = () => {
   const routes = [
     /// Dashboard
     { url: "", component: Home },
+    { url: "Calendrier", component: Events },
     { url: "dashboard", component: Home },
     { url: "formations", component: Formations },
     { url: "actions", component: Actions },
     { url: "forum", component: Forum },
     { url: "acceuil", component: Acceuil },
     { url: "Statistiques", component: StatistiqueLocaux },
-    { url: "FORMATIONS", component: OlmFormations },
-    { url: "ACTIONS", component: OlmActions },
+    { url: "FORMATIONS_OLM", component: OlmFormations },
+    { url: "ACTIONS_OLM", component: OlmActions },
     { url: "FORUMS", component: OlmForums },
 
     /// Apps
@@ -82,7 +85,6 @@ const Markup = () => {
 
     /// pages
     { url: "page-register", component: Registration },
-    { url: "page-lock-screen", component: LockScreen },
     { url: "page-login", component: Login },
     { url: "page-forgot-password", component: ForgotPassword },
   ];
@@ -115,6 +117,7 @@ const Markup = () => {
                   component={data.component}
                 />
               ))}
+              <Route component={Error404} />
             </Switch>
           </div>
         </div>
