@@ -12,5 +12,8 @@ router.route("/editPost/:postId").put(upload.single("image"),postController.upda
 
 router.route("/:postId").delete(postController.deletePost);
 router.route("/:postId").get(postController.getPost);
-
+router.route("/:postId/comment").post(postController.createComment);
+router.route("/:postId/comments").get(postController.getAllPostComments);
+router.route("/:postId/comments/:commentId").delete(postController.deleteComment);
+router.route("/:postId/comments/:commentId").put(postController.updateComment);
 module.exports = router;
