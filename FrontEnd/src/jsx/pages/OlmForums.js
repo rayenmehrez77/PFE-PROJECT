@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import PageTitle from "../layouts/PageTitle";
-import { Badge, Card, Col, Dropdown, Modal, Row, Table } from "react-bootstrap";
+import {
+  Badge,
+  Button,
+  Card,
+  Col,
+  Dropdown,
+  Modal,
+  OverlayTrigger,
+  Row,
+  Table,
+  Tooltip,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import { nanoid } from "nanoid";
@@ -223,6 +234,9 @@ const OlmForums = () => {
                       <th>
                         <strong>Etat</strong>
                       </th>
+                      <th>
+                        <strong></strong>
+                      </th>
                       <th></th>
                     </tr>
                   </thead>
@@ -235,6 +249,50 @@ const OlmForums = () => {
                         <td>{forum.Location}</td>
                         <td>
                           <Badge variant="success light">Terminée</Badge>
+                        </td>
+                        <td>
+                          <div className="bootstrap-popover-wrapper ">
+                            <div className="bootstrap-popover">
+                              {["Participer"].map((placement, i) => (
+                                <OverlayTrigger
+                                  trigger="click"
+                                  key={i}
+                                  placement="bottom"
+                                  responsive={true}
+                                  overlay={
+                                    <Tooltip
+                                      className="toltip-popover"
+                                      id={`popover-positioned-${placement.toLowerCase()}`}
+                                    >
+                                      <h3 className="popover-header">{`Confirmer votre Participation`}</h3>
+                                      <div className="d-flex">
+                                        <Button
+                                          className="fs-12"
+                                          variant="success"
+                                        >
+                                          Confirmer
+                                        </Button>
+                                        <Button
+                                          className="fs-12"
+                                          variant="danger"
+                                        >
+                                          Annuler
+                                        </Button>
+                                      </div>
+                                    </Tooltip>
+                                  }
+                                >
+                                  <Button
+                                    variant="primary"
+                                    type="button"
+                                    className=""
+                                  >
+                                    Participer
+                                  </Button>
+                                </OverlayTrigger>
+                              ))}
+                            </div>
+                          </div>
                         </td>
                       </tr>
                     ))}

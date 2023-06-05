@@ -87,8 +87,6 @@ exports.login = asyncErrorHandler(async (req, res, next) => {
   const user = await User.findOne({ email: email });
   const compare = await user.comparePassword(password);
 
-  console.log(compare);
-
   if (!user || !compare) {
     res.status(200).json({
       success: false,

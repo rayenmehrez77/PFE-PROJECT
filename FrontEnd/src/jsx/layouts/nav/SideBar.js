@@ -10,7 +10,7 @@ import { ThemeContext } from "../../../context/ThemeContext";
 import LogoutPage from "./Logout";
 
 /// Image
-import profile from "../../../images/user.jpg";
+import profile from "../../../images/ProfilePicture.jpg";
 import { useSelector } from "react-redux";
 
 class MM extends Component {
@@ -164,7 +164,12 @@ const SideBar = () => {
             className="nav-link i-false c-pointer"
           >
             <div className="header-info2 d-flex align-items-center border">
-              <img src={profile} width={20} alt="" />
+              <img
+                src={profile}
+                style={{ objectFit: "cover" }}
+                width={20}
+                alt=""
+              />
               <div className="d-flex align-items-center sidebar-info">
                 <div>
                   <h6 className="font-w700 d-block mb-2">
@@ -270,7 +275,7 @@ const SideBar = () => {
                       }`}
                       to="/app-calender"
                     >
-                      Evénements zonal 2023
+                      Gestion des Evénements
                     </Link>
                   </li>
                   <li>
@@ -283,14 +288,6 @@ const SideBar = () => {
                       Planification des Forums Zonal
                     </Link>
                   </li>
-                  {/* <li>
-                    <Link
-                      className={`${path === "membres" ? "mm-active" : ""}`}
-                      to="/membres"
-                    >
-                      Gestion des membres
-                    </Link>
-                  </li> */}
                 </>
               ) : null}
               {user?.role === "Member" ? (
@@ -330,13 +327,23 @@ const SideBar = () => {
                       className={`${
                         path === "app-calender" ? "mm-active" : ""
                       }`}
-                      to="/app-calender"
+                      to="/Calendrier"
                     >
-                      Evénements zonal 2023
+                      Evénements
                     </Link>
                   </li>
                 </>
               ) : null}
+              {user?.role === "Super Admin" && (
+                <li>
+                  <Link
+                    className={`${path === "app-calender" ? "mm-active" : ""}`}
+                    to="/app-calender"
+                  >
+                    Gestion des Evénements
+                  </Link>
+                </li>
+              )}
             </ul>
           </li>
           <li className={`${table.includes(path) ? "mm-active" : ""}`}>

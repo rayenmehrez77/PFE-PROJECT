@@ -3,7 +3,7 @@ import { Button, Dropdown, Modal, Tab, Nav, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { SRLWrapper } from "simple-react-lightbox";
 //** Import Image */
-import profile from "../../../../images/profile/profile.png";
+import profile from "../../../../images/ProfilePicture.jpg";
 import PageTitle from "../../../layouts/PageTitle";
 import { useSelector } from "react-redux";
 
@@ -38,90 +38,67 @@ const AppProfile = () => {
   return (
     <Fragment>
       <PageTitle activeMenu="Profile" motherMenu="App" />
-
-      <div className="row">
-        <div className="col-lg-12">
-          <div className="profile card card-body px-3 pt-3 pb-0">
-            <div className="profile-head">
-              <div className="photo-content ">
-                <div className="cover-photo rounded"></div>
-              </div>
-              <div className="profile-info">
-                <div className="profile-photo">
-                  <img
-                    src={profile}
-                    className="img-fluid rounded-circle"
-                    alt="profile"
-                  />
-                </div>
-                <div className="profile-details">
-                  <div className="profile-name px-3 pt-2">
-                    <h4 className="text-primary mb-0">{user.name}</h4>
-                    <p className="text-start font-w400">
-                      {user.role === "Super Admin"
-                        ? "Comité de la zone C"
-                        : user.role === "Admin"
-                        ? user.OLM
-                        : "Membre"}
-                    </p>
+      <div className="card-body pb-3 transaction-details d-flex flex-wrap justify-content-between align-items-center">
+        <div className="user-bx-2 me-3 mb-3">
+          <img
+            src={profile}
+            style={{ objectFit: "cover" }}
+            className="rounded"
+            alt=""
+          />
+          <div>
+            <h3 className="fs-20 font-w700">{user?.name}</h3>
+            <span className="font-w400">
+              {user?.role === "Member" ? "Membre" : null}
+            </span>
+          </div>
+        </div>
+        <div className="me-3 mb-3">
+          <p className="mb-2">Sexe</p>
+          <h4 className="mb-0">{user?.sexe}</h4>
+        </div>
+        <div className="me-3 mb-3">
+          <p className="mb-2">Gouvernement</p>
+          <h4 className="mb-0">{user?.gouvernement}</h4>
+        </div>
+        <div className="amount-bx mb-3 border">
+          <div>
+            <p className="mb-1">OLM</p>
+            <h3 className="mb-0">
+              {user.role === "Super Admin" ? "JCI ZONE C" : user?.OLM}
+            </h3>
+          </div>
+        </div>
+      </div>
+      <div className="col-xl-12">
+        <div className="card">
+          <div className="card-body pb-3">
+            <div className="row align-items-center">
+              <div className="col-xl-9 d-flex flex-wrap justify-content-between align-items-center">
+                {user?.phone && (
+                  <div className="d-flex me-3 mb-3 ms-2 align-items-start payment">
+                    <i className="fas fa-phone-alt me-4 mt-2 scale5"></i>
+                    <div>
+                      <p className="mb-2 fs-16 font-w600">Telephone</p>
+                      <h4 className="mb-0 fs-18 font-w700">
+                        +216 {user?.phone}
+                      </h4>
+                    </div>
                   </div>
-                  <div className="profile-email px-2 pt-2">
-                    <h4 className="text-muted mb-0">{user.email}</h4>
-                    <p>Email</p>
+                )}
+                <div className="d-flex me-3 mb-3 ms-2 align-items-start payment">
+                  <i className="fas fa-envelope scale5 me-4 mt-2"></i>
+                  <div>
+                    <p className="mb-2 fs-16 font-w600">Email</p>
+                    <h4 className="mb-0 fs-18 font-w700">{user.email}</h4>
                   </div>
-                  <Dropdown className="dropdown ms-auto">
-                    <Dropdown.Toggle
-                      variant="primary"
-                      className="btn btn-primary light sharp i-false"
-                      data-toggle="dropdown"
-                      aria-expanded="true"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        //    xmlns:xlink="http://www.w3.org/1999/xlink"
-                        width="18px"
-                        height="18px"
-                        viewBox="0 0 24 24"
-                        version="1.1"
-                      >
-                        <g
-                          stroke="none"
-                          strokeWidth="1"
-                          fill="none"
-                          fillRule="evenodd"
-                        >
-                          <rect x="0" y="0" width="24" height="24"></rect>
-                          <circle fill="#000000" cx="5" cy="12" r="2"></circle>
-                          <circle fill="#000000" cx="12" cy="12" r="2"></circle>
-                          <circle fill="#000000" cx="19" cy="12" r="2"></circle>
-                        </g>
-                      </svg>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu className="dropdown-menu dropdown-menu-right">
-                      <Dropdown.Item className="dropdown-item">
-                        <i className="fa fa-user-circle text-primary me-2" />
-                        View profile
-                      </Dropdown.Item>
-                      <Dropdown.Item className="dropdown-item">
-                        <i className="fa fa-users text-primary me-2" />
-                        Add to close friends
-                      </Dropdown.Item>
-                      <Dropdown.Item className="dropdown-item">
-                        <i className="fa fa-plus text-primary me-2" />
-                        Add to group
-                      </Dropdown.Item>
-                      <Dropdown.Item className="dropdown-item">
-                        <i className="fa fa-ban text-primary me-2" />
-                        Block
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div className="row">
         <div className="col-xl-10">
           <div className="card">

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Schema = require('mongoose');
+const Schema = require("mongoose");
 const postSchema = new mongoose.Schema({
   image: {
     type: String,
@@ -11,8 +11,8 @@ const postSchema = new mongoose.Schema({
     type: String,
   },
   date: { type: Date, default: Date.now },
-  user: { type: Schema.Types.ObjectId, ref: 'User' },
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
+  user: { type: Schema.Types.ObjectId, ref: "User" },
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 const Post = mongoose.model("Post", postSchema);

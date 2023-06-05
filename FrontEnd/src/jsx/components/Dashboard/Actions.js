@@ -190,7 +190,7 @@ const Actions = () => {
         + Ajouter une Action
       </Link>
       <div className="d-flex ">
-        <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+        <div className="col-xl-4 scol-xxl-4 col-lg-6 col-sm-6">
           <div className="widget-stat card m-3">
             <div className="card-body p-4">
               <div className="media ai-icon">
@@ -221,7 +221,7 @@ const Actions = () => {
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
           <div className="widget-stat card m-3">
             <div className="card-body p-4">
               <div className="media ai-icon">
@@ -237,7 +237,7 @@ const Actions = () => {
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
           <div className="widget-stat card m-3">
             <div className="card-body p-4 ">
               <div className="media ai-icon">
@@ -495,7 +495,7 @@ const Actions = () => {
       <div className="row">
         {contacts.map((contact, index) => (
           <div
-            className="col-xl-3 col-xxl-4 col-lg-6 col-md-6 col-sm-6"
+            className="col-xl-4 col-xxl-4 col-lg-6 col-md-6 col-sm-6"
             key={index}
           >
             <div className="card project-boxed">

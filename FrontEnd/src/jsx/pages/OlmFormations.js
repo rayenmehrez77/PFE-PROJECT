@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { Badge } from "react-bootstrap";
+import { Badge, Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 //Images
 //import data from './../Boltz/Task/Postpage.json';
 import card1 from "./../../images/formations/awards.png";
 import card2 from "./../../images/formations/linkedIn.jpg";
 import card3 from "./../../images/formations/personal-brand.jpg";
 import PageTitle from "../layouts/PageTitle";
+import { Link } from "react-router-dom";
 
 const CardListBlog = [
   {
@@ -46,6 +47,7 @@ const CardListBlog = [
 
 const OlmFormations = () => {
   const [contacts, setContacts] = useState(CardListBlog);
+  let width = window.innerWidth;
 
   return (
     <>
@@ -66,9 +68,48 @@ const OlmFormations = () => {
                   width="130"
                 />
               </div>
-              <div className="card-header align-items-start">
+              <div
+                className="card-header"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
                 <div>
                   <h2 className="fs-18 fw-bold">{contact.nom_formation}</h2>
+                </div>
+                <div className="bootstrap-popover-wrapper ">
+                  <div className="bootstrap-popover">
+                    {["S'inscrire"].map((placement, i) => (
+                      <OverlayTrigger
+                        trigger="click"
+                        key={i}
+                        placement="bottom"
+                        responsive={true}
+                        overlay={
+                          <Tooltip
+                            className="toltip-popover"
+                            id={`popover-positioned-${placement.toLowerCase()}`}
+                          >
+                            <h3 className="popover-header">{`Confirmer votre inscription`}</h3>
+                            <div className="d-flex">
+                              <Button className="fs-12" variant="success">
+                                Confirmer
+                              </Button>
+                              <Button className="fs-12" variant="danger">
+                                Annuler
+                              </Button>
+                            </div>
+                          </Tooltip>
+                        }
+                      >
+                        <Button variant="primary" type="button" className="">
+                          {placement}
+                        </Button>
+                      </OverlayTrigger>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="card-body p-0 pb-3">
@@ -104,10 +145,6 @@ const OlmFormations = () => {
                   </li>
                 </ul>
               </div>
-              <button bg="" className="badge-primary p-3 text-white fw-bold">
-                {" "}
-                S'inscrire:{" "}
-              </button>
             </div>
           </div>
         ))}

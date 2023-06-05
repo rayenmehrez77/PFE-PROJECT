@@ -100,7 +100,6 @@ const Forum = () => {
   };
 
   const handleAddFormSubmit = (event) => {
-    
     var error = false;
     var errorMsg = "";
     if (addFormData.Date_Join === "") {
@@ -150,7 +149,6 @@ const Forum = () => {
 
   // Edit function button click to edit
   const handleEditClick = (event, Forum) => {
-    
     setEditForumId(Forum.id);
     const forumValues = {
       Title: Forum.Title,
@@ -167,7 +165,6 @@ const Forum = () => {
 
   //update data function
   const handleEditFormChange = (event) => {
-    
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
     const newFormData = { ...editForumData };
@@ -177,7 +174,6 @@ const Forum = () => {
 
   // edit form data submit
   const handleEditFormSubmit = (event) => {
-   
     const editedContact = {
       id: editForumId,
       Title: editForumData.Title,
@@ -208,7 +204,7 @@ const Forum = () => {
         + Ajouter un forum
       </Link>
       <div className="d-flex ">
-        <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
           <div className="widget-stat card m-3">
             <div className="card-body p-4">
               <div className="media ai-icon">
@@ -239,7 +235,7 @@ const Forum = () => {
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
           <div className="widget-stat card m-3">
             <div className="card-body p-4">
               <div className="media ai-icon">
@@ -255,7 +251,7 @@ const Forum = () => {
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-xxl-4 col-lg-6 col-sm-6">
+        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
           <div className="widget-stat card m-3">
             <div className="card-body p-4 ">
               <div className="media ai-icon">
@@ -476,7 +472,7 @@ const Forum = () => {
         </div>
       </Modal>
       <Row>
-        <Col lg={10}>
+        <Col lg={12}>
           <Card>
             <Card.Header>
               <Card.Title>Forums Zonal</Card.Title>
@@ -570,6 +566,124 @@ const Forum = () => {
             </Card.Body>
           </Card>
         </Col>
+        <div>
+          <div className="mb-3 align-items-center me-auto">
+            <h4 className="fs-24 font-w800">Liste d'inscriptions des Forums</h4>
+            <span className="fs-12">
+              Listes des membres inscriés dans les forums
+            </span>
+          </div>
+          <div className="row">
+            <div className="col-xl-12">
+              <div
+                className="table-responsive table-hover fs-14 dataTables_wrapper"
+                id="invoices-data"
+              >
+                <table
+                  className="table display mb-4 dataTablesCard  dataTable no-footer"
+                  id="example5"
+                >
+                  <thead>
+                    <tr role="row">
+                      <th className="sorting_asc">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="checkAll"
+                          />
+                        </div>
+                      </th>
+                      <th className="sorting_asc">Nom du forum</th>
+                      <th className="sorting_asc">Nom et prénom</th>
+                      <th className="sorting_asc">Date</th>
+                      <th className="sorting_asc">Email</th>
+                      <th className="sorting_asc">Date de forum</th>
+                      <th className="sorting_asc"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr role="row" className="odd">
+                      <td className="application_sorting_1">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="check1"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <span className="text-black font-w500">
+                          Vers le succès
+                        </span>
+                      </td>
+                      <td>
+                        <span className="text-black text-nowrap">
+                          Rayen Mehrez
+                        </span>
+                      </td>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <div>
+                            <h6 className="fs-16 text-black font-w600 mb-0 text-nowrap">
+                              5 Mai 2023
+                            </h6>
+                            <span className="fs-14">08:22 AM</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="text-black">rayen@mail.com</span>
+                      </td>
+                      <td>
+                        <td>
+                          <span className="btn btn-success">1 Juin 2023</span>
+                        </td>
+                      </td>
+                    </tr>
+                    <tr role="row" className="even">
+                      <td className="application_sorting_1">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="check1"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <span className="text-black font-w500">
+                          The power of public speaking
+                        </span>
+                      </td>
+                      <td>
+                        <span className="text-black text-nowrap">
+                          Badia Cherif
+                        </span>
+                      </td>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <div>
+                            <h6 className="fs-16 text-black font-w600 mb-0 text-nowrap">
+                              28 Mai 2023
+                            </h6>
+                            <span className="fs-14">19:00h</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="text-black">
+                          BadiaCherif@gmail.com
+                        </span>
+                      </td>
+                      <td>
+                        <span className="btn btn-success">1 juin 2023</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </Row>
     </>
   );

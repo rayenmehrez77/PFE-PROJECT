@@ -17,7 +17,7 @@ router.route("/:userId").get(userController.getUser);
 
 router.route("/edit-profile/:userId").put(
   upload.single("image"),
-  checkUserRole(["ADMIN", "MEMBER"]),
+  checkUserRole(["Admin", "Member"]),
   (req, res) => {
     res.json({ message: "Admin and MEMBER access" });
   },

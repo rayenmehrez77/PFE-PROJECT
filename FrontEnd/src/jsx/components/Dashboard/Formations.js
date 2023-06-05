@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { Badge, Dropdown, Modal } from "react-bootstrap";
@@ -47,6 +47,50 @@ const CardListBlog = [
     Durée: "2h",
   },
 ];
+
+const DropdownBlog = () => {
+  return (
+    <>
+      <Dropdown className="dropdown">
+        <Dropdown.Toggle as="div" className="btn-link i-false">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+              stroke="#575757"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            ></path>
+            <path
+              d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+              stroke="#575757"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            ></path>
+            <path
+              d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
+              stroke="#575757"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            ></path>
+          </svg>
+        </Dropdown.Toggle>
+        <Dropdown.Menu className="dropdown-menu dropdown-menu-right">
+          <Dropdown.Item>Delete</Dropdown.Item>
+          <Dropdown.Item>Edit</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    </>
+  );
+};
 
 const Formations = () => {
   const [postModal, setPostModal] = useState(false);
@@ -668,6 +712,165 @@ const Formations = () => {
             </div>
           </div>
         ))}
+
+        <div>
+          <div className="mb-3 align-items-center me-auto">
+            <h4 className="fs-24 font-w800">
+              Liste d'inscriptions des formations
+            </h4>
+            <span className="fs-12">
+              Listes des membres inscriés dans les formations
+            </span>
+          </div>
+          <div className="row">
+            <div className="col-xl-12">
+              <div
+                className="table-responsive table-hover fs-14 dataTables_wrapper"
+                id="invoices-data"
+              >
+                <table
+                  className="table display mb-4 dataTablesCard  dataTable no-footer"
+                  id="example5"
+                >
+                  <thead>
+                    <tr role="row">
+                      <th className="sorting_asc">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="checkAll"
+                          />
+                        </div>
+                      </th>
+                      <th className="sorting_asc">Nom du Formation</th>
+                      <th className="sorting_asc">Nom et prénom</th>
+                      <th className="sorting_asc">Date</th>
+                      <th className="sorting_asc">Email</th>
+                      <th className="sorting_asc">Date de formation</th>
+                      <th className="sorting_asc"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr role="row" className="odd">
+                      <td className="application_sorting_1">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="check1"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <span className="text-black font-w500">
+                          Personal Branding
+                        </span>
+                      </td>
+                      <td>
+                        <span className="text-black text-nowrap">
+                          Rayen Mehrez
+                        </span>
+                      </td>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <div>
+                            <h6 className="fs-16 text-black font-w600 mb-0 text-nowrap">
+                              5 Mai 2023
+                            </h6>
+                            <span className="fs-14">08:22 AM</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="text-black">rayen@mail.com</span>
+                      </td>
+                      <td>
+                        <td>
+                          <span className="btn btn-success">25 juin 2023</span>
+                        </td>
+                      </td>
+                    </tr>
+                    <tr role="row" className="even">
+                      <td className="application_sorting_1">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="check1"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <span className="text-black font-w500">
+                          Formation LinkedIn
+                        </span>
+                      </td>
+                      <td>
+                        <span className="text-black text-nowrap">
+                          Badia Cherif
+                        </span>
+                      </td>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <div>
+                            <h6 className="fs-16 text-black font-w600 mb-0 text-nowrap">
+                              5 Avril
+                            </h6>
+                            <span className="fs-14">28 Mai 2023</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="text-black">
+                          BadiaCherif@gmail.com
+                        </span>
+                      </td>
+                      <td>
+                        <span className="btn btn-success">28 juin 2023</span>
+                      </td>
+                    </tr>
+                    <tr role="row" className="odd">
+                      <td className="application_sorting_1">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="check1"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <span className="text-black font-w500">
+                          Formation The Art of Awards
+                        </span>
+                      </td>
+                      <td>
+                        <span className="text-black text-nowrap">
+                          Hazem Boughraira
+                        </span>
+                      </td>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <div>
+                            <h6 className="fs-16 text-black font-w600 mb-0 text-nowrap">
+                              8 Mai 2023
+                            </h6>
+                            <span className="fs-14">07:00 h</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="text-black">Hazem@mail.com</span>
+                      </td>
+                      <td>
+                        <td>
+                          <span className="btn btn-success">25 juin 2023</span>
+                        </td>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
