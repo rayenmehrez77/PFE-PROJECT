@@ -25,7 +25,7 @@ export default function PostsReducer(state = initialState, actions) {
     if (actions.type === CONFIRMED_DELETE_POST_ACTION) {
         const posts = [...state.posts];
         const postIndex = posts.findIndex(
-            (post) => post.id === actions.payload,
+            (post) => post._id === actions.payload,
         );
 
         posts.splice(postIndex, 1);

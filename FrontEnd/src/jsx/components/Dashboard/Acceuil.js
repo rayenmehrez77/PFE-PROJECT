@@ -310,8 +310,9 @@ const Acceuil = () => {
                 <div className="d-flex align-items">
                   <img
                     src={
+                      post.user.image &&
                       "http://localhost:5001/" +
-                      post.user.image.replace("public/", "")
+                      post?.user?.image.replace("public/", "")
                     }
                     className="rounded"
                     style={{ objectFit: "cover" }}
@@ -323,7 +324,7 @@ const Acceuil = () => {
                     <span>{new Date(post.date).toString("YYYY-MM-dd")}</span>
                   </div>
                 </div>
-                {(user.role === "Super Admin" || user.role === "Admin") && (
+                {((user.role === "Super Admin" || user.role === "Admin") && post.user._id===user._id) && (
                   <Dropdown className="">
                     <Dropdown.Toggle
                       variant=""
