@@ -10,28 +10,13 @@ const ForumSchema = new mongoose.Schema({
     type: String,
     default: Date.now,
   },
-  Collaborators: {
-    type: string,
-    required: true,
-  },
-  trainer: {
-    type: String,
-    required: true,
-  },
+  Collaborators: [{ type: Schema.Types.ObjectId, ref: "Collaborator" }],
   location: {
     type: "String",
     required: true,
   },
-  etat: {
-    type: "String",
-    required: false,
-  },
-  nbParticipants: {
-    type: Number,
-    required: false,
-  },
   status: {
-    type: "String",
+    type: String,
     required: false,
   },
 });

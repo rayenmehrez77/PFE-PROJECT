@@ -6,6 +6,7 @@ import {
   loadingToggleAction,
   signupAction,
 } from "../../store/actions/AuthActions";
+import { OLMs } from "../../Data/Olms";
 // image
 import logo from "../../images/Zone C.png";
 
@@ -20,31 +21,6 @@ function Register(props) {
   const [selectedGovValue, setSelectedGocValue] = useState("Monastir");
   const [selectedSexeValue, setSelectedSexeValue] = useState("Masculin");
   const [selectedOLMValue, setSelectedOLMValue] = useState("MENZEL FERSI");
-
-  const OLMs = [
-    "MENZEL FERSI",
-    "MONASTIR",
-    "MAHDIA",
-    "SOUSSE",
-    "MOKNINE",
-    "BENI HASSEN",
-    "KALAA KEBIRA",
-    "KALAA SOUGHRA",
-    "SAYADA",
-    "TEBOULBA",
-    "KSIBET EL MEDIOUNI",
-    "ZERAMDINE",
-    "BENI HASSINE",
-    "KSAR HELAL",
-    "BEKALTA",
-    "SIDI ALOUANE",
-    "BANNEN",
-    "BEMBLA",
-    "JEMMAL",
-    "MENZEL HAYAT",
-    "SAHLINE",
-    "NEFIDHA",
-  ];
 
   const handleGovChange = (event) => {
     setSelectedGocValue(event.target.value); // Update the state when the dropdown value changes
@@ -169,8 +145,8 @@ function Register(props) {
                           className="form-control form-control-lg"
                         >
                           {OLMs.map((OLM) => (
-                            <option key={OLM} value={OLM}>
-                              JCI {OLM}
+                            <option key={OLM.id} value={OLM.name}>
+                              JCI {OLM.name}
                             </option>
                           ))}
                         </select>

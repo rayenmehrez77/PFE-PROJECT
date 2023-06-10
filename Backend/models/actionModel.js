@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Define the Training schema
 const actionSchema = new mongoose.Schema({
   image: {
     type: String,
@@ -15,20 +14,18 @@ const actionSchema = new mongoose.Schema({
     default: Date.now,
   },
   director: {
-    type: Number,
+    type: String,
     required: true,
   },
   status: {
     type: String,
-    required: true,
   },
   location: {
-    type: "String",
+    type: String,
     required: true,
   },
 });
 
-// Create the Training model
-const Action = mongoose.model("Action", trainingSchema);
+const Action = mongoose.model("Action", actionSchema);
 
 module.exports = Action;

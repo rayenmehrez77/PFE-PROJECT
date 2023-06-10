@@ -1,15 +1,19 @@
-// const express = require("express");
-// const router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-// const trainingController = require("../controllers/trainingController");
-// const upload = require("../utils/configUpload");
+const ActionsController = require("../controllers/ActionController");
+const upload = require("../utils/configUpload");
 
-// router.route("/").get(trainingController.getTrainings);
+router.route("/").get(ActionsController.getActions);
 
-// router.route("/addTraining").post(upload.single("image"),trainingController.addTraining);
+router
+  .route("/addAction")
+  .post(upload.single("image"), ActionsController.addAction);
 
-// router.route("/editTrainer/:trainingID").put(upload.single("image"),trainingController.updateTraining);
+router
+  .route("/editAction/:actionID")
+  .put(upload.single("image"), ActionsController.updateAction);
 
-// router.route("/:trainingID").delete(trainingController.deleteTraining);
+router.route("/deleteAction/:actionID").delete(ActionsController.deleteAction);
 
-// module.exports = router;
+module.exports = router;
