@@ -41,7 +41,9 @@ const AppProfile = () => {
       <div className="card-body pb-3 transaction-details d-flex flex-wrap justify-content-between align-items-center">
         <div className="user-bx-2 me-3 mb-3">
           <img
-            src={profile}
+            src={user.image &&
+              "http://localhost:5001/" +
+              user?.image.replace("public/", "")}
             style={{ objectFit: "cover" }}
             className="rounded"
             alt=""
