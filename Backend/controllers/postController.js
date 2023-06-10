@@ -42,20 +42,20 @@ exports.getPost = asyncErrorHandler(async (req, res) => {
 
 exports.updatePost = asyncErrorHandler(async (req, res, next) => {
   const { postId } = req.params;
-  const { title, description, userId } = req.body;
-  const image = req.file.path;
+  const { title, description, user } = req.body;
+  const image = "http://localhost:5001/" + req.file.path.replace('public/','');
   try {
-    const post = Post.findById(postId);
+    const post =await  Post.findById(postId);
 
     post.title = title;
     post.description = description;
     post.image = image;
-    post.user = userId;
+    post.user = user;
     await post.save();
 
     res.status(200).json({ message: "Post updated successfully", post });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ message: "Something went wrong" ,error});
   }
 });
 

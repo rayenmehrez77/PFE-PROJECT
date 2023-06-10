@@ -39,7 +39,7 @@ export default function PostsReducer(state = initialState, actions) {
     if (actions.type === CONFIRMED_EDIT_POST_ACTION) {
         const posts = [...state.posts];
         const postIndex = posts.findIndex(
-            (post) => post.id === actions.payload._id,
+            (post) => post._id === actions.payload,
         );
 
         posts[postIndex] = actions.payload;

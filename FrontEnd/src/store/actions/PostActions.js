@@ -64,10 +64,10 @@ export function confirmedUpdatePostAction(post) {
   };
 }
 
-export function updatePostAction(post, history) {
+export function updatePostAction(post, id) {
   return (dispatch, getState) => {
-    updatePost(post, post.id).then((response) => {
-      dispatch(confirmedUpdatePostAction(response.data));
+    updatePost(post, id).then((response) => {
+      dispatch(confirmedUpdatePostAction(id));
     });
   };
 }
