@@ -12,14 +12,10 @@ const initialState = {
 
 export default function PostsReducer(state = initialState, actions) {
     if (actions.type === CREATE_POST_ACTION) {
-        const post = {
-            id: Math.random(),
-            title: 'Post Title 2asdasd',
-            description: 'Sample Description 2asdasdas',
-        };
+        
 
         const posts = [...state.posts];
-        posts.push(post);
+        posts.push(actions.payload);
         return {
             ...state,
             posts,
@@ -43,7 +39,7 @@ export default function PostsReducer(state = initialState, actions) {
     if (actions.type === CONFIRMED_EDIT_POST_ACTION) {
         const posts = [...state.posts];
         const postIndex = posts.findIndex(
-            (post) => post.id === actions.payload.id,
+            (post) => post.id === actions.payload._id,
         );
 
         posts[postIndex] = actions.payload;
