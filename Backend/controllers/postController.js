@@ -5,7 +5,9 @@ const asyncErrorHandler = require("../utils/asyncErrorHandler");
 exports.createPost = asyncErrorHandler(async (req, res) => {
   try {
     const { title, description } = req.body;
-    const image = "http://localhost:5001/" + req.file.path.replace('public/','');
+    const image =
+      "http://localhost:5001/" +
+      req.file.path.replace("public/", "").replace("/\\/g", "/");
     const userId = req.body.user;
     const post = new Post({
       title,
@@ -116,7 +118,10 @@ exports.getAllPostComments = asyncErrorHandler(async (req, res) => {
   try {
     const postId = req.params.postId;
 
-    const post = await Post.findById(postId).populate({ path: "comments", populate: { path: "user" } });;
+    const post = await Post.findById(postId).populate({
+      path: "comments",
+      populate: { path: "user" },
+    });
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }

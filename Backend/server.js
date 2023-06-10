@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/globalErrorController");
-const path = require('path');
+const path = require("path");
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true, //access-control-allow-credentials:true
@@ -27,18 +27,18 @@ app.use(express.json());
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
 const port = process.env.PORT || 3001;
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 const userRoutes = require("./routes/userRoutes");
 const trainingsRoutes = require("./routes/TrainingRoutes");
 const postRoutes = require("./routes/postRoutes");
 const actionRoutes = require("./routes/actionRoutes");
-const forumsRoutes = require("./routes/forumsRoutes");
+const forumsRoutes = require("./routes/forumRoutes");
 
 app.use("/users", userRoutes);
 app.use("/trainings", trainingsRoutes);
 app.use("/posts", postRoutes);
 app.use("/actions", actionRoutes);
-app.use("/forums", actionRoutes);
+app.use("/forums", forumsRoutes);
 
 // handle hundled routes
 

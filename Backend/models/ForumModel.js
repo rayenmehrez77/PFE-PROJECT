@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const Schema = require("mongoose");
 // Define the Training schema
 const ForumSchema = new mongoose.Schema({
   title: {
