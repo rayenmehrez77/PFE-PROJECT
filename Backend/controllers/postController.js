@@ -5,7 +5,7 @@ const asyncErrorHandler = require("../utils/asyncErrorHandler");
 exports.createPost = asyncErrorHandler(async (req, res) => {
   try {
     const { title, description } = req.body;
-    const image = req.file.path;
+    const image = "http://localhost:5001/" + req.file.path.replace('public/','');
     const userId = req.body.user;
     const post = new Post({
       title,

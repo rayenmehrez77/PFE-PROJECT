@@ -8,8 +8,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use((config) => {
   const state = store.getState();
   const token = state.auth.auth?.token;
-  config.params = config.params || {};
-  config.params["auth"] = token;
+  config.headers.Authorization =  token;
   return config;
 });
 

@@ -3,6 +3,7 @@ const router = express.Router();
 
 const postController = require("../controllers/postController");
 const upload = require("../utils/configUpload");
+const { verifyToken } = require("../utils/middlewares");
 
 router.route("/").get(postController.getPosts);
 
