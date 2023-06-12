@@ -1,75 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import { nanoid } from "nanoid";
 import swal from "sweetalert";
 import PageTitle from "../layouts/PageTitle";
 import Editable from "./Editable";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import axios from "axios";
-
-const tableList = [
-  {
-    id: "1",
-    name: "Hamza Mehrez",
-    OLM: "JCI Menzel Fersi",
-    email: "menzelfersi@example.com",
-    téléphone: "+216 92 123 456",
-  },
-  {
-    id: "2",
-    name: "Rayen Mehrez",
-    OLM: "JCI Bouhjar",
-    email: "bouhjar@example.com",
-    téléphone: "+216 25 255 214",
-  },
-  {
-    id: "3",
-    name: "Hazem Boughraira",
-    OLM: "JCI Monastir",
-    email: "monastir@example.com",
-    téléphone: "+216 29 299 998",
-  },
-  {
-    id: "4",
-    name: "Jawher cherif",
-    OLM: "JCI Moknine",
-    email: "info2@example.com",
-    téléphone: "+216 99 898 264",
-  },
-  {
-    id: "5",
-    name: "Sameh Layouni",
-    OLM: "JCI Touza",
-    email: "info2@example.com",
-    téléphone: "+216 73 222 222 ",
-  },
-  {
-    id: "6",
-    name: "Fedi missaoui",
-    OLM: "Menzel Fersi",
-    email: "info2@example.com",
-    téléphone: "+216 22 235 645",
-  },
-];
+import { getUsers } from "../../store/Thunks/userThunks";
 
 const Administrateurs = ({ users }) => {
   const [contents, setContents] = useState(users);
 
-  // delete data
+  const adminCount = contents.filter(
+    (content) => content.role === "Admin"
+  ).length;
+
   const handleDeleteClick = (userId) => {
     axios
       .delete(`/users/${userId}`)
-      .then((response) => {
-        // If the request is successful, you can handle the deletion on the client-side
+      .then(() => {
         const newContents = users.filter((content) => content.id !== userId);
         setContents(newContents);
       })
       .catch((error) => {
-        // Handle any error that occurs during the deletion process
         console.error("Error deleting user:", error);
       });
   };
+
   //Modal box
   const [addCard, setAddCard] = useState(false);
   const [deleteCard, setDeleteCard] = useState(false);
@@ -164,6 +122,10 @@ const Administrateurs = ({ users }) => {
     newFormData[fieldName] = fieldValue;
     setEditFormData(newFormData);
   };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [getUsers]);
 
   // edit form data submit
   const handleEditFormSubmit = (event) => {
@@ -378,7 +340,7 @@ const Administrateurs = ({ users }) => {
                     </svg>
                   </span>
                   <div className="invoices">
-                    <h4>2</h4>
+                    <h4>{adminCount}</h4>
                     <span>Admin</span>
                   </div>
                 </div>
@@ -414,7 +376,7 @@ const Administrateurs = ({ users }) => {
                     </svg>
                   </span>
                   <div className="invoices">
-                    <h4>40</h4>
+                    <h4>{adminCount}</h4>
                     <span>OLM</span>
                   </div>
                 </div>
@@ -441,8 +403,12 @@ const Administrateurs = ({ users }) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {contents
-                        .filter((content) => content.role === "Admin")
+                      {users
+                        .filter(
+                          (content) =>
+                            content.role === "Admin" ||
+                            content.role === "Member"
+                        )
                         .map((content, index) => (
                           <tr key={index}>
                             {editContentId === content.id ? (
@@ -481,7 +447,7 @@ const Administrateurs = ({ users }) => {
                                     <Link
                                       className="btn btn-danger shadow btn-xs sharp"
                                       onClick={() => {
-                                        handleDeleteClick(content.id);
+                                        // handleDeleteClick(content.id);
                                         setDeleteCard(true);
                                       }}
                                     >
