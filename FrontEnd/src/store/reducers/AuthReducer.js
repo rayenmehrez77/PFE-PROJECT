@@ -34,31 +34,40 @@ const AuthReducer = (state = initialState, action) => {
     };
   }
 
-    if (action.type === LOGOUT_ACTION) {
-        return {
-            ...state,
-            errorMessage: '',
-            successMessage: '',
-            auth: null,
-        };
-    }
+  if (action.type === LOGOUT_ACTION) {
+    return {
+      ...state,
+      errorMessage: "",
+      successMessage: "",
+      auth: null,
+    };
+  }
 
-    if (
-        action.type === SIGNUP_FAILED_ACTION ||
-        action.type === LOGIN_FAILED_ACTION
-    ) {
-        return {
-            ...state,
-            errorMessage: action.payload,
-            successMessage: '',
-            showLoading: false,
-        };
-    }
+  if (
+    action.type === SIGNUP_FAILED_ACTION ||
+    action.type === LOGIN_FAILED_ACTION
+  ) {
+    return {
+      ...state,
+      errorMessage: action.payload,
+      successMessage: "",
+      showLoading: false,
+    };
+  }
 
   if (action.type === LOADING_TOGGLE_ACTION) {
     return {
       ...state,
       showLoading: action.payload,
+    };
+  }
+  if (action.type === "EDIT_PROFILE") {
+    return {
+      ...state,
+      auth:{
+        ...state.auth,
+        user:action.payload.user
+      }
     };
   }
   return state;

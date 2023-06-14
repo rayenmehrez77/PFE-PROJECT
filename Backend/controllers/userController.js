@@ -1,5 +1,7 @@
 const User = require("../models/userModel");
 const asyncErrorHandler = require("../utils/asyncErrorHandler");
+const bcrypt = require("bcryptjs");
+
 
 exports.getUser = asyncErrorHandler(async (req, res) => {
   const { userId } = req.params;
@@ -20,8 +22,8 @@ exports.getUser = asyncErrorHandler(async (req, res) => {
 
 exports.updateUser = asyncErrorHandler(async (req, res, next) => {
   const { userId } = req.params;
-  const { name, email, phone } = req.body;
-  const image = req.file.path;
+  const { name, email, phone, password } = req.body;
+  const image = "http://localhost:5001/" + req.file.path.replace("public/", "");
   try {
     // Find the user by ID
     const user = await User.findById(userId);
@@ -44,11 +46,12 @@ exports.updateUser = asyncErrorHandler(async (req, res, next) => {
     user.email = email;
     user.phone = phone;
     user.image = image;
+    user.password = password;
     await user.save();
 
     res.status(200).json({ message: "User updated successfully", user });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ message: "Something went wrong",error });
   }
 });
 

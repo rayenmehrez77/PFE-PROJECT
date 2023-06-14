@@ -40,8 +40,7 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Password is required!"],
-      minLength: [8, "Password is shorter than the minimum length(8)"],
+      required: false,
     },
 
     role: {

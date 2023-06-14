@@ -5,7 +5,8 @@ import { SRLWrapper } from "simple-react-lightbox";
 //** Import Image */
 import profile from "../../../../images/ProfilePicture.jpg";
 import PageTitle from "../../../layouts/PageTitle";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { EditProfile } from "../../../../store/actions/AuthActions";
 
 const initialState = false;
 const reducer = (state, action) => {
@@ -26,14 +27,41 @@ const reducer = (state, action) => {
 };
 
 const AppProfile = () => {
+  const dispatchs = useDispatch()
   const [state, dispatch] = useReducer(reducer, initialState);
   const user = useSelector((state) => state.auth.auth.user);
+  const [data,setData]=useState({
+    name:user.name,
+    email:user.email,
+    phone:user.phone ? user.phone : '' ,
+    password:'',
+    image:user.image &&
+    "http://localhost:5001/" + user?.image.replace("public/", "")
 
+  })
   const options = {
     settings: {
       overlayColor: "#000000",
     },
   };
+
+  const onChangeData = (e)=>{
+    setData({
+      ...data,
+      [e.target.name]:e.target.value
+    })
+  }
+
+  const onEditProfile = ()=>{
+    const formdata = new FormData();
+    formdata.append("name", data.name);
+    formdata.append("email", data.email);
+    formdata.append("phone", data.phone);
+    formdata.append("password", data.password.length>0 && data.password);
+    formdata.append("image", data.image);
+
+    dispatchs(EditProfile(formdata,user._id));
+  }
 
   return (
     <Fragment>
@@ -43,7 +71,8 @@ const AppProfile = () => {
           <img
             src={
               user.image &&
-              "http://localhost:5001/" + user?.image.replace("public/", "")
+              user.image.includes('public') ?
+              "http://localhost:5001/" + user?.image.replace("public/", "") : user.image
             }
             style={{ objectFit: "cover" }}
             className="rounded"
@@ -127,22 +156,28 @@ const AppProfile = () => {
                             style={{
                               borderRadius: "999px",
                               objectFit: "cover",
+                              
                             }}
-                            src={profile}
+                            src={
+                              user.image &&
+                              user.image.includes('public') ?
+                              "http://localhost:5001/" + user?.image.replace("public/", "") : user.image
+                            }
                             alt=""
                             width={80}
                             height={80}
                           />
                           <Link
                             style={{
-                              position: "absolute",
-                              bottom: "15px",
-                              left: "8px",
-                              width: "50px",
-                              height: "50px",
-                              display: "flex",
-                              alignItems: "center",
-                              borderRadius: "999px",
+                              position: 'absolute',
+                              bottom: '22px',
+                              left: '22px',
+                              width: '35px',
+                              height: '35px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              borderRadius: '999px',
                             }}
                             to="#"
                             className="btn btn-primary light me-1"
@@ -165,33 +200,41 @@ const AppProfile = () => {
                                 Nom et prénom
                               </label>
                               <input
+                              name="name"
                                 type="name"
                                 placeholder={user.name}
                                 className="form-control"
+                                onChange={(e)=>onChangeData(e)}
                               />
                             </div>
                             <div className="form-group mb-3 col-md-6">
                               <label className="form-label">Email</label>
                               <input
+                              name="email"
                                 type="email"
                                 placeholder={user.email}
                                 className="form-control"
+                                onChange={(e)=>onChangeData(e)}
                               />
                             </div>
                             <div className="form-group mb-3 col-md-6">
                               <label className="form-label">Mot de Passe</label>
                               <input
+                                name='password'
                                 type="password"
                                 placeholder="Password"
                                 className="form-control"
+                                onChange={(e)=>onChangeData(e)}
                               />
                             </div>
                             <div className="form-group mb-3 col-md-6">
                               <label className="form-label">Téléphone</label>
                               <input
+                                name='phone'
                                 type="text"
                                 placeholder={user.phone}
                                 className="form-control"
+                                onChange={(e)=>onChangeData(e)}
                               />
                             </div>
                           </div>
@@ -233,7 +276,7 @@ const AppProfile = () => {
                                   </label>
                                 </div>
                               </div> */}
-                          <button className="btn btn-primary" type="submit">
+                          <button onClick={onEditProfile} className="btn btn-primary" type="button">
                             Confirmer
                           </button>
                         </form>
@@ -435,7 +478,7 @@ const AppProfile = () => {
             <div className="input-group mb-3">
               <span className="input-group-text">Upload</span>
               <div className="form-file">
-                <input type="file" className="form-file-input" />
+                <input onChange={(e)=>setData({...data,image:e.target.files[0]})} type="file" className="form-file-input" />
               </div>
             </div>
           </div>

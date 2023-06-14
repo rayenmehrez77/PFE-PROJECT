@@ -1,4 +1,5 @@
 import {
+  editProfile,
   formatError,
   login,
   saveTokenInLocalStorage,
@@ -81,10 +82,30 @@ export function loginAction(email, password, history) {
   };
 }
 
+export function EditProfile(data, id) {
+  return (dispatch) => {
+    editProfile(data, id)
+      .then((response) => {
+        console.log(response);
+
+        dispatch(confirmedEditProfileAction(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
 export function loginFailedAction(data) {
   return {
     type: LOGIN_FAILED_ACTION,
     payload: data,
+  };
+}
+export function confirmedEditProfileAction(data) {
+  return {
+    type: "EDIT_PROFILE",
+    payload:data,
   };
 }
 

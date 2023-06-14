@@ -165,9 +165,11 @@ const SideBar = () => {
           >
             <div className="header-info2 d-flex align-items-center border">
               <img
-                src={user.image &&
-                  "http://localhost:5001/" +
-                  user?.image.replace("public/", "")}
+                src={
+                  user.image &&
+                  user.image.includes('public') ?
+                  "http://localhost:5001/" + user?.image.replace("public/", "") : user.image
+                }
                 style={{ objectFit: "cover" }}
                 width={20}
                 alt=""

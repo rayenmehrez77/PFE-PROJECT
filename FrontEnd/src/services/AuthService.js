@@ -35,6 +35,11 @@ export function login(email, password) {
   return axiosInstance.post("/users/login", postData);
 }
 
+export function editProfile(data,id) {
+  
+  return axiosInstance.put(`/users/edit-profile/${id}`, data);
+}
+
 export function formatError(errorResponse) {
   return errorResponse;
 }
