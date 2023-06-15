@@ -16,6 +16,7 @@ exports.createUser = asyncErrorHandler(async (req, res) => {
       OLM,
       email,
       password,
+      role: "Admin",
     });
     await user.save();
 

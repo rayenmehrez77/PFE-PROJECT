@@ -38,44 +38,6 @@ const Administrateurs = ({ users }) => {
     setAddFormData(newFormData);
   };
 
-  //Add Submit data
-  const handleAddFormSubmit = (event) => {
-    event.preventDefault();
-    var error = false;
-    var errorMsg = "";
-    if (addFormData.name === "") {
-      error = true;
-      errorMsg = "Please fill  name";
-    } else if (addFormData.OLM === "") {
-      error = true;
-      errorMsg = "Please fill OLM.";
-    } else if (addFormData.email === "") {
-      error = true;
-      errorMsg = "please fill Email";
-    } else if (addFormData.gouvernement === "") {
-      error = true;
-      errorMsg = "please fill Gouvernement";
-    }
-
-    if (!error) {
-      const newContent = {
-        id: nanoid(),
-        OLM: addFormData.OLM,
-        email: addFormData.email,
-        password: addFormData.password,
-        gouvernement: addFormData.gouvernement,
-      };
-
-      const newContents = [...contents, newContent];
-      setContents(newContents);
-      setAddCard(false);
-      swal("Good job!", "Successfully Added", "success");
-      addFormData.OLM = addFormData.email = addFormData.password = "";
-    } else {
-      swal("Oops", errorMsg, "error");
-    }
-  };
-
   const [editContentId, setEditContentId] = useState(null);
 
   // Edit function button click to edit
@@ -89,6 +51,20 @@ const Administrateurs = ({ users }) => {
       gouvernement: content.gouvernement,
     };
     setEditFormData(formValues);
+  };
+
+  const addUser = async () => {
+    try {
+      const response = await axios.post(`users/addUser`, addFormData);
+
+      console.log("User updated:", response.data);
+      setAddCard(false);
+      dispatch(getUsers());
+      // Perform any necessary actions after user update
+    } catch (error) {
+      console.log("Error updating user:", error.response.data);
+      // Handle error response
+    }
   };
 
   // edit  data
@@ -117,7 +93,6 @@ const Administrateurs = ({ users }) => {
 
       console.log("User updated:", response.data);
       dispatch(getUsers());
-      // Perform any necessary actions after user update
     } catch (error) {
       console.log("Error updating user:", error.response.data);
       // Handle error response
@@ -199,6 +174,23 @@ const Administrateurs = ({ users }) => {
                   <div className="add-contact-box">
                     <div className="add-contact-content">
                       <div className="form-group mb-3">
+                        <label className="text-black font-w500">
+                          Nom et prénom
+                        </label>
+                        <div className="contact-name">
+                          <input
+                            type="text"
+                            className="form-control"
+                            autoComplete="off"
+                            name="name"
+                            required="required"
+                            onChange={handleAddFormChange}
+                            placeholder="nom et prénom"
+                          />
+                          <span className="validation-text"></span>
+                        </div>
+                      </div>
+                      <div className="form-group mb-3">
                         <label className="text-black font-w500">OLM</label>
                         <div className="contact-name">
                           <input
@@ -220,7 +212,7 @@ const Administrateurs = ({ users }) => {
                             type="text"
                             className="form-control"
                             autoComplete="off"
-                            name="Email"
+                            name="email"
                             required="required"
                             onChange={handleAddFormChange}
                             placeholder="Email"
@@ -238,7 +230,7 @@ const Administrateurs = ({ users }) => {
                             type="text"
                             className="form-control"
                             autoComplete="off"
-                            name="text"
+                            name="gouvernement"
                             required="required"
                             onChange={handleAddFormChange}
                             placeholder="Gouvernement"
@@ -268,9 +260,9 @@ const Administrateurs = ({ users }) => {
                 </div>
                 <div className="modal-footer">
                   <button
-                    type="submit"
+                    type="button"
                     className="btn btn-primary"
-                    onClick={handleAddFormSubmit}
+                    onClick={addUser}
                   >
                     Ajouter
                   </button>
