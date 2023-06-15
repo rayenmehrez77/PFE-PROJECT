@@ -4,13 +4,12 @@ const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
-     image: {
+    image: {
       type: String,
       required: false,
     },
     name: {
       type: String,
-      required: [true, "Name is required!"],
     },
     email: {
       type: String,
@@ -26,16 +25,13 @@ const userSchema = new mongoose.Schema(
     gouvernement: {
       type: String,
       enum: ["Monastir", "Sousse", "Mahdia"],
-      required: [true, "Gouvernement is required!"],
     },
     sexe: {
       type: String,
       enum: ["Masculin", "Féminin"],
-      required: [true, "Sexe is required!"],
     },
     phone: {
       type: String,
-      required: [false, "Phone is required!"],
       unique: false,
     },
     password: {
