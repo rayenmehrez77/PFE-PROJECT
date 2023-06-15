@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageTitle from "../layouts/PageTitle";
 import {
   Badge,
@@ -17,6 +17,10 @@ import Select from "react-select";
 import { nanoid } from "nanoid";
 import swal from "sweetalert";
 import CustomClearIndicator from "../../jsx/components/PluginsMenu/Select2/MultiSelect";
+import { useDispatch, useSelector } from "react-redux";
+import { getForumsList } from "../../store/actions/ForumActions";
+import moment from "moment";
+import axiosInstance from "../../services/AxiosInstance";
 
 const options = [
   { value: "JCI BOUHJAR", label: "JCI BOUHJAR" },
@@ -49,8 +53,21 @@ const OlmForums = () => {
   const [postModal, setPostModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [Forums, setForums] = useState(ListForums);
+  const [isParticipate, setIsParticipate] = useState(false)
+  const user = useSelector((state) => state.auth.auth.user);
 
+  const Forums = useSelector((state) => state.forums.forums);
+  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getForumsList());
+  }, []);
+  const participate = async (id) =>{
+    await axiosInstance.post(`/forums/participate/${id}`,{user:user._id}).then(()=>{
+      dispatch(getForumsList());
+      
+    })
+   }
   const chackbox = document.querySelectorAll(".bs_exam_topper input");
   const motherChackBox = document.querySelector(".bs_exam_topper_all input");
   const chackboxFun = (type) => {
@@ -83,12 +100,12 @@ const OlmForums = () => {
     </svg>
   );
 
-  const handleDeleteClick = (ForumId) => {
-    const newForums = [...Forums];
-    const index = Forums.findIndex((Forum) => Forum.id === ForumId);
-    newForums.splice(index, 1);
-    setForums(newForums);
-  };
+  // const handleDeleteClick = (ForumId) => {
+  //   const newForums = [...Forums];
+  //   const index = Forums.findIndex((Forum) => Forum.id === ForumId);
+  //   newForums.splice(index, 1);
+  //   setForums(newForums);
+  // };
 
   //Add data
   const [addFormData, setAddFormData] = useState({
@@ -108,43 +125,43 @@ const OlmForums = () => {
     setAddFormData(newFormData);
   };
 
-  const handleAddFormSubmit = (event) => {
-    var error = false;
-    var errorMsg = "";
-    if (addFormData.Date_Join === "") {
-      error = true;
-      errorMsg = "Please fill date";
-    } else if (addFormData.Cust_Name === "") {
-      error = true;
-      errorMsg = "Please fill name.";
-    } else if (addFormData.Location === "") {
-      error = true;
-      errorMsg = "Please fill location";
-    }
-    const maxId = Forums.reduce(
-      (max, forum) => (forum.id > max ? forum.id : max),
-      0
-    );
+  // const handleAddFormSubmit = (event) => {
+  //   var error = false;
+  //   var errorMsg = "";
+  //   if (addFormData.Date_Join === "") {
+  //     error = true;
+  //     errorMsg = "Please fill date";
+  //   } else if (addFormData.Cust_Name === "") {
+  //     error = true;
+  //     errorMsg = "Please fill name.";
+  //   } else if (addFormData.Location === "") {
+  //     error = true;
+  //     errorMsg = "Please fill location";
+  //   }
+  //   const maxId = Forums.reduce(
+  //     (max, forum) => (forum.id > max ? forum.id : max),
+  //     0
+  //   );
 
-    if (!error) {
-      const newForum = {
-        id: maxId + 1,
-        Title: addFormData.Title,
-        Date: addFormData.Date,
-        Status: addFormData.Status,
-        Location: addFormData.Location,
-        Collaborateurs: addFormData.Collaborateurs,
-      };
-      const newForums = [...Forums, newForum];
-      setForums(newForums);
-      console.log(newForums);
-      setPostModal(false);
-      swal("Good job!", "Successfully Added", "success");
-      addFormData.nom_Forum = addFormData.Location = addFormData.Date = "";
-    } else {
-      swal("Oops", errorMsg, "error");
-    }
-  };
+  //   if (!error) {
+  //     const newForum = {
+  //       id: maxId + 1,
+  //       Title: addFormData.Title,
+  //       Date: addFormData.Date,
+  //       Status: addFormData.Status,
+  //       Location: addFormData.Location,
+  //       Collaborateurs: addFormData.Collaborateurs,
+  //     };
+  //     const newForums = [...Forums, newForum];
+  //     setForums(newForums);
+  //     console.log(newForums);
+  //     setPostModal(false);
+  //     swal("Good job!", "Successfully Added", "success");
+  //     addFormData.nom_Forum = addFormData.Location = addFormData.Date = "";
+  //   } else {
+  //     swal("Oops", errorMsg, "error");
+  //   }
+  // };
 
   const [editForumId, setEditForumId] = useState(null);
 
@@ -182,22 +199,22 @@ const OlmForums = () => {
   };
 
   // edit form data submit
-  const handleEditFormSubmit = (event) => {
-    const editedContact = {
-      id: editForumId,
-      Title: editForumData.Title,
-      Collaborateurs: editForumData.Collaborateurs,
-      Date: editForumData.Date,
-      Location: editForumData.Location,
-      Etat: editForumData.Etat,
-    };
-    const newForums = [...Forums];
-    const index = Forums.findIndex((Forum) => Forum.id === editForumId);
-    newForums[index] = editedContact;
-    setForums(newForums);
-    setEditForumId(null);
-    setEditModal(false);
-  };
+  // const handleEditFormSubmit = (event) => {
+  //   const editedContact = {
+  //     id: editForumId,
+  //     Title: editForumData.Title,
+  //     Collaborateurs: editForumData.Collaborateurs,
+  //     Date: editForumData.Date,
+  //     Location: editForumData.Location,
+  //     Etat: editForumData.Etat,
+  //   };
+  //   const newForums = [...Forums];
+  //   const index = Forums.findIndex((Forum) => Forum.id === editForumId);
+  //   newForums[index] = editedContact;
+  //   setForums(newForums);
+  //   setEditForumId(null);
+  //   setEditModal(false);
+  // };
 
   return (
     <>
@@ -243,16 +260,24 @@ const OlmForums = () => {
                   <tbody>
                     {Forums.map((forum, i) => (
                       <tr key={i}>
-                        <td>{forum.Title}</td>
-                        <td>{forum.Collaborateurs}</td>
-                        <td>{forum.Date}</td>
-                        <td>{forum.Location}</td>
+                        <td>{forum.title}</td>
+                        <td>{forum.collaborators.map((item)=>{
+                          return (
+                            <p>{item.name}</p>
+                          )
+                        })}</td>
+                        <td>{forum.date}</td>
+                        <td>{forum.location}</td>
                         <td>
-                          <Badge variant="success light">Terminée</Badge>
+                          <Badge variant="success light">{moment(forum.date).isSame(Date.now(), 'day')
+                        ? "En cours"
+                        : moment(forum.date).isBefore(Date.now(), 'day')
+                        ? "En attente"
+                        : "Terminée"}</Badge>
                         </td>
                         <td>
                           <div className="bootstrap-popover-wrapper ">
-                            <div className="bootstrap-popover">
+                            {!forum?.participants.includes(user._id) ? (<div className="bootstrap-popover">
                               {["Participer"].map((placement, i) => (
                                 <OverlayTrigger
                                   trigger="click"
@@ -269,6 +294,7 @@ const OlmForums = () => {
                                         <Button
                                           className="fs-12"
                                           variant="success"
+                                          onClick={()=>participate(forum._id)}
                                         >
                                           Confirmer
                                         </Button>
@@ -291,7 +317,8 @@ const OlmForums = () => {
                                   </Button>
                                 </OverlayTrigger>
                               ))}
-                            </div>
+                            </div>) : null}
+                            
                           </div>
                         </td>
                       </tr>

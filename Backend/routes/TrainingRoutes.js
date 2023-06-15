@@ -5,6 +5,7 @@ const trainingController = require("../controllers/trainingController");
 const upload = require("../utils/configUpload");
 
 router.route("/").get(trainingController.getTrainings);
+router.route("/participate/:id").post(trainingController.participateTraining);
 
 router.route("/addTraining").post(upload.single("image"),trainingController.addTraining);
 

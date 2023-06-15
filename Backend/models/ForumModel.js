@@ -10,7 +10,7 @@ const ForumSchema = new mongoose.Schema({
     type: String,
     default: Date.now,
   },
-  Collaborators: [{ type: Schema.Types.ObjectId, ref: "Collaborator" }],
+  collaborators: [{ type: Schema.Types.ObjectId, ref: "Collaborator" }],
   location: {
     type: "String",
     required: true,
@@ -19,6 +19,10 @@ const ForumSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  user: { type: Schema.Types.ObjectId, ref: "User" },
+  participants: [{
+    type: Schema.Types.ObjectId, ref: "User" 
+  }],
 });
 
 // Create the Training model

@@ -1,3 +1,4 @@
+const { Schema } = require("mongoose");
 const mongoose = require("mongoose");
 
 const actionSchema = new mongoose.Schema({
@@ -24,6 +25,7 @@ const actionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  user: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 const Action = mongoose.model("Action", actionSchema);

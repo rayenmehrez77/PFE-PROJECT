@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = require("mongoose");
 
 // Define the Training schema
 const trainingSchema = new mongoose.Schema({
@@ -38,6 +39,10 @@ const trainingSchema = new mongoose.Schema({
     type: "String",
     required: false,
   },
+  user: { type: Schema.Types.ObjectId, ref: "User" },
+  participants: [{
+    type: Schema.Types.ObjectId, ref: "User" 
+  }],
 });
 
 // Create the Training model
