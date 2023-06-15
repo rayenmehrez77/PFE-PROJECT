@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { nanoid } from "nanoid";
 import swal from "sweetalert";
 import PageTitle from "../layouts/PageTitle";
@@ -22,6 +22,7 @@ const Administrateurs = ({ users }) => {
   const [deleteCard, setDeleteCard] = useState(false);
   //Add data
   const [addFormData, setAddFormData] = useState({
+    name: "",
     OLM: "",
     email: "",
     password: "",
@@ -396,12 +397,12 @@ const Administrateurs = ({ users }) => {
         <div className="card">
           <div className="card-header">
             <h4 className="card-title">Administrateurs Local</h4>
-            <Link
+            <Button
               className="btn btn-primary shadow sharp "
               onClick={() => setAddCard(true)}
             >
               <span>Ajouter un admin</span>
-            </Link>
+            </Button>
           </div>
           <div className="card-body">
             <div className="w-100 table-responsive">
@@ -441,15 +442,15 @@ const Administrateurs = ({ users }) => {
                                 <td>{content.gouvernement}</td>
                                 <td>
                                   <div className="d-flex">
-                                    <Link
+                                    <Button
                                       className="btn btn-secondary	shadow btn-xs sharp me-2"
                                       onClick={(event) =>
                                         handleEditClick(event, content)
                                       }
                                     >
                                       <i className="fas fa-pen"></i>
-                                    </Link>
-                                    <Link
+                                    </Button>
+                                    <Button
                                       className="btn btn-danger shadow btn-xs sharp"
                                       onClick={() => {
                                         setDeleteId(content._id);
@@ -457,7 +458,7 @@ const Administrateurs = ({ users }) => {
                                       }}
                                     >
                                       <i className="fa fa-trash"></i>
-                                    </Link>
+                                    </Button>
                                   </div>
                                 </td>
                               </>

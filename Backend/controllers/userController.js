@@ -3,7 +3,7 @@ const asyncErrorHandler = require("../utils/asyncErrorHandler");
 const bcrypt = require("bcryptjs");
 
 exports.createUser = asyncErrorHandler(async (req, res) => {
-  const { name, OLM, email, password } = req.body;
+  const { name, OLM, email, gouvernement, password } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
@@ -15,6 +15,7 @@ exports.createUser = asyncErrorHandler(async (req, res) => {
       name,
       OLM,
       email,
+      gouvernement,
       password,
       role: "Admin",
     });
