@@ -262,7 +262,7 @@ const Acceuil = () => {
             </div>
           </Modal>
           {posts.map((post) => (
-            <div className="border-bottom-3 pb-3" key={post.id}>
+            <div className="border-bottom-3 pb-3" key={post._id}>
               <div
                 className="d-flex align-items"
                 style={{
@@ -284,12 +284,12 @@ const Acceuil = () => {
                     alt=""
                   />
                   <div className="" style={{ marginLeft: "18px" }}>
-                    <h5 className="fw-bold">{post?.user?.name}</h5>
+                    <h5 className="fw-bold">{post.user && post?.user?.name}</h5>
                     <span>{new Date(post.date).toString("YYYY-MM-dd")}</span>
                   </div>
                 </div>
                 {(user.role === "Super Admin" || user.role === "Admin") &&
-                  post.user._id === user._id && (
+                 post.user && post?.user._id === user._id && (
                     <Dropdown className="">
                       <Dropdown.Toggle
                         variant=""
