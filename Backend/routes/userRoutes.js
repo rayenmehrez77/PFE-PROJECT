@@ -15,6 +15,8 @@ router.route("/login").post(authController.login);
 
 router.route("/:userId").get(userController.getUser);
 
+router.route("/edit-admin/:userId").put(userController.updateAdmin);
+
 router.route("/edit-profile/:userId").put(
   upload.single("image"),
   // checkUserRole(["Admin", "Member"]),

@@ -1,35 +1,18 @@
-import { format } from "date-fns";
 import { ColumnFilter } from "./ColumnFilter";
 export const COLUMNS = [
   {
-    Header: "Id",
-    Footer: "Id",
-    accessor: "id",
-    Filter: ColumnFilter,
-    //disableFilters: true,
-  },
-  {
     Header: "Admin",
-    Footer: "Admin",
     accessor: "first_name",
     Filter: ColumnFilter,
   },
   {
     Header: "OLM",
-    Footer: "OLM",
     accessor: "last_name",
     Filter: ColumnFilter,
   },
   {
-    Header: "Email Id",
-    Footer: "Email Id",
+    Header: "Email",
     accessor: "email",
-    Filter: ColumnFilter,
-  },
-  {
-    Header: "Téléphone",
-    Footer: "Téléphone",
-    accessor: "phone",
     Filter: ColumnFilter,
   },
 ];

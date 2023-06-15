@@ -11,32 +11,21 @@ import { getUsers } from "../../store/Thunks/userThunks";
 
 const Administrateurs = ({ users }) => {
   const [contents, setContents] = useState(users);
+  const [deleteId, setDeleteId] = useState(null);
 
   const adminCount = contents.filter(
     (content) => content.role === "Admin"
   ).length;
-
-  const handleDeleteClick = (userId) => {
-    axios
-      .delete(`/users/${userId}`)
-      .then(() => {
-        const newContents = users.filter((content) => content.id !== userId);
-        setContents(newContents);
-      })
-      .catch((error) => {
-        console.error("Error deleting user:", error);
-      });
-  };
 
   //Modal box
   const [addCard, setAddCard] = useState(false);
   const [deleteCard, setDeleteCard] = useState(false);
   //Add data
   const [addFormData, setAddFormData] = useState({
-    name: "",
     OLM: "",
     email: "",
-    téléphone: "",
+    password: "",
+    gouvernement: "",
   });
 
   // Add contact function
@@ -63,44 +52,41 @@ const Administrateurs = ({ users }) => {
     } else if (addFormData.email === "") {
       error = true;
       errorMsg = "please fill Email";
+    } else if (addFormData.gouvernement === "") {
+      error = true;
+      errorMsg = "please fill Gouvernement";
     }
+
     if (!error) {
       const newContent = {
         id: nanoid(),
-        name: addFormData.name,
         OLM: addFormData.OLM,
         email: addFormData.email,
-        téléphone: addFormData.téléphone,
+        password: addFormData.password,
+        gouvernement: addFormData.gouvernement,
       };
 
       const newContents = [...contents, newContent];
       setContents(newContents);
       setAddCard(false);
       swal("Good job!", "Successfully Added", "success");
-      addFormData.name =
-        addFormData.OLM =
-        addFormData.email =
-        addFormData.téléphone =
-          "";
+      addFormData.OLM = addFormData.email = addFormData.password = "";
     } else {
       swal("Oops", errorMsg, "error");
     }
   };
 
-  //Edit start
-  //const [editModal, setEditModal] = useState(false);
-  // Edit function editable page loop
   const [editContentId, setEditContentId] = useState(null);
 
   // Edit function button click to edit
   const handleEditClick = (event, content) => {
     event.preventDefault();
-    setEditContentId(content.id);
+    setEditContentId(content._id);
     const formValues = {
       name: content.name,
       OLM: content.OLM,
       email: content.email,
-      téléphone: content.téléphone,
+      gouvernement: content.gouvernement,
     };
     setEditFormData(formValues);
   };
@@ -110,12 +96,36 @@ const Administrateurs = ({ users }) => {
     name: "",
     OLM: "",
     email: "",
-    téléphone: "",
+    gouvernement: "",
   });
+
+  const UpdateUser = async (newFormData) => {
+    const { name, OLM, email, gouvernement } = newFormData;
+
+    const userToUpdate = {
+      name,
+      OLM,
+      email,
+      gouvernement,
+    };
+
+    try {
+      const response = await axios.put(
+        `users/edit-admin/${editContentId}`,
+        userToUpdate
+      );
+
+      console.log("User updated:", response.data);
+      dispatch(getUsers());
+      // Perform any necessary actions after user update
+    } catch (error) {
+      console.log("Error updating user:", error.response.data);
+      // Handle error response
+    }
+  };
 
   //update data function
   const handleEditFormChange = (event) => {
-    event.preventDefault();
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
     const newFormData = { ...editFormData };
@@ -128,25 +138,33 @@ const Administrateurs = ({ users }) => {
   }, [getUsers]);
 
   // edit form data submit
-  const handleEditFormSubmit = (event) => {
-    event.preventDefault();
+  const handleEditFormSubmit = () => {
     const editedContent = {
-      id: editContentId,
       name: editFormData.name,
       OLM: editFormData.OLM,
       email: editFormData.email,
-      téléphone: editFormData.téléphone,
+      gouvernement: editFormData.gouvernement,
     };
-    const newContents = [...contents];
-    const index = contents.findIndex((content) => content.id === editContentId);
-    newContents[index] = editedContent;
-    setContents(newContents);
+    UpdateUser(editedContent);
+
     setEditContentId(null);
-    // setEditModal(false);
+    dispatch(getUsers());
   };
   //Cencel button to same data
   const handleCancelClick = () => {
     setEditContentId(null);
+  };
+
+  const handleDeleteClick = (userId) => {
+    axios
+      .delete(`/users/${userId}`)
+      .then(() => {
+        dispatch(getUsers());
+        setDeleteCard(false);
+      })
+      .catch((error) => {
+        console.error("Error deleting user:", error);
+      });
   };
 
   return (
@@ -181,23 +199,6 @@ const Administrateurs = ({ users }) => {
                   <div className="add-contact-box">
                     <div className="add-contact-content">
                       <div className="form-group mb-3">
-                        <label className="text-black font-w500">
-                          Nom et prénom
-                        </label>
-                        <div className="contact-name">
-                          <input
-                            type="text"
-                            className="form-control"
-                            autoComplete="off"
-                            name="name"
-                            required="required"
-                            onChange={handleAddFormChange}
-                            placeholder="Nom et prénom"
-                          />
-                          <span className="validation-text"></span>
-                        </div>
-                      </div>
-                      <div className="form-group mb-3">
                         <label className="text-black font-w500">OLM</label>
                         <div className="contact-name">
                           <input
@@ -227,19 +228,37 @@ const Administrateurs = ({ users }) => {
                           <span className="validation-text"></span>
                         </div>
                       </div>
+
                       <div className="form-group mb-3">
                         <label className="text-black font-w500">
-                          Téléphone
+                          Gouvernement
                         </label>
                         <div className="contact-name">
                           <input
                             type="text"
                             className="form-control"
                             autoComplete="off"
-                            name="téléphone"
+                            name="text"
                             required="required"
                             onChange={handleAddFormChange}
-                            placeholder="Téléphone"
+                            placeholder="Gouvernement"
+                          />
+                          <span className="validation-text"></span>
+                        </div>
+                      </div>
+                      <div className="form-group mb-3">
+                        <label className="text-black font-w500">
+                          Mot de passe
+                        </label>
+                        <div className="contact-name">
+                          <input
+                            type="text"
+                            className="form-control"
+                            autoComplete="off"
+                            name="password"
+                            required="required"
+                            onChange={handleAddFormChange}
+                            placeholder="Mot de passe"
                           />
                           <span className="validation-text"></span>
                         </div>
@@ -283,23 +302,21 @@ const Administrateurs = ({ users }) => {
                   <button
                     type="button"
                     className="btn-close"
-                    onClick={() => setAddCard(false)}
+                    onClick={() => setDeleteCard(false)}
                     data-dismiss="modal"
-                  >
-                    <span></span>
-                  </button>
+                  ></button>
                 </div>
                 <div className="modal-footer">
                   <button
-                    type="submit"
+                    type="button"
                     className="btn btn-primary"
-                    onClick={handleDeleteClick(editContentId)}
+                    onClick={handleDeleteClick(deleteId)}
                   >
                     Supprimer
                   </button>
                   <button
                     type="button"
-                    onClick={() => setAddCard(false)}
+                    onClick={() => setDeleteCard(false)}
                     className="btn btn-danger"
                   >
                     {" "}
@@ -387,6 +404,12 @@ const Administrateurs = ({ users }) => {
         <div className="card">
           <div className="card-header">
             <h4 className="card-title">Administrateurs Local</h4>
+            <Link
+              className="btn btn-primary shadow sharp "
+              onClick={() => setAddCard(true)}
+            >
+              <span>Ajouter un admin</span>
+            </Link>
           </div>
           <div className="card-body">
             <div className="w-100 table-responsive">
@@ -395,49 +418,39 @@ const Administrateurs = ({ users }) => {
                   <table id="example" className="display w-100 dataTable">
                     <thead>
                       <tr>
-                        <th></th>
                         <th>Nom et prénom</th>
                         <th>OLM</th>
                         <th>Email</th>
-                        <th>Téléphone</th>
+                        <th>Gouvernement</th>
+                        <th>Opérations</th>
                       </tr>
                     </thead>
                     <tbody>
                       {users
-                        .filter(
-                          (content) =>
-                            content.role === "Admin" ||
-                            content.role === "Member"
-                        )
+                        .filter((content) => content.role === "Admin")
                         .map((content, index) => (
                           <tr key={index}>
-                            {editContentId === content.id ? (
+                            {editContentId === content._id ? (
                               <Editable
                                 editFormData={editFormData}
                                 handleEditFormChange={handleEditFormChange}
                                 handleCancelClick={handleCancelClick}
+                                update={handleEditFormSubmit}
                               />
                             ) : (
                               <>
-                                <td></td>
                                 <td>{content.name}</td>
-                                <td>{content.OLM}</td>
+                                <td>{`JCI ${content.OLM}`}</td>
                                 <td>
                                   <Link to={"#"}>
                                     <strong>{content.email}</strong>
                                   </Link>
                                 </td>
-                                <td>{content.phone}</td>
+                                <td>{content.gouvernement}</td>
                                 <td>
                                   <div className="d-flex">
                                     <Link
-                                      className="btn btn-primary shadow btn-xs sharp me-2"
-                                      onClick={() => setAddCard(true)}
-                                    >
-                                      <i className="fa fa-plus"></i>
-                                    </Link>
-                                    <Link
-                                      className="btn btn-secondary	 shadow btn-xs sharp me-2"
+                                      className="btn btn-secondary	shadow btn-xs sharp me-2"
                                       onClick={(event) =>
                                         handleEditClick(event, content)
                                       }
@@ -447,7 +460,7 @@ const Administrateurs = ({ users }) => {
                                     <Link
                                       className="btn btn-danger shadow btn-xs sharp"
                                       onClick={() => {
-                                        // handleDeleteClick(content.id);
+                                        setDeleteId(content._id);
                                         setDeleteCard(true);
                                       }}
                                     >

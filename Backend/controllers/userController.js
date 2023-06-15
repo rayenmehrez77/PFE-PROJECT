@@ -2,6 +2,28 @@ const User = require("../models/userModel");
 const asyncErrorHandler = require("../utils/asyncErrorHandler");
 const bcrypt = require("bcryptjs");
 
+exports.createUser = asyncErrorHandler(async (req, res) => {
+  const { name, OLM, email, password } = req.body;
+
+  try {
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(409).json({ message: "User already exists" });
+    }
+    const user = new User({
+      name,
+      OLM,
+      email,
+      password,
+    });
+    await user.save();
+
+    res.status(201).json({ user });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong", error });
+  }
+});
 
 exports.getUser = asyncErrorHandler(async (req, res) => {
   const { userId } = req.params;
@@ -51,7 +73,33 @@ exports.updateUser = asyncErrorHandler(async (req, res, next) => {
 
     res.status(200).json({ message: "User updated successfully", user });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong",error });
+    res.status(500).json({ message: "Something went wrong", error });
+  }
+});
+
+exports.updateAdmin = asyncErrorHandler(async (req, res, next) => {
+  const { userId } = req.params;
+  const { name, OLM, email, gouvernement } = req.body;
+
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update the user's information
+    user.name = name;
+    user.OLM = OLM;
+    user.email = email;
+    user.gouvernement = gouvernement;
+
+    await user.save();
+
+    res.status(200).json({ message: "User updated successfully", user });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong", error });
   }
 });
 

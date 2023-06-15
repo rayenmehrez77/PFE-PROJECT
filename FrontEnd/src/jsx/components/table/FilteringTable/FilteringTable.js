@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import PageTitle from "../../../layouts/PageTitle";
 import {
   useTable,
@@ -9,10 +9,16 @@ import {
 import MOCK_DATA from "./MOCK_DATA_2.json";
 import { COLUMNS } from "./Columns";
 import { GlobalFilter } from "./GlobalFilter";
-//import './table.css';
 import "./filtering.css";
+import { connect, useDispatch } from "react-redux";
+import { getUsers } from "../../../../store/Thunks/userThunks";
 
-export const FilteringTable = () => {
+export const FilteringTable = ({ users }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [getUsers]);
+
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
   const tableInstance = useTable(
@@ -33,13 +39,6 @@ export const FilteringTable = () => {
     prepareRow,
     state,
     page,
-    gotoPage,
-    pageCount,
-    pageOptions,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
     setGlobalFilter,
   } = tableInstance;
 
@@ -91,66 +90,16 @@ export const FilteringTable = () => {
                 })}
               </tbody>
             </table>
-            <div className="d-flex justify-content-between">
-              <span>
-                Page{" "}
-                <strong>
-                  {pageIndex + 1} of {pageOptions.length}
-                </strong>
-                {""}
-              </span>
-              <span className="table-index">
-                Go to page :{" "}
-                <input
-                  type="number"
-                  className="ml-2"
-                  defaultValue={pageIndex + 1}
-                  onChange={(e) => {
-                    const pageNumber = e.target.value
-                      ? Number(e.target.value) - 1
-                      : 0;
-                    gotoPage(pageNumber);
-                  }}
-                />
-              </span>
-            </div>
-            <div className="text-center mb-3">
-              <div className="filter-pagination  mt-3">
-                <button
-                  className=" previous-button"
-                  onClick={() => gotoPage(0)}
-                  disabled={!canPreviousPage}
-                >
-                  {"<<"}
-                </button>
-
-                <button
-                  className="previous-button"
-                  onClick={() => previousPage()}
-                  disabled={!canPreviousPage}
-                >
-                  Previous
-                </button>
-                <button
-                  className="next-button"
-                  onClick={() => nextPage()}
-                  disabled={!canNextPage}
-                >
-                  Next
-                </button>
-                <button
-                  className=" next-button"
-                  onClick={() => gotoPage(pageCount - 1)}
-                  disabled={!canNextPage}
-                >
-                  {">>"}
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </>
   );
 };
-export default FilteringTable;
+
+const mapStateToProps = (state) => ({
+  users: state.users.users,
+  user: state.auth.auth.user,
+});
+
+export default connect(mapStateToProps)(FilteringTable);
