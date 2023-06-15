@@ -124,18 +124,7 @@ function Login(props) {
                             </div>
                           )}
                         </div>
-                        <div className="form-row d-flex justify-content-between mt-4 mb-2">
-                          <div className="form-group">
-                            <div className="form-check custom-checkbox ml-1">
-                              <Link
-                                className="text-primary"
-                                to="./page-forgot-password"
-                              >
-                                Mot de passe oublié ?
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
+                        
                         <div className="text-center">
                           <button
                             type="submit"

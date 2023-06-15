@@ -3,7 +3,7 @@ const Action = require("../models/actionModel");
 const ActionController = {
   getActions: async (req, res) => {
     try {
-      const actions = await Action.find();
+      const actions = await Action.find().populate('user');
       res.json(actions);
     } catch (error) {
       res.status(500).json({ error: "Failed to retrieve actions" });
@@ -12,7 +12,7 @@ const ActionController = {
 
   addAction: async (req, res) => {
     try {
-      const { title, date, director, location, status } = req.body;
+      const { title, date, director, location, status , user} = req.body;
       const image = req.file.path;
 
       const existingActionByName = await Action.findOne({ title });
@@ -24,6 +24,7 @@ const ActionController = {
         director,
         location,
         status,
+        user
       });
       if (existingActionByName) {
         return res
@@ -54,11 +55,12 @@ const ActionController = {
 
   updateAction: async (req, res) => {
     const { actionID } = req.params;
-    const { title, date, director, location, status } = req.body;
+    const { title, date, director, location, status,user } = req.body;
     const action = await Action.findById(actionID);
 
     try {
       const image = req.file.path;
+      action.user = user;
       action.title = title;
       action.date = date;
       action.director = director;

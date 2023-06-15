@@ -274,7 +274,7 @@ const Acceuil = () => {
                 <div className="d-flex align-items">
                   <img
                     src={
-                      post.user.image &&
+                      post.user && post.user.image && 
                       "http://localhost:5001/" +
                         post?.user?.image.replace("public/", "")
                     }
