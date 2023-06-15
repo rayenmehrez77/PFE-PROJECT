@@ -11,6 +11,9 @@ import card2 from "./../../../images/formations/linkedIn.jpg";
 import card3 from "./../../../images/formations/personal-brand.jpg";
 
 import user from "./../../../images/formations/user.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { getTrainingsList } from "../../../store/actions/TrainingActions";
+import moment from "moment";
 
 const CardListBlog = [
   {
@@ -95,7 +98,13 @@ const DropdownBlog = () => {
 const Formations = () => {
   const [postModal, setPostModal] = useState(false);
   const [contacts, setContacts] = useState(CardListBlog);
-
+  const trainings = useSelector((state) => state.trainings.trainings);
+  const user = useSelector((state) => state.auth.auth.user);
+  let width = window.innerWidth;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTrainingsList());
+  }, []);
   // delete data
   const handleDeleteClick = (contactId) => {
     const newContacts = [...contacts];
@@ -270,43 +279,14 @@ const Formations = () => {
                 <div className="media-body">
                   <h5 className="mb-1">Nombre total des formations :</h5>
                   {/* <h4 className="mb-0">30</h4> */}
-                  <h5 className="badge badge-primary">15 formations</h5>
+                  <h5 className="badge badge-primary">{trainings.length} formations</h5>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
-          <div className="widget-stat card m-3">
-            <div className="card-body p-4">
-              <div className="media ai-icon">
-                <span className="me-3 bgl-primary text-primary">
-                  <i className="la la-graduation-cap"></i>
-                </span>
-                <div className="media-body">
-                  <h5 className="mb-1">Formation à venir :</h5>
-                  {/* <h4 className="mb-0">30</h4> */}
-                  <h5 className="badge badge-primary">5 formations</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
-          <div className="widget-stat card m-3">
-            <div className="card-body p-4 ">
-              <div className="media ai-icon">
-                <span className="me-3 bgl-primary text-primary">
-                  <i className="flaticon-381-calendar-1"></i>
-                </span>
-                <div className="media-body">
-                  <h5 className="mb-1">Formation Terminé :</h5>
-                  <h5 className="badge badge-primary">2 Formations</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+     
+        
       </div>
 
       <div className="mb-sm-5 mb-3 d-flex flex-wrap align-items-center text-head">
@@ -577,7 +557,7 @@ const Formations = () => {
         </Modal>
       </div>
       <div className="row">
-        {contacts.map((contact, index) => (
+        {trainings.map((training, index) => (
           <div
             className="col-xl-4 col-xxl-4 col-lg-6 col-md-6 col-sm-6"
             key={index}
@@ -585,7 +565,12 @@ const Formations = () => {
             <div className="card project-boxed">
               <div className="img-bx">
                 <img
-                  src={contact.image}
+                  src={
+                    training.image && training.image.includes("public")
+                      ? "http://localhost:5001/" +
+                        training?.image.replace("public/", "")
+                      : training.image
+                  }
                   alt=""
                   className=" me-3 card-list-img w-100"
                   width="130"
@@ -593,7 +578,7 @@ const Formations = () => {
               </div>
               <div className="card-header align-items-start">
                 <div>
-                  <h2 className="fs-18 fw-bold">{contact.nom_formation}</h2>
+                  <h2 className="fs-18 fw-bold">{training.title}</h2>
                 </div>
                 <Dropdown className="">
                   <Dropdown.Toggle
@@ -636,7 +621,7 @@ const Formations = () => {
                     className="dropdown-menu-right"
                   >
                     <Dropdown.Item
-                      onClick={(event) => handleEditClick(event, contact)}
+                      // onClick={(event) => handleEditClick(event, contact)}
                     >
                       Modifier
                     </Dropdown.Item>
@@ -652,7 +637,7 @@ const Formations = () => {
                             dangerMode: true,
                           }).then((willDelete) => {
                             if (willDelete) {
-                              handleDeleteClick(contact.id);
+                              // handleDeleteClick(contact.id);
                               swal("Votre Formation a été supprimé", {
                                 icon: "success",
                               });
@@ -673,31 +658,35 @@ const Formations = () => {
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item">
                     <span className="mb-0 title fw-bold">Date</span> :
-                    <span className="text-black ms-2">{contact.Date_Join}</span>
+                    <span className="text-black ms-2"> {training.date}</span>
                   </li>
                   <li className="list-group-item">
                     <span className="mb-0 title fw-bold">
                       Formateur / Formatrice:{" "}
                     </span>{" "}
                     :
-                    <span className="text-black ms-2">{contact.Cust_Name}</span>
+                    <span className="text-black ms-2">{training.trainer}</span>
                   </li>
                   <li className="list-group-item">
                     <span className="mb-0 title fw-bold">Localisation</span> :
                     <span className="text-black desc-text ms-2">
-                      {contact.Location}
+                    {training.location}
                     </span>
                   </li>
                   <li className="list-group-item">
                     <span className="mb-0 title fw-bold">Durée</span> :
                     <span className="text-black desc-text ms-2">
-                      {contact.Durée}
+                    {training.duration}h
                     </span>
                   </li>
                   <li className="list-group-item">
                     <span className="mb-0 title fw-bold">Etat : </span>
                     <span className="text-white desc-text ms-2 badge badge-primary">
-                      {contact.Etat}
+                    {moment(training.date).isSame(Date.now(), 'day')
+                        ? "En cours"
+                        : moment(training.date).isBefore(Date.now(), 'day')
+                        ? "En attente"
+                        : "Terminée"}
                     </span>
                   </li>
                 </ul>
@@ -706,7 +695,7 @@ const Formations = () => {
                 <span className="">Nombre d'inscription :</span>
                 <Badge bg="" className="badge-primary">
                   {" "}
-                  25 Membres:{" "}
+                  {training.participants.length} Membres
                 </Badge>
               </h6>
             </div>

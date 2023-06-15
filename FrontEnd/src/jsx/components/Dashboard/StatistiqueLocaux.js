@@ -9,6 +9,9 @@ import PageTitle from "../../layouts/PageTitle";
 
 const StatistiqueLocaux = ({ users }) => {
   const user = useSelector((state) => state.auth.auth.user);
+  const Forums = useSelector((state) => state.forums.forums);
+  const trainings = useSelector((state) => state.trainings.trainings);
+  const actions = useSelector((state) => state.actions.actions);
 
   const { changeBackground } = useContext(ThemeContext);
   useEffect(() => {
@@ -171,7 +174,7 @@ const StatistiqueLocaux = ({ users }) => {
                       </svg>
                     </span>
                     <div className="invoices">
-                      <h4>5</h4>
+                      <h4>{trainings.length}</h4>
                       <span>Formations </span>
                     </div>
                   </div>
@@ -207,7 +210,7 @@ const StatistiqueLocaux = ({ users }) => {
                       </svg>
                     </span>
                     <div className="invoices">
-                      <h4>2</h4>
+                      <h4>{Forums.length}</h4>
                       <span>Forums </span>
                     </div>
                   </div>
@@ -243,7 +246,7 @@ const StatistiqueLocaux = ({ users }) => {
                       </svg>
                     </span>
                     <div className="invoices">
-                      <h4>3</h4>
+                      <h4>{actions.length}</h4>
                       <span>Actions </span>
                     </div>
                   </div>

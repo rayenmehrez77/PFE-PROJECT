@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { Badge, Dropdown, Modal } from "react-bootstrap";
@@ -11,6 +11,9 @@ import card2 from "./../../../images/actions/journee.png";
 import card3 from "./../../../images/actions/aid.png";
 
 import user from "./../../../images/formations/user.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { getActionsList } from "../../../store/actions/actionActions";
+import moment from "moment";
 
 const CardListBlog = [
   {
@@ -48,7 +51,11 @@ const CardListBlog = [
 const Actions = () => {
   const [postModal, setPostModal] = useState(false);
   const [contacts, setContacts] = useState(CardListBlog);
-
+  const actions = useSelector((state) => state.actions.actions);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getActionsList());
+  }, []);
   // delete data
   const handleDeleteClick = (contactId) => {
     const newContacts = [...contacts];
@@ -215,43 +222,14 @@ const Actions = () => {
                 <div className="media-body">
                   <h5 className="mb-1">Nombre total d'action:</h5>
                   {/* <h4 className="mb-0">30</h4> */}
-                  <h5 className="badge badge-primary"> 8 actions </h5>
+                  <h5 className="badge badge-primary"> {actions.length} actions </h5>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
-          <div className="widget-stat card m-3">
-            <div className="card-body p-4">
-              <div className="media ai-icon">
-                <span className="me-3 bgl-primary text-primary">
-                  <i className="la la-graduation-cap"></i>
-                </span>
-                <div className="media-body">
-                  <h5 className="mb-1">Action à venir:</h5>
-                  {/* <h4 className="mb-0">30</h4> */}
-                  <h5 className="badge badge-primary"> 5 actions </h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
-          <div className="widget-stat card m-3">
-            <div className="card-body p-4 ">
-              <div className="media ai-icon">
-                <span className="me-3 bgl-primary text-primary">
-                  <i className="flaticon-381-calendar-1"></i>
-                </span>
-                <div className="media-body">
-                  <h5 className="mb-1">Action Terminé :</h5>
-                  <h5 className="badge badge-primary">3 actions</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
+      
       </div>
       <div className="mb-sm-5 mb-3 d-flex flex-wrap align-items-center text-head">
         {/* <!-- Modal --> */}
@@ -493,7 +471,7 @@ const Actions = () => {
         <div></div>
       </div>
       <div className="row">
-        {contacts.map((contact, index) => (
+        {actions.map((action, index) => (
           <div
             className="col-xl-4 col-xxl-4 col-lg-6 col-md-6 col-sm-6"
             key={index}
@@ -501,7 +479,12 @@ const Actions = () => {
             <div className="card project-boxed">
               <div className="img-bx">
                 <img
-                  src={contact.image}
+                  src={
+                    action.image && action.image.includes("public")
+                      ? "http://localhost:5001/" +
+                        action?.image.replace("public/", "")
+                      : action.image
+                  }
                   alt=""
                   className=" me-3 card-list-img w-100"
                   width="130"
@@ -509,7 +492,7 @@ const Actions = () => {
               </div>
               <div className="card-header align-items-start">
                 <div>
-                  <h2 className="fs-18 fw-bold">{contact.nom_action}</h2>
+                  <h2 className="fs-18 fw-bold">{action.title}</h2>
                 </div>
                 <Dropdown className="">
                   <Dropdown.Toggle
@@ -552,7 +535,7 @@ const Actions = () => {
                     className="dropdown-menu-right"
                   >
                     <Dropdown.Item
-                      onClick={(event) => handleEditClick(event, contact)}
+                      // onClick={(event) => handleEditClick(event, contact)}
                     >
                       Modifier
                     </Dropdown.Item>
@@ -568,7 +551,7 @@ const Actions = () => {
                             dangerMode: true,
                           }).then((willDelete) => {
                             if (willDelete) {
-                              handleDeleteClick(contact.id);
+                              // handleDeleteClick(contact.id);
                               swal("Votre Action a été supprimé", {
                                 icon: "success",
                               });
@@ -589,12 +572,12 @@ const Actions = () => {
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item">
                     <span className="mb-0 title fw-bold">Date</span> :
-                    <span className="text-black ms-2">{contact.Date}</span>
+                    <span className="text-black ms-2">{action.date}</span>
                   </li>
                   <li className="list-group-item">
                     <span className="mb-0 title fw-bold">Localisation</span> :
                     <span className="text-black desc-text ms-2">
-                      {contact.Location}
+                      {action.location}
                     </span>
                   </li>
                   <li className="list-group-item">
@@ -603,13 +586,17 @@ const Actions = () => {
                     </span>{" "}
                     :
                     <span className="text-black desc-text ms-2">
-                      {contact.Directeur}
+                      {action.director}
                     </span>
                   </li>
                   <li className="list-group-item">
                     <span className="mb-0 title fw-bold">Etat : </span>
                     <span className="text-white desc-text ms-2 badge badge-primary">
-                      {contact.Etat}
+                    {moment(action.date).isSame(Date.now(), 'day')
+                        ? "En cours"
+                        : moment(action.date).isBefore(Date.now(), 'day')
+                        ? "En attente"
+                        : "Terminée"}
                     </span>
                   </li>
                 </ul>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageTitle from "../../layouts/PageTitle";
 import { Badge, Card, Col, Dropdown, Modal, Row, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -6,6 +6,9 @@ import Select from "react-select";
 import { nanoid } from "nanoid";
 import swal from "sweetalert";
 import CustomClearIndicator from "../PluginsMenu/Select2/MultiSelect";
+import { useDispatch, useSelector } from "react-redux";
+import { getForumsList } from "../../../store/actions/ForumActions";
+import moment from "moment";
 
 const options = [
   { value: "JCI BOUHJAR", label: "JCI BOUHJAR" },
@@ -38,8 +41,12 @@ const Forum = () => {
   const [postModal, setPostModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [Forums, setForums] = useState(ListForums);
-
+  const Forums = useSelector((state) => state.forums.forums);
+  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getForumsList());
+  }, []);
   console.log(Forums);
 
   const chackbox = document.querySelectorAll(".bs_exam_topper input");
@@ -77,8 +84,8 @@ const Forum = () => {
   const handleDeleteClick = (ForumId) => {
     const newForums = [...Forums];
     const index = Forums.findIndex((Forum) => Forum.id === ForumId);
-    newForums.splice(index, 1);
-    setForums(newForums);
+    // newForums.splice(index, 1);
+    // setForums(newForums);
   };
 
   //Add data
@@ -127,7 +134,7 @@ const Forum = () => {
         Collaborateurs: addFormData.Collaborateurs,
       };
       const newForums = [...Forums, newForum];
-      setForums(newForums);
+      // setForums(newForums);
       console.log(newForums);
       setPostModal(false);
       swal("Good job!", "Successfully Added", "success");
@@ -185,7 +192,7 @@ const Forum = () => {
     const newForums = [...Forums];
     const index = Forums.findIndex((Forum) => Forum.id === editForumId);
     newForums[index] = editedContact;
-    setForums(newForums);
+    // setForums(newForums);
     setEditForumId(null);
     setEditModal(false);
   };
@@ -229,43 +236,14 @@ const Forum = () => {
                 <div className="media-body">
                   <h5 className="mb-1">Forums Planifiés :</h5>
                   {/* <h4 className="mb-0">30</h4> */}
-                  <h5 className="badge badge-primary"> 2 Forums </h5>
+                  <h5 className="badge badge-primary"> {Forums.length} Forums </h5>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
-          <div className="widget-stat card m-3">
-            <div className="card-body p-4">
-              <div className="media ai-icon">
-                <span className="me-3 bgl-primary text-primary">
-                  <i className="la la-graduation-cap"></i>
-                </span>
-                <div className="media-body">
-                  <h5 className="mb-1">Forums à venir:</h5>
-                  {/* <h4 className="mb-0">30</h4> */}
-                  <h5 className="badge badge-primary"> 0 Forum </h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
-          <div className="widget-stat card m-3">
-            <div className="card-body p-4 ">
-              <div className="media ai-icon">
-                <span className="me-3 bgl-primary text-primary">
-                  <i className="flaticon-381-calendar-1"></i>
-                </span>
-                <div className="media-body">
-                  <h5 className="mb-1">Forum Terminé :</h5>
-                  <h5 className="badge badge-primary">1 Forum</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
+       
       </div>
       <Modal className="modal fade" show={postModal} onHide={setPostModal}>
         <div className="" role="document">
@@ -503,12 +481,20 @@ const Forum = () => {
                   <tbody>
                     {Forums.map((forum, i) => (
                       <tr key={i}>
-                        <td>{forum.Title}</td>
-                        <td>{forum.Collaborateurs}</td>
-                        <td>{forum.Date}</td>
-                        <td>{forum.Location}</td>
+                        <td>{forum.title}</td>
+                        <td>{forum.collaborators.map((item)=>{
+                          return (
+                            <p>{item.name}</p>
+                          )
+                        })}</td>
+                        <td>{forum.date}</td>
+                        <td>{forum.location}</td>
                         <td>
-                          <Badge variant="success light">Terminée</Badge>
+                          <Badge variant="success light">{moment(forum.date).isSame(Date.now(), 'day')
+                        ? "En cours"
+                        : moment(forum.date).isBefore(Date.now(), 'day')
+                        ? "En attente"
+                        : "Terminée"}</Badge>
                         </td>
                         <td>
                           <Dropdown>
